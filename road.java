@@ -1,8 +1,6 @@
 public class road{
 
 	// Properties 
-	/** is the number of points the player has */
-	int intVP;
 	/** is the number that player is assigned */
 	int intPlayer;
 	/** tile 1 */ 

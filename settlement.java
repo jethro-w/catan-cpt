@@ -2,7 +2,7 @@ public class settlement
 {
 	// Properties
 	/** is the number of points the player has */
-	int intVP;
+	int intVP = 1;
 	/** is the number that player is assigned */
 	int intPlayer;
 	/** tile 1 */
