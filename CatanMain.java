@@ -23,6 +23,7 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 	JButton buttonHelp;
 	JButton buttonSettings;
 	JButton buttonQuit;
+	logic logic;
 
 	// Methods
 	public void actionPerformed (ActionEvent evt)
@@ -148,5 +149,11 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 		thetimer = new Timer(1000 / 60, this);
 		thetimer.start();
 		theframe.setResizable(false);
+	}
+	
+	// Main method
+	public static void main (String[] args)
+	{
+		new CatanMain();
 	}
 }
