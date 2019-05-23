@@ -9,10 +9,6 @@ import java.io.*;
 public class AnimationPanel extends JPanel
 {
 	// Properties
-	int intBallX = 50;
-	int intRectX = 300;
-	int intRectY = 400;
-	BufferedImage imgHomer = null;
 
 	// Methods
 	// Override how this component paints itself
