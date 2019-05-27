@@ -78,6 +78,7 @@ public class mapTest implements ActionListener
 		int intRow;
 		int intOreX = 0;
 		int intOreY = 0;
+		boolean wasTile = false;
 		
 		for (intRow = 0; intRow < 12; intRow++)
 		{
@@ -97,9 +98,11 @@ public class mapTest implements ActionListener
 					System.out.println("_");
 				}
 				
-				intOreX = intOreX + 100;
+				if (wasTile == false)
+				{
+					intOreX = intOreX + 100;
+				}
 			}
-			
 			intOreY = intOreY + 116;
 		}
 	}
