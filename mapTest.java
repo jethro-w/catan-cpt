@@ -13,7 +13,7 @@ public class mapTest implements ActionListener
 	JFrame frame = new JFrame();
 	AnimationPanel panel = new AnimationPanel();
 	// Timer timer = new Timer (1000/60, this);
-	String[][] strMap = new String [12][11];
+	String[][] strMap = new String [5][9];
 	
 	public void actionPerformed (ActionEvent evt)
 	{
@@ -78,13 +78,28 @@ public class mapTest implements ActionListener
 		
 		int intColumn;
 		int intRow;
-		int intOreX = 0;
-		int intOreY = 0;
+		int intOreX = 50;
+		int intOreY = 50;
 		boolean wasTile = false;
+		
+		panel.printTile = false;
+		panel.repaint();
 		
 		for (intRow = 0; intRow < 5; intRow++)
 		{
-			intOreX = 0;
+			if (intRow == 0 || intRow == 4)
+			{
+				intOreX = 250;
+			}
+			else if (intRow == 1 || intRow == 3)
+			{
+				intOreX = 150;
+			}
+			else if (intRow == 2)
+			{
+				intOreX = 50;
+			}
+			
 			for (intColumn = 0; intColumn < 9; intColumn++)
 			{
 				if (strMap[intRow][intColumn].equals("x"))
@@ -95,14 +110,10 @@ public class mapTest implements ActionListener
 				{
 					panel.intOreX = intOreX;
 					panel.intOreY = intOreY;
-					panel.printOre = true;
-					System.out.println("_");
-					panel.repaint();
-				}
-				
-				if (wasTile == false)
-				{
+					panel.printTile = true;
 					intOreX = intOreX + 100;
+					System.out.println("_");
+					panel.paintChildren(null);
 				}
 			}
 			intOreY = intOreY + 116;

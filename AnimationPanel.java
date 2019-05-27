@@ -9,24 +9,34 @@ public class AnimationPanel extends JPanel
 	// Properties
 	int intOreX;
 	int intOreY;
-	boolean printOre = false;
 	BufferedImage image = null;
+	boolean printTile;
 
 	// Methods
 	// Override how this component paints itself
-	public void paintComponent(Graphics g)
+	
+	public void paintComponent (Graphics g)
 	{
-		g.setColor(Color.black);
-		g.fillRect(0, 0, 1280, 720);
+		super.paintComponent(g);
 		
-		g.drawImage(image, intOreX, intOreY, null);
-		System.out.println("print");
+		if (printTile == true)
+		{
+			g.drawImage(image, intOreX, intOreY, null);
+			System.out.println("print");
+		}
+	}
+	
+	public void paintChildren (Graphics g)
+	{
+		
 	}
 
 	// Constructor
 	public AnimationPanel()
 	{
 		super();
+		
+		setBackground(Color.black);
 		
 		try
 		{
