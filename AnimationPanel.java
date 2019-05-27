@@ -1,4 +1,3 @@
-
 import java.awt.*;
 import javax.swing.*;
 import java.io.*;
@@ -12,6 +11,7 @@ public class AnimationPanel extends JPanel
 	int intOreY;
 	boolean printOre = false;
 	BufferedImage image = null;
+
 
 	// Methods
 	// Override how this component paints itself
