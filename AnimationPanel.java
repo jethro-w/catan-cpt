@@ -12,7 +12,6 @@ public class AnimationPanel extends JPanel
 	boolean printOre = false;
 	BufferedImage image = null;
 
-
 	// Methods
 	// Override how this component paints itself
 	public void paintComponent(Graphics g)
