@@ -16,15 +16,11 @@ public class AnimationPanel extends JPanel
 	// Override how this component paints itself
 	public void paintComponent(Graphics g)
 	{
-		// g.setColor(Color.black);
-		// g.fillRect(0, 0, 1280, 720);
+		g.setColor(Color.black);
+		g.fillRect(0, 0, 1280, 720);
 		
-		if (printOre == true)
-		{
-			g.drawImage(image, intOreX, intOreY, null);
-			printOre = false;
-			System.out.println("print");
-		}
+		g.drawImage(image, intOreX, intOreY, null);
+		System.out.println("print");
 	}
 
 	// Constructor

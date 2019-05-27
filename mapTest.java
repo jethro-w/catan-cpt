@@ -12,15 +12,17 @@ public class mapTest implements ActionListener
 {
 	JFrame frame = new JFrame();
 	AnimationPanel panel = new AnimationPanel();
-	Timer timer = new Timer (1000/60, this);
+	// Timer timer = new Timer (1000/60, this);
 	String[][] strMap = new String [12][11];
 	
 	public void actionPerformed (ActionEvent evt)
 	{
+		/*
 		if (evt.getSource() == timer)
 		{
 			panel.repaint();
 		}
+		*/
 	}
 	
 	public static String[][] loadMap()
@@ -29,19 +31,19 @@ public class mapTest implements ActionListener
 		
 		try
 		{
-			map = new BufferedReader(new FileReader("catan-settlements-map.csv"));
+			map = new BufferedReader(new FileReader("catan-tiles.csv"));
 		}
 		catch (IOException e)
 		{
 			
 		}
 		
-		String[] strMapLine = new String[12];
-		String[][] strMap = new String [12][11];
+		String[] strMapLine = new String[5];
+		String[][] strMap = new String [5][9];
 		int intCount;
 		
 		
-		for (intCount = 0; intCount < 12; intCount++)
+		for (intCount = 0; intCount < 5; intCount++)
 		{
 			try
 			{
@@ -62,8 +64,8 @@ public class mapTest implements ActionListener
 		panel.setLayout(null);
 		panel.setPreferredSize(new Dimension(1280, 720));
 		
-		timer.addActionListener(this);
-		timer.start();
+		// timer.addActionListener(this);
+		// timer.start();
 		
 		frame = new JFrame("New Animations :)");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -80,10 +82,10 @@ public class mapTest implements ActionListener
 		int intOreY = 0;
 		boolean wasTile = false;
 		
-		for (intRow = 0; intRow < 12; intRow++)
+		for (intRow = 0; intRow < 5; intRow++)
 		{
 			intOreX = 0;
-			for (intColumn = 0; intColumn < 11; intColumn++)
+			for (intColumn = 0; intColumn < 9; intColumn++)
 			{
 				if (strMap[intRow][intColumn].equals("x"))
 				{
@@ -94,8 +96,8 @@ public class mapTest implements ActionListener
 					panel.intOreX = intOreX;
 					panel.intOreY = intOreY;
 					panel.printOre = true;
-					panel.repaint();
 					System.out.println("_");
+					panel.repaint();
 				}
 				
 				if (wasTile == false)
