@@ -13,7 +13,7 @@ public class mapTest implements ActionListener
 	JFrame frame = new JFrame();
 	AnimationPanel panel = new AnimationPanel();
 	// Timer timer = new Timer (1000/60, this);
-	String[][] strMap = new String [12][11];
+	String[][] strMap = new String [5][];
 	
 	public void actionPerformed (ActionEvent evt)
 	{
@@ -90,6 +90,7 @@ public class mapTest implements ActionListener
 				if (strMap[intRow][intColumn].equals("x"))
 				{
 					System.out.println("X");
+					
 				}
 				else if (strMap[intRow][intColumn].equals("_"))
 				{

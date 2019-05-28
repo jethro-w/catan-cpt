@@ -9,7 +9,7 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 {
 	// Properties
 	JFrame theframe;
-	AnimationPanel thepanel;
+	ReplacementPanel thepanel;
 	Timer thetimer;
 	JButton buttonPlay;
 	JButton buttonUser;
@@ -84,7 +84,7 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 	// Constructor
 	public CatanMain()
 	{
-		thepanel = new AnimationPanel();
+		thepanel = new ReplacementPanel();
 		thepanel.setLayout(null);
 		thepanel.setPreferredSize(new Dimension(1280, 720));
 		thepanel.addMouseMotionListener(this);
