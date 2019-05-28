@@ -24,7 +24,13 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 	JButton buttonSettings;
 	JButton buttonQuit;
 	logic logic;
-
+	JTextArea thearea;
+	JScrollPane thescroll;
+	JMenuBar thebar;
+	JTextField thefield;
+	JButton thebutton;
+	SuperSocketMaster ssm;
+	String strText;
 	// Methods
 	public void actionPerformed (ActionEvent evt)
 	{
@@ -51,6 +57,9 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 			buttonUser.setVisible(false);
 			textUser.setVisible(false);
 			System.out.println("userdd");
+		}
+		if(evt.getSource() == thebutton)
+		{
 		}
 
 	}
@@ -149,6 +158,37 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 		thetimer = new Timer(1000 / 60, this);
 		thetimer.start();
 		theframe.setResizable(false);
+		}
+	public CatanMain(){
+		
+		thearea = new JTextArea();
+		
+		thescroll = new JScrollPane(thearea);
+		thescroll.setBounds(0,50,400,250);
+		
+		thefield = new JTextField("");
+		thefield.setSize(400,50);
+		thefield.setLocation(0,310);
+		
+		thebutton = new JButton("Send");
+		thebutton.setSize(400, 50);
+		thebutton.setLocation(0, 370);
+		thebutton.addActionListener(this);
+		
+		thepanel.add(thescroll);
+		thepanel.add(thefield);
+		thepanel.add(thebutton);
+		
+		theframe.setContentPane(thepanel);
+		theframe.pack();
+		theframe.setResizable(false);
+		theframe.setVisible(true);
+		
+		//ssm = new SuperSocketMaster(3000, this);
+		
+		ssm = new SuperSocketMaster(657, this);
+		ssm.connect();
+		System.out.println(ssm.getMyAddress());
 	}
 	
 	// Main method
