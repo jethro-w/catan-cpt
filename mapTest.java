@@ -12,26 +12,25 @@ public class mapTest implements ActionListener
 {
 	JFrame frame = new JFrame();
 	AnimationPanel panel = new AnimationPanel();
-	// Timer timer = new Timer (1000/60, this);
-	String[][] strMap = new String [5][];
+
+	Timer timer = new Timer (1000/60, this);
+
 	String[][] strMap = new String [5][9];
 	
 	public void actionPerformed (ActionEvent evt)
 	{
-		/*
 		if (evt.getSource() == timer)
 		{
 			panel.repaint();
 		}
-		*/
 	}
 	
-	public static String[][] loadMap()
+	public static String[][] loadMap() throws IOException
 	{
-		BufferedReader map = new BufferedReader(new FileReader("catan-settlements-map.csv"));
-		String[] strMapLine = new String[12];
-		String[][] strMap = new String [12][11];
 		BufferedReader map = null;
+		String[] strMapLine = new String[5];
+		String[][] strMap = new String [5][9];
+		int intCount;
 		
 		try
 		{
@@ -42,16 +41,8 @@ public class mapTest implements ActionListener
 			
 		}
 		
-		String[] strMapLine = new String[5];
-		String[][] strMap = new String [5][9];
-		int intCount;
-		int intCount2;
-		
-		for (intCount = 0; intCount < 12; intCount++)
-		
 		for (intCount = 0; intCount < 5; intCount++)
 		{
-			strMapLine[intCount] = map.readLine();
 			try
 			{
 				strMapLine[intCount] = map.readLine();
@@ -81,26 +72,29 @@ public class mapTest implements ActionListener
 		frame.setVisible(true);
 		frame.setResizable(false);
 		
-		strMap = mapTest.loadMap();
+		try
+		{
+			strMap = mapTest.loadMap();
+		}
+		catch (IOException e)
+		{
+			System.out.println("IOException");
+		}
 		
 		int intColumn;
 		int intRow;
 		int intOreX = 50;
 		int intOreY = 50;
-		boolean wasTile = false;
-		
-		panel.printTile = false;
-		panel.repaint();
 		
 		for (intRow = 0; intRow < 5; intRow++)
 		{
 			if (intRow == 0 || intRow == 4)
 			{
-				intOreX = 250;
+				intOreX = 150;
 			}
 			else if (intRow == 1 || intRow == 3)
 			{
-				intOreX = 150;
+				intOreX = 100;
 			}
 			else if (intRow == 2)
 			{
@@ -118,10 +112,11 @@ public class mapTest implements ActionListener
 				{
 					panel.intOreX = intOreX;
 					panel.intOreY = intOreY;
-					panel.printTile = true;
 					intOreX = intOreX + 100;
+					panel.intTileNum++;
+					panel.repaint();
+					
 					System.out.println("_");
-					panel.paintChildren(null);
 				}
 			}
 			intOreY = intOreY + 116;
