@@ -1,6 +1,7 @@
 import java.io.*;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.image.*;
 import javax.imageio.*;
 import javax.swing.JPanel;
@@ -10,20 +11,23 @@ public class AnimationPanel extends JPanel
 	// Properties
 	int intOreX;
 	int intOreY;
-	BufferedImage image = null;
+	BufferedImage[] image = null;
 	boolean printTile;
-
+	int intCount;
+	int intTileNum = 0;
+	
 	// Methods
 	// Override how this component paints itself
 	public void paintComponent (Graphics g)
 	{
 		super.paintComponent(g);
 		
-		if (printTile == true)
-		{
-			g.drawImage(image, intOreX, intOreY, null);
-			System.out.println("print");
-		}
+		g.drawImage(image[intTileNum], intOreX, intOreY, null);
+		g.setColor(Color.white);
+		g.fillRect(500, 500, 25, 25);
+		
+		System.out.println("sigh");
+		
 	}
 	
 	public void paintChildren (Graphics g)
@@ -40,7 +44,10 @@ public class AnimationPanel extends JPanel
 		
 		try
 		{
-			image = ImageIO.read(new File("OreTile.png"));
+			for (intCount = 0; intCount < 19; intCount++)
+			{
+				image[intCount] = ImageIO.read(new File("OreTile.png"));
+			}
 		}
 		catch (IOException e)
 		{	
