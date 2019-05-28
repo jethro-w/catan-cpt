@@ -18,7 +18,10 @@ public class ssmtest implements ActionListener{
 	String strText;
 	JTextField thefield2;
 	String strUser;
-	int intPlayers;
+	int intPlayers = 0;
+	String strNetText;
+	String strWords[];
+
 	
 	// Methods
 	public void actionPerformed(ActionEvent evt){
@@ -29,11 +32,18 @@ public class ssmtest implements ActionListener{
 			thefield2.setVisible(false);
 		}
 	if(evt.getSource() == thebutton){
-	ssm.sendText(thefield.getText());
-	strText= thefield.getText();
-	thearea.append(strUser+  " "+strText+"\n");
-		}else if(evt.getSource() == ssm){
-			thearea.append(ssm.readText() + "\n");
+		ssm.sendText(thefield.getText());
+		strText= thefield.getText();
+		thearea.append(strUser+  " "+strText+"\n");
+	}else if(evt.getSource() == ssm){
+			//~ thearea.append(ssm.readText() + "\n");
+			 strNetText = ssm.readText();
+			 strWords = strNetText.split(",");
+			 System.out.println(strWords[1]);
+			 if(strWords.equals ("!Player")){
+				intPlayers = intPlayers +1;	 
+				System.out.println(intPlayers);
+			 }
 			}
 		}
 	
