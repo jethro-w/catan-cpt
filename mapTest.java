@@ -60,8 +60,8 @@ public class mapTest implements ActionListener
 		panel.setLayout(null);
 		panel.setPreferredSize(new Dimension(1280, 720));
 		
-		// timer.addActionListener(this);
-		// timer.start();
+		timer.addActionListener(this);
+		timer.start();
 		
 		frame = new JFrame("New Animations :)");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

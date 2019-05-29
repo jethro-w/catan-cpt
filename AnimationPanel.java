@@ -12,6 +12,7 @@ public class AnimationPanel extends JPanel
 	int intOreX;
 	int intOreY;
 	BufferedImage[] image = null;
+	BufferedImage menu = null;
 	boolean printTile;
 	int intCount;
 	int intTileNum = 0;
@@ -22,12 +23,10 @@ public class AnimationPanel extends JPanel
 	{
 		super.paintComponent(g);
 		
-		g.drawImage(image[intTileNum], intOreX, intOreY, null);
+		// g.drawImage(image[intTileNum], intOreX, intOreY, null);
+		g.drawImage(menu, 0, 0, null);
 		g.setColor(Color.white);
 		g.fillRect(500, 500, 25, 25);
-		
-		System.out.println("sigh");
-		
 	}
 	
 	public void paintChildren (Graphics g)
@@ -47,6 +46,7 @@ public class AnimationPanel extends JPanel
 			for (intCount = 0; intCount < 19; intCount++)
 			{
 				image[intCount] = ImageIO.read(new File("OreTile.png"));
+				menu = ImageIO.read(new File("catanmenu.jpg"));
 			}
 		}
 		catch (IOException e)
