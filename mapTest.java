@@ -12,9 +12,7 @@ public class mapTest implements ActionListener
 {
 	JFrame frame = new JFrame();
 	AnimationPanel panel = new AnimationPanel();
-
 	Timer timer = new Timer (1000/60, this);
-
 	String[][] strMap = new String [5][9];
 	
 	public void actionPerformed (ActionEvent evt)
