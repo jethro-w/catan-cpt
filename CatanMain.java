@@ -29,7 +29,7 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 	JMenuBar thebar;
 	JTextField thefield;
 	JButton thebutton;
-	SuperSocketMaster ssm;
+	//~ SuperSocketMaster ssm;
 	String strText;
 	// Methods
 	public void actionPerformed (ActionEvent evt)
@@ -157,34 +157,30 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 		theframe.setResizable(false);
 		
 		
-		thearea = new JTextArea();
+		//~ thearea = new JTextArea();
 		
-		thescroll = new JScrollPane(thearea);
-		thescroll.setBounds(0,50,400,250);
+		//~ thescroll = new JScrollPane(thearea);
+		//~ thescroll.setBounds(0,50,400,250);
 		
-		thefield = new JTextField("");
-		thefield.setSize(400,50);
-		thefield.setLocation(0,310);
+		//~ thefield = new JTextField("");
+		//~ thefield.setSize(400,50);
+		//~ thefield.setLocation(0,310);
 		
-		thebutton = new JButton("Send");
-		thebutton.setSize(400, 50);
-		thebutton.setLocation(0, 370);
-		thebutton.addActionListener(this);
+		//~ thebutton = new JButton("Send");
+		//~ thebutton.setSize(400, 50);
+		//~ thebutton.setLocation(0, 370);
+		//~ thebutton.addActionListener(this);
 		
-		thepanel.add(thescroll);
-		thepanel.add(thefield);
-		thepanel.add(thebutton);
+		//~ thepanel.add(thescroll);
+		//~ thepanel.add(thefield);
+		//~ thepanel.add(thebutton);
 		
-		theframe.setContentPane(thepanel);
-		theframe.pack();
-		theframe.setResizable(false);
-		theframe.setVisible(true);
 		
 		//ssm = new SuperSocketMaster(3000, this);
 		
-		ssm = new SuperSocketMaster(657, this);
-		ssm.connect();
-		System.out.println(ssm.getMyAddress());
+		//~ ssm = new SuperSocketMaster(657, this);
+		//~ ssm.connect();
+		//~ System.out.println(ssm.getMyAddress());
 	}
 	
 	// Main method
