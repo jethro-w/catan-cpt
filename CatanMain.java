@@ -12,8 +12,8 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 	ReplacementPanel thepanel;
 	Timer thetimer;
 	//JLabel playLabel;
-	JButton buttonUser;
-	JTextField textUser;
+	JButton buttonIP;
+	JTextField textIP;
 	String strPlayer1;
 	String strPlayer2;
 	String strPlayer3;
@@ -34,6 +34,9 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 	String strIP;
 	int intMouseX;
 	int intMouseY;
+	//~ JTextField textIP;
+	JLabel LabelUser;
+	JLabel LabelIP;
 	// Methods
 	public void actionPerformed (ActionEvent evt)
 	{
@@ -56,12 +59,14 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 		{
 			System.exit(0);
 		}
-		if (evt.getSource() == buttonUser)
+		if (evt.getSource() == buttonIP)
 		{
-			strPlayer1 = textUser.getText();
-			buttonUser.setVisible(false);
-			textUser.setVisible(false);
-			System.out.println("userdd");
+			strPlayer1 = textIP.getText();
+			buttonIP.setVisible(false);
+			textIP.setVisible(false);
+			System.out.println("USERNAME");
+			ssm = new SuperSocketMaster(strIP, 3000, this);
+			ssm.connect();
 		}
 		if(evt.getSource() == thebutton)
 		{
@@ -72,13 +77,15 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 			System.out.println(ssm.getMyAddress());
 			strIP = ssm.getMyAddress();
 			ssm.connect();
-			buttonUser.setVisible(true);
-			textUser.setVisible(true);
+			buttonIP.setVisible(true);
+			textIP.setVisible(true);
 			
 		}else if (evt.getSource() == buttonClient){	
 			buttonServer.setVisible(false);
 			buttonClient.setVisible(false);
-			
+			LabelIP.setVisible(true);
+			buttonIP.setVisible(true);
+			textIP.setVisible(true);
 		}
 	}
 
@@ -136,18 +143,18 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 		thepanel.setPreferredSize(new Dimension(1280, 720));
 		thepanel.addMouseMotionListener(this);
 		
-		buttonUser = new JButton("Enter");
-		buttonUser.setSize(200, 100);
-		buttonUser.setLocation(1000, 600);
-		buttonUser.addActionListener(this);
-		thepanel.add(buttonUser);
-		buttonUser.setVisible(false);
+		buttonIP = new JButton("Enter");
+		buttonIP.setSize(200, 100);
+		buttonIP.setLocation(1000, 600);
+		buttonIP.addActionListener(this);
+		thepanel.add(buttonIP);
+		buttonIP.setVisible(false);
 
-		textUser = new JTextField("");
-		textUser.setSize(100, 50);
-		textUser.setLocation(540, 310);
-		thepanel.add(textUser);
-		textUser.setVisible(false);
+		textIP = new JTextField("");
+		textIP.setSize(250, 40);
+		textIP.setLocation(540, 310);
+		thepanel.add(textIP);
+		textIP.setVisible(false);
 
 		buttonClient = new JButton("Client");
 		buttonClient.setSize(200, 100);
@@ -180,6 +187,20 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 		buttonQuit.setLocation(1000, 600);
 		buttonQuit.addActionListener(this);
 		thepanel.add(buttonQuit);
+		
+		//~ LabelUser = new JLabel("Enter you Username: ");
+		//~ LabelUser.setSize(200, 120);
+		//~ LabelUser.setLocation(600,500);
+		//~ thepanel.add(LabelUser);
+		
+		LabelIP = new JLabel("Enter the Server's IP: ");
+		LabelIP.setSize(200, 120);
+		LabelIP.setLocation(600,500);
+		thepanel.add(LabelIP);
+		LabelIP.setVisible(false);
+		//~ textIP = new JTextField("");
+		//~ textIP.setSize(400,50);
+		//~ textIP.setLocation(0,310);
 
 		theframe = new JFrame("Settlers of Catan");
 		theframe.addKeyListener(this);
