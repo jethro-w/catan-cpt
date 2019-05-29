@@ -72,10 +72,13 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 			System.out.println(ssm.getMyAddress());
 			strIP = ssm.getMyAddress();
 			ssm.connect();
+			buttonUser.setVisible(true);
+			textUser.setVisible(true);
 			
 		}else if (evt.getSource() == buttonClient){	
 			buttonServer.setVisible(false);
 			buttonClient.setVisible(false);
+			
 		}
 	}
 
@@ -93,41 +96,38 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 		System.out.println("Clicked");
 		if(evt.getX() >= 1000 && evt.getX() <= 1200 && evt.getY() >= 250 && evt.getY() <=350){
 			System.out.println("Play");
+			buttonHelp.setVisible(false);
+			buttonSettings.setVisible(false);
+			buttonQuit.setVisible(false);
 			
+			buttonServer.setVisible(true);
+			buttonClient.setVisible(true);
+			//~ buttonUser.setVisible(true);
+			//~ textUser.setVisible(true);
 		}
 	
 	}
 	public void mousePressed (MouseEvent evt)
 	{
-
 	}
 	public void mouseReleased (MouseEvent evt)
 	{
-
 	}
 	public void mouseEntered (MouseEvent evt)
 	{
-
 	}
 	public void mouseExited (MouseEvent evt)
 	{
-
 	}
 	public void keyReleased (KeyEvent evt)
 	{
-
 	}
-
 	public void keyPressed (KeyEvent evt)
 	{
-
 	}
-
 	public void keyTyped (KeyEvent evt)
 	{
-
 	}
-
 	// Constructor
 	public CatanMain()
 	{
@@ -158,7 +158,7 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 		
 		buttonServer = new JButton("Server");
 		buttonServer.setSize(200, 100);
-		buttonServer.setLocation(1000, 250);
+		buttonServer.setLocation(500, 250);
 		buttonServer.addActionListener(this);
 		thepanel.add(buttonServer);
 		buttonServer.setVisible(false);
