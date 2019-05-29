@@ -21,7 +21,10 @@ public class ssmtest implements ActionListener{
 	int intPlayers = 0;
 	String strNetText;
 	String strWords[];
+	String strIP;
 
+	JButton buttonServer;
+	JButton buttonClient;
 	
 	// Methods
 	public void actionPerformed(ActionEvent evt){
@@ -30,16 +33,28 @@ public class ssmtest implements ActionListener{
 			ssm.sendText(strUser+","+ "!Player");
 			thearea.append(strUser+","+ "!Player"+"\n");
 			thefield2.setVisible(false);
+		
+		}else if(evt.getSource() == buttonServer){
+			buttonServer.setVisible(false);
+			buttonClient.setVisible(false);
+			ssm = new SuperSocketMaster(3000, this);
+			System.out.println(ssm.getMyAddress());
+			strIP = ssm.getMyAddress();
+			ssm.connect();
+			
+		}else if (evt.getSource() == buttonClient){	
+			buttonServer.setVisible(false);
+			buttonClient.setVisible(false);
 		}
 	if(evt.getSource() == thebutton){
 		ssm.sendText(thefield.getText());
 		strText= thefield.getText();
 		thearea.append(strUser+  " "+strText+"\n");
 	}else if(evt.getSource() == ssm){
-			//~ thearea.append(ssm.readText() + "\n");
+				//~ thearea.append(ssm.readText() + "\n");
 			 strNetText = ssm.readText();
 			 strWords = strNetText.split(",");
-			 System.out.println(strWords[1]);
+			 System.out.println(strWords);
 			 if(strWords.equals ("!Player")){
 				intPlayers = intPlayers +1;	 
 				System.out.println(intPlayers);
@@ -49,7 +64,7 @@ public class ssmtest implements ActionListener{
 	
 	// Constructor
 	public ssmtest(){
-		theframe = new JFrame("Noob Chat");
+		theframe = new JFrame("SSM Test");
 		theframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		thepanel = new JPanel();
@@ -75,6 +90,20 @@ public class ssmtest implements ActionListener{
 		thebutton.setLocation(0, 370);
 		thebutton.addActionListener(this);
 		
+		buttonClient = new JButton("Client");
+		buttonClient.setSize(200, 100);
+		buttonClient.setLocation(1000, 250);
+		buttonClient.addActionListener(this);
+		thepanel.add(buttonClient);
+		//~ buttonClient.setVisible(false);
+		
+		buttonServer = new JButton("Server");
+		buttonServer.setSize(200, 100);
+		buttonServer.setLocation(500, 250);
+		buttonServer.addActionListener(this);
+		thepanel.add(buttonServer);
+		//~ buttonServer.setVisible(false);
+		
 		thepanel.add(thescroll);
 		thepanel.add(thefield);
 		thepanel.add(thefield2);
@@ -84,12 +113,7 @@ public class ssmtest implements ActionListener{
 		theframe.pack();
 		theframe.setResizable(false);
 		theframe.setVisible(true);
-		
-		ssm = new SuperSocketMaster(3000, this);
-		
-		//~ ssm = new SuperSocketMaster(657, this);
-		ssm.connect();
-		System.out.println(ssm.getMyAddress());
+
 	}
 	
 	

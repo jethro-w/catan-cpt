@@ -38,7 +38,13 @@ public class ReplacementPanel extends JPanel
 			g.setColor(Color.BLACK);
 			g.drawString("Help",900,510);
 			g.drawString("Quit",900,590);
+
+		g.drawString("Play",1000,300);
 		
+		g.drawString("Settings",1000,400);
+		
+		g.drawString("Help",1000,500);
+	
 		}else if (blnHelp)
 		{	
 			g.setColor(Color.BLACK);
