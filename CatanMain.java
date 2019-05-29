@@ -5,15 +5,15 @@ import javax.swing.event.*;
 import java.io.*;
 
 // Main Program
-public class CatanMain implements ActionListener, MouseMotionListener, KeyListener
+public class CatanMain implements ActionListener, MouseMotionListener, KeyListener, MouseListener
 {
 	// Properties
 	JFrame theframe;
 	ReplacementPanel thepanel;
 	Timer thetimer;
 	//JLabel playLabel;
-	JButton buttonUser;
-	JTextField textUser;
+	JButton buttonIP;
+	JTextField textIP;
 	String strPlayer1;
 	String strPlayer2;
 	String strPlayer3;
@@ -31,6 +31,12 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 	JButton thebutton;
 	SuperSocketMaster ssm;
 	String strText;
+	String strIP;
+	int intMouseX;
+	int intMouseY;
+	//~ JTextField textIP;
+	JLabel LabelUser;
+	JLabel LabelIP;
 	// Methods
 	public void actionPerformed (ActionEvent evt)
 	{
@@ -53,45 +59,82 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 		{
 			System.exit(0);
 		}
-		if (evt.getSource() == buttonUser)
+		if (evt.getSource() == buttonIP)
 		{
-			strPlayer1 = textUser.getText();
-			buttonUser.setVisible(false);
-			textUser.setVisible(false);
-			System.out.println("userdd");
+			strPlayer1 = textIP.getText();
+			buttonIP.setVisible(false);
+			textIP.setVisible(false);
+			System.out.println("USERNAME");
+			ssm = new SuperSocketMaster(strIP, 3000, this);
+			ssm.connect();
 		}
 		if(evt.getSource() == thebutton)
 		{
+		}else if(evt.getSource() == buttonServer){
+			buttonServer.setVisible(false);
+			buttonClient.setVisible(false);
+			ssm = new SuperSocketMaster(3000, this);
+			System.out.println(ssm.getMyAddress());
+			strIP = ssm.getMyAddress();
+			ssm.connect();
+			buttonIP.setVisible(true);
+			textIP.setVisible(true);
+			
+		}else if (evt.getSource() == buttonClient){	
+			buttonServer.setVisible(false);
+			buttonClient.setVisible(false);
+			LabelIP.setVisible(true);
+			buttonIP.setVisible(true);
+			textIP.setVisible(true);
 		}
-
 	}
 
 	public void mouseMoved (MouseEvent evt)
 	{
-		// ~ thepanel.intRectX = evt.getX();
-		// ~ thepanel.intRectY = evt.getY();
+		intMouseX = evt.getX();
+		intMouseY = evt.getY();
 	}
 
 	public void mouseDragged (MouseEvent evt)
 	{
 
 	}
-
+	public void mouseClicked(MouseEvent evt){
+		System.out.println("Clicked");
+		if(evt.getX() >= 1000 && evt.getX() <= 1200 && evt.getY() >= 250 && evt.getY() <=350){
+			System.out.println("Play");
+			buttonHelp.setVisible(false);
+			buttonSettings.setVisible(false);
+			buttonQuit.setVisible(false);
+			
+			buttonServer.setVisible(true);
+			buttonClient.setVisible(true);
+			//~ buttonUser.setVisible(true);
+			//~ textUser.setVisible(true);
+		}
+	
+	}
+	public void mousePressed (MouseEvent evt)
+	{
+	}
+	public void mouseReleased (MouseEvent evt)
+	{
+	}
+	public void mouseEntered (MouseEvent evt)
+	{
+	}
+	public void mouseExited (MouseEvent evt)
+	{
+	}
 	public void keyReleased (KeyEvent evt)
 	{
-
 	}
-
 	public void keyPressed (KeyEvent evt)
 	{
-
 	}
-
 	public void keyTyped (KeyEvent evt)
 	{
-
 	}
-
 	// Constructor
 	public CatanMain()
 	{
@@ -100,19 +143,18 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 		thepanel.setPreferredSize(new Dimension(1280, 720));
 		thepanel.addMouseMotionListener(this);
 		
+		buttonIP = new JButton("Enter");
+		buttonIP.setSize(200, 100);
+		buttonIP.setLocation(1000, 600);
+		buttonIP.addActionListener(this);
+		thepanel.add(buttonIP);
+		buttonIP.setVisible(false);
 
-		buttonUser = new JButton("Enter");
-		buttonUser.setSize(200, 100);
-		buttonUser.setLocation(1000, 600);
-		buttonUser.addActionListener(this);
-		thepanel.add(buttonUser);
-		buttonUser.setVisible(false);
-
-		textUser = new JTextField("");
-		textUser.setSize(100, 50);
-		textUser.setLocation(540, 310);
-		thepanel.add(textUser);
-		textUser.setVisible(false);
+		textIP = new JTextField("");
+		textIP.setSize(250, 40);
+		textIP.setLocation(540, 310);
+		thepanel.add(textIP);
+		textIP.setVisible(false);
 
 		buttonClient = new JButton("Client");
 		buttonClient.setSize(200, 100);
@@ -123,7 +165,7 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 		
 		buttonServer = new JButton("Server");
 		buttonServer.setSize(200, 100);
-		buttonServer.setLocation(1000, 250);
+		buttonServer.setLocation(500, 250);
 		buttonServer.addActionListener(this);
 		thepanel.add(buttonServer);
 		buttonServer.setVisible(false);
@@ -145,9 +187,25 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 		buttonQuit.setLocation(1000, 600);
 		buttonQuit.addActionListener(this);
 		thepanel.add(buttonQuit);
+		
+		//~ LabelUser = new JLabel("Enter you Username: ");
+		//~ LabelUser.setSize(200, 120);
+		//~ LabelUser.setLocation(600,500);
+		//~ thepanel.add(LabelUser);
+		
+		LabelIP = new JLabel("Enter the Server's IP: ");
+		LabelIP.setSize(200, 120);
+		LabelIP.setLocation(600,500);
+		thepanel.add(LabelIP);
+		LabelIP.setVisible(false);
+		//~ textIP = new JTextField("");
+		//~ textIP.setSize(400,50);
+		//~ textIP.setLocation(0,310);
 
 		theframe = new JFrame("Settlers of Catan");
 		theframe.addKeyListener(this);
+		thepanel.addMouseListener(this);
+		thepanel.addMouseMotionListener(this);
 		theframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		theframe.setContentPane(thepanel);
 		theframe.pack();
@@ -157,34 +215,30 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 		theframe.setResizable(false);
 		
 		
-		thearea = new JTextArea();
+		//~ thearea = new JTextArea();
 		
-		thescroll = new JScrollPane(thearea);
-		thescroll.setBounds(0,50,400,250);
+		//~ thescroll = new JScrollPane(thearea);
+		//~ thescroll.setBounds(0,50,400,250);
 		
-		thefield = new JTextField("");
-		thefield.setSize(400,50);
-		thefield.setLocation(0,310);
+		//~ thefield = new JTextField("");
+		//~ thefield.setSize(400,50);
+		//~ thefield.setLocation(0,310);
 		
-		thebutton = new JButton("Send");
-		thebutton.setSize(400, 50);
-		thebutton.setLocation(0, 370);
-		thebutton.addActionListener(this);
+		//~ thebutton = new JButton("Send");
+		//~ thebutton.setSize(400, 50);
+		//~ thebutton.setLocation(0, 370);
+		//~ thebutton.addActionListener(this);
 		
-		thepanel.add(thescroll);
-		thepanel.add(thefield);
-		thepanel.add(thebutton);
+		//~ thepanel.add(thescroll);
+		//~ thepanel.add(thefield);
+		//~ thepanel.add(thebutton);
 		
-		theframe.setContentPane(thepanel);
-		theframe.pack();
-		theframe.setResizable(false);
-		theframe.setVisible(true);
 		
 		//ssm = new SuperSocketMaster(3000, this);
 		
-		ssm = new SuperSocketMaster(657, this);
-		ssm.connect();
-		System.out.println(ssm.getMyAddress());
+		//~ ssm = new SuperSocketMaster(657, this);
+		//~ ssm.connect();
+		//~ System.out.println(ssm.getMyAddress());
 	}
 	
 	// Main method
