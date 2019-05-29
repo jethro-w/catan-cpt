@@ -104,6 +104,7 @@ public class mapTest implements ActionListener
 				if (strMap[intRow][intColumn].equals("x"))
 				{
 					System.out.println("X");
+					
 				}
 				else if (strMap[intRow][intColumn].equals("_"))
 				{

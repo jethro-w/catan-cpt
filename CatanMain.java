@@ -9,9 +9,9 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 {
 	// Properties
 	JFrame theframe;
-	AnimationPanel thepanel;
+	ReplacementPanel thepanel;
 	Timer thetimer;
-	JButton buttonPlay;
+	//JLabel playLabel;
 	JButton buttonUser;
 	JTextField textUser;
 	String strPlayer1;
@@ -38,15 +38,17 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 		{
 			thepanel.repaint();
 		}
-		if (evt.getSource() == buttonPlay)
+		/*
+		if (evt.getSource() == playLabel)
 		{
-			buttonPlay.setVisible(false);
+			playLabel.setVisible(false);
 			buttonHelp.setVisible(false);
 			buttonSettings.setVisible(false);
 			buttonQuit.setVisible(false);
 			buttonUser.setVisible(true);
 			textUser.setVisible(true);
 		}
+		* */
 		else if (evt.getSource() == buttonQuit)
 		{
 			System.exit(0);
@@ -93,16 +95,11 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 	// Constructor
 	public CatanMain()
 	{
-		thepanel = new AnimationPanel();
+		thepanel = new ReplacementPanel();
 		thepanel.setLayout(null);
 		thepanel.setPreferredSize(new Dimension(1280, 720));
 		thepanel.addMouseMotionListener(this);
-
-		buttonPlay = new JButton("Play");
-		buttonPlay.setSize(200, 100);
-		buttonPlay.setLocation(1000, 250);
-		buttonPlay.addActionListener(this);
-		thepanel.add(buttonPlay);
+		
 
 		buttonUser = new JButton("Enter");
 		buttonUser.setSize(200, 100);
@@ -158,8 +155,7 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 		thetimer = new Timer(1000 / 60, this);
 		thetimer.start();
 		theframe.setResizable(false);
-		}
-	public CatanMain(){
+		
 		
 		thearea = new JTextArea();
 		
