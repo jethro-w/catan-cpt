@@ -5,7 +5,7 @@ import javax.swing.event.*;
 import java.io.*;
 
 // Main Program
-public class CatanMain implements ActionListener, MouseMotionListener, KeyListener
+public class CatanMain implements ActionListener, MouseMotionListener, KeyListener, MouseListener
 {
 	// Properties
 	JFrame theframe;
@@ -29,8 +29,11 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 	JMenuBar thebar;
 	JTextField thefield;
 	JButton thebutton;
-	//~ SuperSocketMaster ssm;
+	SuperSocketMaster ssm;
 	String strText;
+	String strIP;
+	int intMouseX;
+	int intMouseY;
 	// Methods
 	public void actionPerformed (ActionEvent evt)
 	{
@@ -62,21 +65,54 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 		}
 		if(evt.getSource() == thebutton)
 		{
+		}else if(evt.getSource() == buttonServer){
+			buttonServer.setVisible(false);
+			buttonClient.setVisible(false);
+			ssm = new SuperSocketMaster(3000, this);
+			System.out.println(ssm.getMyAddress());
+			strIP = ssm.getMyAddress();
+			ssm.connect();
+			
+		}else if (evt.getSource() == buttonClient){	
+			buttonServer.setVisible(false);
+			buttonClient.setVisible(false);
 		}
-
 	}
 
 	public void mouseMoved (MouseEvent evt)
 	{
-		// ~ thepanel.intRectX = evt.getX();
-		// ~ thepanel.intRectY = evt.getY();
+		intMouseX = evt.getX();
+		intMouseY = evt.getY();
 	}
 
 	public void mouseDragged (MouseEvent evt)
 	{
 
 	}
+	public void mouseClicked(MouseEvent evt){
+		System.out.println("Clicked");
+		if(evt.getX() >= 1000 && evt.getX() <= 1200 && evt.getY() >= 250 && evt.getY() <=350){
+			System.out.println("Play");
+			
+		}
+	
+	}
+	public void mousePressed (MouseEvent evt)
+	{
 
+	}
+	public void mouseReleased (MouseEvent evt)
+	{
+
+	}
+	public void mouseEntered (MouseEvent evt)
+	{
+
+	}
+	public void mouseExited (MouseEvent evt)
+	{
+
+	}
 	public void keyReleased (KeyEvent evt)
 	{
 
@@ -100,7 +136,6 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 		thepanel.setPreferredSize(new Dimension(1280, 720));
 		thepanel.addMouseMotionListener(this);
 		
-
 		buttonUser = new JButton("Enter");
 		buttonUser.setSize(200, 100);
 		buttonUser.setLocation(1000, 600);
@@ -148,6 +183,8 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 
 		theframe = new JFrame("Settlers of Catan");
 		theframe.addKeyListener(this);
+		thepanel.addMouseListener(this);
+		thepanel.addMouseMotionListener(this);
 		theframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		theframe.setContentPane(thepanel);
 		theframe.pack();
