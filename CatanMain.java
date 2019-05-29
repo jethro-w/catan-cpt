@@ -48,11 +48,12 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 			buttonUser.setVisible(true);
 			textUser.setVisible(true);
 		}
-		* */
-		else if (evt.getSource() == buttonQuit)
+		
+		 if (evt.getSource() == buttonQuit)
 		{
 			System.exit(0);
 		}
+		* */
 		if (evt.getSource() == buttonUser)
 		{
 			strPlayer1 = textUser.getText();
@@ -68,8 +69,25 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 
 	public void mouseMoved (MouseEvent evt)
 	{
-		// ~ thepanel.intRectX = evt.getX();
-		// ~ thepanel.intRectY = evt.getY();
+		if (evt.getX() >= 900 && evt.getX() <= 1000 && evt.getY() >= 300 && evt.getY() <= 350)
+		{
+			thepanel.blnPlay = true;
+		}else if (evt.getX() >= 900 && evt.getX() <= 1075 && evt.getY() >= 400 && evt.getY() <= 450)
+		{
+			thepanel.blnSettings = true;
+		}else if (evt.getX() >= 900 && evt.getX() <= 1000 && evt.getY() >= 475 && evt.getY() <= 525)
+		{
+			thepanel.blnHelp = true;
+		}else if (evt.getX() >= 900 && evt.getX() <= 1000 && evt.getY() >= 600 && evt.getY() <= 650)
+		{//incomplete
+			thepanel.blnQuit = true;
+		}else
+		{
+			thepanel.blnPlay = false;
+			thepanel.blnSettings = false;
+			thepanel.blnHelp = false;
+			thepanel.blnQuit = false;
+		}
 	}
 
 	public void mouseDragged (MouseEvent evt)
@@ -128,23 +146,7 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 		thepanel.add(buttonServer);
 		buttonServer.setVisible(false);
 
-		buttonHelp = new JButton("Help");
-		buttonHelp.setSize(200, 100);
-		buttonHelp.setLocation(1000, 350);
-		buttonHelp.addActionListener(this);
-		thepanel.add(buttonHelp);
 
-		buttonSettings = new JButton("Settings");
-		buttonSettings.setSize(200, 100);
-		buttonSettings.setLocation(1000, 450);
-		buttonSettings.addActionListener(this);
-		thepanel.add(buttonSettings);
-
-		buttonQuit = new JButton("Quit");
-		buttonQuit.setSize(200, 100);
-		buttonQuit.setLocation(1000, 600);
-		buttonQuit.addActionListener(this);
-		thepanel.add(buttonQuit);
 
 		theframe = new JFrame("Settlers of Catan");
 		theframe.addKeyListener(this);
@@ -156,7 +158,7 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 		thetimer.start();
 		theframe.setResizable(false);
 		
-		
+	/*	
 		thearea = new JTextArea();
 		
 		thescroll = new JScrollPane(thearea);
@@ -171,25 +173,30 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 		thebutton.setLocation(0, 370);
 		thebutton.addActionListener(this);
 		
+		
 		thepanel.add(thescroll);
 		thepanel.add(thefield);
 		thepanel.add(thebutton);
-		
+	*/
+	
 		theframe.setContentPane(thepanel);
 		theframe.pack();
 		theframe.setResizable(false);
-		theframe.setVisible(true);
 		
+		/*
 		//ssm = new SuperSocketMaster(3000, this);
 		
 		ssm = new SuperSocketMaster(657, this);
 		ssm.connect();
 		System.out.println(ssm.getMyAddress());
+		*/
 	}
 	
 	// Main method
 	public static void main (String[] args)
 	{
 		new CatanMain();
+		//experimenting with painting main menu options
+		//no jlabel use, just editing color in JPanel
 	}
 }
