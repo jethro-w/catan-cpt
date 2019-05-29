@@ -61,7 +61,7 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 		}
 		if (evt.getSource() == buttonIP)
 		{
-			strPlayer1 = textIP.getText();
+			strIP = textIP.getText();
 			buttonIP.setVisible(false);
 			textIP.setVisible(false);
 			System.out.println("USERNAME");
