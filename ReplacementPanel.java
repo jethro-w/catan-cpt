@@ -17,12 +17,11 @@ public class ReplacementPanel extends JPanel
 		
 		g.setFont(f);
 		
-		g.setD
 		g.drawString("Play",1000,300);
 		
-		g.drawString("Settings",1000,400");
+		g.drawString("Settings",1000,400);
 		
-		g.drawString("Help",1000,500");
+		g.drawString("Help",1000,500);
 		
 		
 
