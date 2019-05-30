@@ -174,12 +174,13 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 
 		}else if (evt.getX() >= 900 && evt.getX() <= 1075 && evt.getY() >= 400 && evt.getY() <= 450)
 		{
-			//place help menu screens here.
+			//place settings
+			textPort.setVisible(true);
+			
 			
 		}else if (evt.getX() >= 900 && evt.getX() <= 1000 && evt.getY() >= 475 && evt.getY() <= 525)
 		{
-			//place settings
-			textPort.setVisible(true);
+			//place help menu screens here.
 			
 		}else if (evt.getX() >= 900 && evt.getX() <= 1000 && evt.getY() >= 550 && evt.getY() <= 600)
 		{
