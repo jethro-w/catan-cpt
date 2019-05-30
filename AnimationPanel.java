@@ -9,15 +9,12 @@ import javax.swing.JPanel;
 public class AnimationPanel extends JPanel
 {
 	// Properties
-	int intTileX;
-	int intTileY = 100;
-	String strMap[][] = new String [5][9];
-	BufferedImage[] tileImage = new BufferedImage [5];
-	BufferedImage menu = null;
+	int intOreX;
+	int intOreY;
+	BufferedImage[] image = null;
 	boolean printTile;
 	int intCount;
-	int intRow;
-	int intColumn;
+	int intTileNum = 0;
 	
 	// Methods
 	// Override how this component paints itself
@@ -25,53 +22,17 @@ public class AnimationPanel extends JPanel
 	{
 		super.paintComponent(g);
 		
-		// Print map
-		for (intRow = 0; intRow < 5; intRow++)
-		{
-			if (intRow == 0 || intRow == 4)
-			{
-				intTileX = 250;
-			}
-			else if (intRow == 1 || intRow == 3)
-			{
-				intTileX = 200;
-			}
-			else if (intRow == 2)
-			{
-				intTileX = 150;
-			}
-			
-			for (intColumn = 0; intColumn < 9; intColumn++)
-			{
-				if (strMap[intRow][intColumn].equals("0"))
-				{
-					g.drawImage(tileImage[0], intTileX, intTileY, null);
-					intTileX = intTileX + 100;
-				}
-				else if (strMap[intRow][intColumn].equals("1"))
-				{
-					g.drawImage(tileImage[1], intTileX, intTileY, null);
-					intTileX = intTileX + 100;
-				}
-				else if (strMap[intRow][intColumn].equals("2"))
-				{
-					g.drawImage(tileImage[2], intTileX, intTileY, null);
-					intTileX = intTileX + 100;
-				}
-				else if (strMap[intRow][intColumn].equals("3"))
-				{
-					g.drawImage(tileImage[3], intTileX, intTileY, null);
-					intTileX = intTileX + 100;
-				}
-				else if (strMap[intRow][intColumn].equals("4"))
-				{
-					g.drawImage(tileImage[4], intTileX, intTileY, null);
-					intTileX = intTileX + 100;
-				}
-			}
-			intTileY = intTileY + 87;
-		}
-		intTileY = 100;
+		g.drawImage(image[intTileNum], intOreX, intOreY, null);
+		g.setColor(Color.white);
+		g.fillRect(500, 500, 25, 25);
+		
+		System.out.println("sigh");
+		
+	}
+	
+	public void paintChildren (Graphics g)
+	{
+		
 	}
 
 	// Constructor
@@ -83,38 +44,13 @@ public class AnimationPanel extends JPanel
 		
 		try
 		{
-			for (intCount = 0; intCount < 5; intCount++)
+			for (intCount = 0; intCount < 19; intCount++)
 			{
-				// Ore Tile = 0
-				if (intCount == 0)
-				{
-					tileImage[intCount] = ImageIO.read(new File("OreTile.png"));
-				}
-				// Brick Tile = 1
-				else if (intCount == 1)
-				{
-					tileImage[intCount] = ImageIO.read(new File("BrickTile.png"));
-				}
-				// Wheat Tile = 2
-				else if (intCount == 2)
-				{
-					tileImage[intCount] = ImageIO.read(new File("WheatTile.png"));
-				}
-				// Wood Tile = 3
-				else if (intCount == 3)
-				{
-					tileImage[intCount] = ImageIO.read(new File("WoodTile.png"));
-				}
-				// Wool Tile = 4
-				else if (intCount == 4)
-				{
-					tileImage[intCount] = ImageIO.read(new File("WoolTile.png"));
-				}
+				image[intCount] = ImageIO.read(new File("OreTile.png"));
 			}
 		}
 		catch (IOException e)
-		{
-			System.out.println("Cannot load image");
+		{	
 		}
 	}
 }

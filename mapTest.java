@@ -12,7 +12,7 @@ public class mapTest implements ActionListener
 {
 	JFrame frame = new JFrame();
 	AnimationPanel panel = new AnimationPanel();
-	Timer timer = new Timer (1000/200, this);
+	Timer timer = new Timer (1000/60, this);
 	String[][] strMap = new String [5][9];
 	
 	public void actionPerformed (ActionEvent evt)
@@ -60,8 +60,8 @@ public class mapTest implements ActionListener
 		panel.setLayout(null);
 		panel.setPreferredSize(new Dimension(1280, 720));
 		
-		timer.addActionListener(this);
-		timer.start();
+		// timer.addActionListener(this);
+		// timer.start();
 		
 		frame = new JFrame("New Animations :)");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -81,42 +81,43 @@ public class mapTest implements ActionListener
 		
 		int intColumn;
 		int intRow;
-		int intRand;
+		int intOreX = 50;
+		int intOreY = 50;
 		
-		// Copy array to AnimationPanel
 		for (intRow = 0; intRow < 5; intRow++)
 		{
+			if (intRow == 0 || intRow == 4)
+			{
+				intOreX = 150;
+			}
+			else if (intRow == 1 || intRow == 3)
+			{
+				intOreX = 100;
+			}
+			else if (intRow == 2)
+			{
+				intOreX = 50;
+			}
+			
 			for (intColumn = 0; intColumn < 9; intColumn++)
 			{
-				if (strMap[intRow][intColumn].equals("_"))
+				if (strMap[intRow][intColumn].equals("x"))
 				{
-					intRand = (int) (Math.random() * 5);
-					if (intRand == 0)
-					{
-						panel.strMap[intRow][intColumn] = "0";
-					}
-					else if (intRand == 1)
-					{
-						panel.strMap[intRow][intColumn] = "1";
-					}
-					else if (intRand == 2)
-					{
-						panel.strMap[intRow][intColumn] = "2";
-					}
-					else if (intRand == 3)
-					{
-						panel.strMap[intRow][intColumn] = "3";
-					}
-					else if (intRand == 4)
-					{
-						panel.strMap[intRow][intColumn] = "4";
-					}
+					System.out.println("X");
+					
 				}
-				else if (strMap[intRow][intColumn].equals("x"))
+				else if (strMap[intRow][intColumn].equals("_"))
 				{
-					panel.strMap[intRow][intColumn] = "x";
+					panel.intOreX = intOreX;
+					panel.intOreY = intOreY;
+					intOreX = intOreX + 100;
+					panel.intTileNum++;
+					panel.repaint();
+					
+					System.out.println("_");
 				}
 			}
+			intOreY = intOreY + 116;
 		}
 	}
 	
