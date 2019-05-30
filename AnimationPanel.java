@@ -12,7 +12,7 @@ public class AnimationPanel extends JPanel
 	int intTileX;
 	int intTileY = 100;
 	String strMap[][] = new String [5][9];
-	BufferedImage[] tileImage = new BufferedImage [6];
+	BufferedImage[] tileImage = new BufferedImage [5];
 	BufferedImage menu = null;
 	boolean printTile;
 	int intCount;
@@ -68,14 +68,6 @@ public class AnimationPanel extends JPanel
 					g.drawImage(tileImage[4], intTileX, intTileY, null);
 					intTileX = intTileX + 100;
 				}
-				else if (strMap[intRow][intColumn].equals("5"))
-				{
-					g.drawImage(tileImage[5], intTileX, intTileY, null);
-					intTileX = intTileX + 100;
-				}
-				else if (strMap[intRow][intColumn].equals("x"))
-				{
-				}
 			}
 			intTileY = intTileY + 87;
 		}
@@ -91,7 +83,7 @@ public class AnimationPanel extends JPanel
 		
 		try
 		{
-			for (intCount = 0; intCount < 6; intCount++)
+			for (intCount = 0; intCount < 5; intCount++)
 			{
 				// Ore Tile = 0
 				if (intCount == 0)
@@ -117,11 +109,6 @@ public class AnimationPanel extends JPanel
 				else if (intCount == 4)
 				{
 					tileImage[intCount] = ImageIO.read(new File("WoolTile.png"));
-				}
-				// Desert Tile = 5
-				else if (intCount == 5)
-				{
-					tileImage[intCount] = ImageIO.read(new File("DesertTile.png"));
 				}
 			}
 		}
