@@ -241,9 +241,13 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 		thepanel.add(buttonIP);
 		buttonIP.setVisible(false);
 		
+		
 		buttonPort = new JButton("Enter");
+		
 		buttonPort.setFont(thepanel.f24);
-		buttonPort.setInvisible(false);
+		buttonPort.setContentAreaFilled(false);
+		buttonPort.setBorderPainted(false);
+		
 		buttonPort.setSize(200,100);
 		buttonPort.setLocation(1000,600);
 		buttonPort.addActionListener(this);
