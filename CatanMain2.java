@@ -14,7 +14,6 @@ public class CatanMain2 implements ActionListener, MouseMotionListener, KeyListe
 	JTextField textIP;
 	JTextField textPort;
 	
-	
 	//For Menu
 	int intMenu = 0;
 	// 0 = home
@@ -68,8 +67,8 @@ public class CatanMain2 implements ActionListener, MouseMotionListener, KeyListe
 
 			buttonServer.setVisible(false);
 			buttonClient.setVisible(false);
-
-			intMenu = 98;
+			
+			//~ intMenu = 98;
 			}else if(intMenu == 97){
 			
 			isClient = true;
@@ -86,7 +85,7 @@ public class CatanMain2 implements ActionListener, MouseMotionListener, KeyListe
 			LabelIP.setVisible(true);
 			buttonIP.setVisible(true);
 			textIP.setVisible(true);
-			intMenu = 98;
+			//~ intMenu = 98;
 		
 		}else if(intMenu == 3){
 			
@@ -99,7 +98,7 @@ public class CatanMain2 implements ActionListener, MouseMotionListener, KeyListe
 			if (evt.getSource() == buttonUser){
 				strUsername = textUser.getText();
 				System.out.println("Username: " + strUsername);
-				intMenu = 2;
+				intMenu = 97;
 				buttonUser.setVisible(false);
 				textUser.setVisible(false);
 				}
