@@ -65,9 +65,13 @@ public class CatanMain2 implements ActionListener, MouseMotionListener, KeyListe
 			//~ System.out.println("Main Menu");
 		}else if(intMenu == 2){
 			
-			buttonServer.setVisible(true);
-			buttonClient.setVisible(true);
-			thepanel.blnMainMenu = false;
+			isClient = true;
+			buttonServer.setVisible(false);
+			buttonClient.setVisible(false);
+			LabelIP.setVisible(true);
+			buttonIP.setVisible(true);
+			textIP.setVisible(true);
+
 		}else if(intMenu == 3){
 			
 		textPort.setVisible(true);
@@ -79,9 +83,22 @@ public class CatanMain2 implements ActionListener, MouseMotionListener, KeyListe
 			if (evt.getSource() == buttonUser){
 				strUsername = textUser.getText();
 				System.out.println("Username: " + strUsername);
-				
+				intMenu = 2;
+				buttonUser.setVisible(false);
+				textUser.setVisible(false);
 				}
-			
+		}else if(intMenu == 98){
+			strIP = textIP.getText();
+			buttonIP.setVisible(false);
+			textIP.setVisible(false);
+			LabelIP.setVisible(false);
+			if (isClient){//check if user is a host or a client
+				ssm = new SuperSocketMaster(strIP, intPort, this);
+				ssm.connect();
+				System.out.println("Run game here!!!!");
+				//~ LabelIP.setVisible(false);
+				
+			}
 		}
 		
 		if (evt.getSource() == thetimer)
@@ -108,20 +125,11 @@ public class CatanMain2 implements ActionListener, MouseMotionListener, KeyListe
 		
 		if (evt.getSource() == buttonIP)
 		{
-			System.out.println("ENTER USERNAME");
-			strPlayer1 = textIP.getText();
+			//~ System.out.println("ENTER USERNAME");
+			//~ strPlayer1 = textIP.getText();
 
-			strIP = textIP.getText();
-			buttonIP.setVisible(false);
-			textIP.setVisible(false);
-			
-			if (isClient){//check if user is a host or a client
-				
-				ssm = new SuperSocketMaster(strIP, intPort, this);
-				ssm.connect();
-				
-			}
-			thepanel.blnMainMenu = true;
+			intMenu = 98;
+			//~ thepanel.blnMainMenu = true;
 		
 		}else if (evt.getSource() == buttonPort)
 		{
@@ -148,15 +156,16 @@ public class CatanMain2 implements ActionListener, MouseMotionListener, KeyListe
 			buttonIP.setVisible(true);
 			textIP.setVisible(true);
 			
-		}else if (evt.getSource() == buttonClient)
-		{	
-			isClient = true;
-			buttonServer.setVisible(false);
-			buttonClient.setVisible(false);
-			LabelIP.setVisible(true);
-			buttonIP.setVisible(true);
-			textIP.setVisible(true);
 		}
+		//~ else if (evt.getSource() == buttonClient)
+		//~ {	
+			//~ isClient = true;
+			//~ buttonServer.setVisible(false);
+			//~ buttonClient.setVisible(false);
+			//~ LabelIP.setVisible(true);
+			//~ buttonIP.setVisible(true);
+			//~ textIP.setVisible(true);
+		//~ }
 	}
 
 	public void mouseMoved (MouseEvent evt)
