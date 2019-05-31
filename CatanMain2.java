@@ -216,7 +216,6 @@ public class CatanMain2 implements ActionListener, MouseMotionListener, KeyListe
 			System.exit(0);
 		}
 		
-	
 	}
 	public void mousePressed (MouseEvent evt)
 	{
