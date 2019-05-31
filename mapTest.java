@@ -4,8 +4,6 @@ import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.swing.JFrame;
 import javax.swing.Timer;
 
@@ -16,7 +14,6 @@ public class mapTest implements ActionListener
 	public AnimationPanel panel = new AnimationPanel();
 	public Timer timer = new Timer(1000 / 200, this);
 	public String[][] strMap = new String[5][9];
-	private int intCount;
 
 	public void actionPerformed (ActionEvent evt)
 	{
