@@ -70,7 +70,7 @@ public class CatanMain2 implements ActionListener, MouseMotionListener, KeyListe
 			
 			//~ intMenu = 98;
 			}else if(intMenu == 97){
-			
+			// asks for IP
 			isClient = true;
 			buttonServer.setVisible(false);
 			buttonClient.setVisible(false);
@@ -101,6 +101,7 @@ public class CatanMain2 implements ActionListener, MouseMotionListener, KeyListe
 				intMenu = 97;
 				buttonUser.setVisible(false);
 				textUser.setVisible(false);
+				//gets the username!!!
 				}
 		}else if(intMenu == 98){
 			strIP = textIP.getText();
@@ -112,7 +113,7 @@ public class CatanMain2 implements ActionListener, MouseMotionListener, KeyListe
 				ssm.connect();
 				//~ System.out.println("Run game here!!!!");
 				//~ LabelIP.setVisible(false);
-				
+				// game starts here!!!!
 			}
 		}
 		
@@ -183,7 +184,6 @@ public class CatanMain2 implements ActionListener, MouseMotionListener, KeyListe
 			intMenu = 2;
 		}
 	}
-
 	public void mouseMoved (MouseEvent evt)
 	{
 		if (evt.getX() >= 900 && evt.getX() <= 1000 && evt.getY() >= 300 && evt.getY() <= 350)
@@ -284,8 +284,7 @@ public class CatanMain2 implements ActionListener, MouseMotionListener, KeyListe
 		buttonUser.addActionListener(this);
 		thepanel.add(buttonUser);
 		buttonUser.setVisible(false);
-		buttonUser.setVisible(false);
-		buttonUser.setFocusPainted(false);
+		//~ buttonUser.setFocusPainted(false);
 		buttonUser.setContentAreaFilled(false);
 		buttonUser.setBorderPainted(false);
 		
