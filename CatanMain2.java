@@ -65,6 +65,13 @@ public class CatanMain2 implements ActionListener, MouseMotionListener, KeyListe
 			//~ System.out.println("Main Menu");
 		}else if(intMenu == 2){
 			
+
+			buttonServer.setVisible(false);
+			buttonClient.setVisible(false);
+
+			intMenu = 98;
+			}else if(intMenu == 97){
+			
 			isClient = true;
 			buttonServer.setVisible(false);
 			buttonClient.setVisible(false);
@@ -72,6 +79,15 @@ public class CatanMain2 implements ActionListener, MouseMotionListener, KeyListe
 			buttonIP.setVisible(true);
 			textIP.setVisible(true);
 
+		}else if(intMenu == 96){
+			
+			buttonServer.setVisible(false);
+			buttonClient.setVisible(false);
+			LabelIP.setVisible(true);
+			buttonIP.setVisible(true);
+			textIP.setVisible(true);
+			intMenu = 98;
+		
 		}else if(intMenu == 3){
 			
 		textPort.setVisible(true);
@@ -95,7 +111,7 @@ public class CatanMain2 implements ActionListener, MouseMotionListener, KeyListe
 			if (isClient){//check if user is a host or a client
 				ssm = new SuperSocketMaster(strIP, intPort, this);
 				ssm.connect();
-				System.out.println("Run game here!!!!");
+				//~ System.out.println("Run game here!!!!");
 				//~ LabelIP.setVisible(false);
 				
 			}
@@ -157,15 +173,16 @@ public class CatanMain2 implements ActionListener, MouseMotionListener, KeyListe
 			textIP.setVisible(true);
 			
 		}
-		//~ else if (evt.getSource() == buttonClient)
-		//~ {	
-			//~ isClient = true;
-			//~ buttonServer.setVisible(false);
-			//~ buttonClient.setVisible(false);
+		else if (evt.getSource() == buttonClient)
+		{	
+			isClient = true;
+			buttonServer.setVisible(false);
+			buttonClient.setVisible(false);
 			//~ LabelIP.setVisible(true);
 			//~ buttonIP.setVisible(true);
 			//~ textIP.setVisible(true);
-		//~ }
+			intMenu = 2;
+		}
 	}
 
 	public void mouseMoved (MouseEvent evt)
