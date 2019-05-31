@@ -10,7 +10,9 @@ public class ReplacementPanel extends JPanel
 
 	BufferedImage background = null;
 	File file = null;
-	Font f = null;
+	Font f48 = null;
+	Font f24 = null;
+	int intRedText = 0;
 	boolean blnMainMenu = true;
 	boolean blnPlay = false;
 	boolean blnSettings = false;
@@ -20,17 +22,17 @@ public class ReplacementPanel extends JPanel
 	{
 		g.drawImage(background,0,0,null);
 		
-		g.setFont(f);
+		g.setFont(f48);
 		
 		if (blnMainMenu){
-			if (blnPlay){
+			if (intRedText == 1){
 				g.setColor(Color.RED);
 				g.drawString("Play",900,350);
 				g.setColor(Color.BLACK);
 				g.drawString("Settings",900,430);
 				g.drawString("Help",900,510);
 				g.drawString("Quit",900,590);
-			}else if (blnSettings)
+			}else if (intRedText == 2)
 			{
 				g.setColor(Color.BLACK);
 				g.drawString("Play",900,350);
@@ -41,7 +43,7 @@ public class ReplacementPanel extends JPanel
 				g.drawString("Help",900,510);
 				g.drawString("Quit",900,590);
 
-			}else if (blnHelp)
+			}else if (intRedText == 3)
 			{	
 				g.setColor(Color.BLACK);
 				g.drawString("Play",900,350);
@@ -51,7 +53,7 @@ public class ReplacementPanel extends JPanel
 				g.setColor(Color.BLACK);			
 				g.drawString("Quit",900,590);
 				
-			}else if (blnQuit)
+			}else if (intRedText == 4)
 			{
 				g.setColor(Color.BLACK);
 				g.drawString("Play",900,350);
@@ -68,6 +70,14 @@ public class ReplacementPanel extends JPanel
 				g.drawString("Quit",900,590);
 			
 			}
+		}else if (blnHelp)
+		{
+			
+		}else if (blnSettings)
+		{
+			g.drawString("Port Number:",525,345);
+			g.setFont(f24);
+			g.drawString("Port must be 4 digits.",540,500);
 		}
 
 	}
@@ -78,7 +88,8 @@ public class ReplacementPanel extends JPanel
 		try
 		{
 			background = ImageIO.read(new File("catanmenu.jpg"));
-			f = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("ipixelu.ttf"))).deriveFont(Font.PLAIN,48);
+			f48 = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("ipixelu.ttf"))).deriveFont(Font.PLAIN,48);
+			f24 = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("ipixelu.ttf"))).deriveFont(Font.PLAIN,24);
 		}catch(IOException e)
 		{
 		}catch(FontFormatException e)

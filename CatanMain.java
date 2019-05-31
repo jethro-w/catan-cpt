@@ -49,7 +49,7 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 	int intMouseY;
 	//~ JTextField textIP;
 	JLabel LabelUser;
-	JLabel LabelIP;
+	JLabel labelIP;
 	// Methods
 	public void actionPerformed (ActionEvent evt)
 	{
@@ -77,16 +77,15 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 		
 		if (evt.getSource() == buttonIP)
 		{
-			System.out.println("ENTER USERNAME");
-			strPlayer1 = textIP.getText();
+			//System.out.println("ENTER USERNAME");
+			//strPlayer1 = textIP.getText();
 
 			strIP = textIP.getText();
 			buttonIP.setVisible(false);
 			textIP.setVisible(false);
+			labelIP.setVisible(false);
 			
 			if (isClient){//check if user is a host or a client
-				
-				
 				
 				ssm = new SuperSocketMaster(strIP, intPort, this);
 				ssm.connect();
@@ -96,16 +95,27 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 		
 		}else if (evt.getSource() == buttonPort)
 		{
-		
 			try{
+				System.out.println("Grabbing and saving port.");
 				textPort.getText();
 				strPort = textPort.getText();
 				intPort = Integer.parseInt(strPort);
 				
+				if (strPort.length() == 4)
+				{
+					System.out.println("Saved Port");					
+					thepanel.blnMainMenu = true;
+					thepanel.blnSettings = false;
+					buttonPort.setVisible(false);
+					textPort.setVisible(false);
+				}else{
+					System.out.println("Port must have 4 digits");
+				}
+				
 			}catch(NumberFormatException e){
-				System.out.println("Invalid port");
+				System.out.println("Port invalid.");
 			}
-		
+			
 		}else if(evt.getSource() == buttonServer)
 		{
 			buttonServer.setVisible(false);
@@ -115,16 +125,14 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 			System.out.println(ssm.getMyAddress());
 			strIP = ssm.getMyAddress();
 			ssm.connect();
-			
-			buttonIP.setVisible(true);
-			textIP.setVisible(true);
+			//from here i guess the game would start since the server is up.
 			
 		}else if (evt.getSource() == buttonClient)
 		{	
 			isClient = true;
 			buttonServer.setVisible(false);
 			buttonClient.setVisible(false);
-			LabelIP.setVisible(true);
+			labelIP.setVisible(true);
 			buttonIP.setVisible(true);
 			textIP.setVisible(true);
 		}
@@ -135,22 +143,24 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 
 		if (evt.getX() >= 900 && evt.getX() <= 1000 && evt.getY() >= 300 && evt.getY() <= 350)
 		{
-			thepanel.blnPlay = true;
+			thepanel.intRedText = 1;
+			
 		}else if (evt.getX() >= 900 && evt.getX() <= 1075 && evt.getY() >= 400 && evt.getY() <= 450)
 		{
-			thepanel.blnSettings = true;
+			thepanel.intRedText = 2;
+			
 		}else if (evt.getX() >= 900 && evt.getX() <= 1000 && evt.getY() >= 475 && evt.getY() <= 525)
 		{
-			thepanel.blnHelp = true;
+			thepanel.intRedText = 3;
+			
 		}else if (evt.getX() >= 900 && evt.getX() <= 1000 && evt.getY() >= 550 && evt.getY() <= 600)
 		{
-			thepanel.blnQuit = true;
+			thepanel.intRedText = 4;
+			
+			
 		}else
 		{
-			thepanel.blnPlay = false;
-			thepanel.blnSettings = false;
-			thepanel.blnHelp = false;
-			thepanel.blnQuit = false;
+			thepanel.intRedText = 0;
 		}
 
 		intMouseX = evt.getX();
@@ -165,25 +175,30 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 		System.out.println("Clicked");
 		if(evt.getX() >= 900 && evt.getX() <= 1000 && evt.getY() >= 300 && evt.getY() <=350)
 		{
-			System.out.println("Play");
-			
+			System.out.println("Play Option");
+			thepanel.blnMainMenu = false;
 			//opens server or client option. port will be in settings
 			buttonServer.setVisible(true);
 			buttonClient.setVisible(true);
-			thepanel.blnMainMenu = false;
-
+			
+			
 		}else if (evt.getX() >= 900 && evt.getX() <= 1075 && evt.getY() >= 400 && evt.getY() <= 450)
 		{
 			//place settings
+			System.out.println("Settings Option");
 			textPort.setVisible(true);
-			
+			buttonPort.setVisible(true);
+			thepanel.blnMainMenu = false;
+			thepanel.blnSettings = true;
 			
 		}else if (evt.getX() >= 900 && evt.getX() <= 1000 && evt.getY() >= 475 && evt.getY() <= 525)
 		{
 			//place help menu screens here.
+			System.out.println("Help Option");
 			
 		}else if (evt.getX() >= 900 && evt.getX() <= 1000 && evt.getY() >= 550 && evt.getY() <= 600)
 		{
+			System.out.println("Exit Option");
 			System.exit(0);
 		}
 		
@@ -219,13 +234,21 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 		thepanel.addMouseMotionListener(this);
 		
 		buttonIP = new JButton("Enter");
+		buttonIP.setFont(thepanel.f24);
 		buttonIP.setSize(200, 100);
 		buttonIP.setLocation(1000, 600);
 		buttonIP.addActionListener(this);
 		thepanel.add(buttonIP);
 		buttonIP.setVisible(false);
 		
+		
 		buttonPort = new JButton("Enter");
+		buttonPort.setFont(thepanel.f24);
+		
+		//this is for making the jbutton invisible but functioning
+		//buttonPort.setContentAreaFilled(false);
+		//buttonPort.setBorderPainted(false);
+		
 		buttonPort.setSize(200,100);
 		buttonPort.setLocation(1000,600);
 		buttonPort.addActionListener(this);
@@ -234,13 +257,13 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 
 		textIP = new JTextField("");
 		textIP.setSize(250, 40);
-		textIP.setLocation(540, 310);
+		textIP.setLocation(540, 400);
 		textIP.setVisible(false);
 		thepanel.add(textIP);
 		
 		textPort = new JTextField("");
 		textPort.setSize(250,40);
-		textPort.setLocation(540,310);
+		textPort.setLocation(540,360);
 		textPort.setVisible(false);
 		thepanel.add(textPort);
 
@@ -264,11 +287,12 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 		//~ LabelUser.setLocation(600,500);
 		//~ thepanel.add(LabelUser);
 		
-		LabelIP = new JLabel("Enter the Server's IP: ");
-		LabelIP.setSize(200, 120);
-		LabelIP.setLocation(600,500);
-		LabelIP.setVisible(false);
-		thepanel.add(LabelIP);
+		labelIP = new JLabel("Enter the Server's IP:");
+		labelIP.setFont(thepanel.f24);
+		labelIP.setSize(300, 120);
+		labelIP.setLocation(540,310);
+		labelIP.setVisible(false);
+		thepanel.add(labelIP);
 		//~ textIP = new JTextField("");
 		//~ textIP.setSize(400,50);
 		//~ textIP.setLocation(0,310);

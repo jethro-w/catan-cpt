@@ -14,7 +14,6 @@ public class CatanMain2 implements ActionListener, MouseMotionListener, KeyListe
 	JTextField textIP;
 	JTextField textPort;
 	
-	
 	//For Menu
 	int intMenu = 0;
 	// 0 = home
@@ -65,9 +64,29 @@ public class CatanMain2 implements ActionListener, MouseMotionListener, KeyListe
 			//~ System.out.println("Main Menu");
 		}else if(intMenu == 2){
 			
-			buttonServer.setVisible(true);
-			buttonClient.setVisible(true);
-			thepanel.blnMainMenu = false;
+
+			buttonServer.setVisible(false);
+			buttonClient.setVisible(false);
+			
+			//~ intMenu = 98;
+			}else if(intMenu == 97){
+			// asks for IP
+			isClient = true;
+			buttonServer.setVisible(false);
+			buttonClient.setVisible(false);
+			LabelIP.setVisible(true);
+			buttonIP.setVisible(true);
+			textIP.setVisible(true);
+
+		}else if(intMenu == 96){
+			
+			buttonServer.setVisible(false);
+			buttonClient.setVisible(false);
+			LabelIP.setVisible(true);
+			buttonIP.setVisible(true);
+			textIP.setVisible(true);
+			//~ intMenu = 98;
+		
 		}else if(intMenu == 3){
 			
 		textPort.setVisible(true);
@@ -79,9 +98,23 @@ public class CatanMain2 implements ActionListener, MouseMotionListener, KeyListe
 			if (evt.getSource() == buttonUser){
 				strUsername = textUser.getText();
 				System.out.println("Username: " + strUsername);
-				
+				intMenu = 97;
+				buttonUser.setVisible(false);
+				textUser.setVisible(false);
+				//gets the username!!!
 				}
-			
+		}else if(intMenu == 98){
+			strIP = textIP.getText();
+			buttonIP.setVisible(false);
+			textIP.setVisible(false);
+			LabelIP.setVisible(false);
+			if (isClient){//check if user is a host or a client
+				ssm = new SuperSocketMaster(strIP, intPort, this);
+				ssm.connect();
+				//~ System.out.println("Run game here!!!!");
+				//~ LabelIP.setVisible(false);
+				// game starts here!!!!
+			}
 		}
 		
 		if (evt.getSource() == thetimer)
@@ -108,20 +141,11 @@ public class CatanMain2 implements ActionListener, MouseMotionListener, KeyListe
 		
 		if (evt.getSource() == buttonIP)
 		{
-			System.out.println("ENTER USERNAME");
-			strPlayer1 = textIP.getText();
+			//~ System.out.println("ENTER USERNAME");
+			//~ strPlayer1 = textIP.getText();
 
-			strIP = textIP.getText();
-			buttonIP.setVisible(false);
-			textIP.setVisible(false);
-			
-			if (isClient){//check if user is a host or a client
-				
-				ssm = new SuperSocketMaster(strIP, intPort, this);
-				ssm.connect();
-				
-			}
-			thepanel.blnMainMenu = true;
+			intMenu = 98;
+			//~ thepanel.blnMainMenu = true;
 		
 		}else if (evt.getSource() == buttonPort)
 		{
@@ -148,17 +172,18 @@ public class CatanMain2 implements ActionListener, MouseMotionListener, KeyListe
 			buttonIP.setVisible(true);
 			textIP.setVisible(true);
 			
-		}else if (evt.getSource() == buttonClient)
+		}
+		else if (evt.getSource() == buttonClient)
 		{	
 			isClient = true;
 			buttonServer.setVisible(false);
 			buttonClient.setVisible(false);
-			LabelIP.setVisible(true);
-			buttonIP.setVisible(true);
-			textIP.setVisible(true);
+			//~ LabelIP.setVisible(true);
+			//~ buttonIP.setVisible(true);
+			//~ textIP.setVisible(true);
+			intMenu = 2;
 		}
 	}
-
 	public void mouseMoved (MouseEvent evt)
 	{
 		if (evt.getX() >= 900 && evt.getX() <= 1000 && evt.getY() >= 300 && evt.getY() <= 350)
@@ -259,8 +284,8 @@ public class CatanMain2 implements ActionListener, MouseMotionListener, KeyListe
 		buttonUser.addActionListener(this);
 		thepanel.add(buttonUser);
 		buttonUser.setVisible(false);
-		buttonUser.setVisible(false);
-		buttonUser.setFocusPainted(false);
+		buttonUser.setFont(new Font("ipixelu", Font.PLAIN, 40));
+		//~ buttonUser.setFocusPainted(false);
 		buttonUser.setContentAreaFilled(false);
 		buttonUser.setBorderPainted(false);
 		
