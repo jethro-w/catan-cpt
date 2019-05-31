@@ -260,6 +260,10 @@ public class CatanMain2 implements ActionListener, MouseMotionListener, KeyListe
 		buttonUser.addActionListener(this);
 		thepanel.add(buttonUser);
 		buttonUser.setVisible(false);
+		buttonUser.setVisible(false);
+		buttonUser.setFocusPainted(false);
+		buttonUser.setContentAreaFilled(false);
+		buttonUser.setBorderPainted(false);
 		
 		textUser = new JTextField("");
 		textUser.setSize(250, 40);
