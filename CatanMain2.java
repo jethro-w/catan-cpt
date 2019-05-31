@@ -284,7 +284,7 @@ public class CatanMain2 implements ActionListener, MouseMotionListener, KeyListe
 		buttonUser.addActionListener(this);
 		thepanel.add(buttonUser);
 		buttonUser.setVisible(false);
-		buttonUser.setFont(new Font("Arial", Font.PLAIN, 40));
+		buttonUser.setFont(new Font("ipixelu", Font.PLAIN, 40));
 		//~ buttonUser.setFocusPainted(false);
 		buttonUser.setContentAreaFilled(false);
 		buttonUser.setBorderPainted(false);
