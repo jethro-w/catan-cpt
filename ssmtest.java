@@ -30,10 +30,11 @@ public class ssmtest implements ActionListener{
 	public void actionPerformed(ActionEvent evt){
 		if(evt.getSource() == thefield2){
 			strUser = thefield2.getText();
-			ssm.sendText(strUser+","+ "!Player");
-			thearea.append(strUser+","+ "!Player"+"\n");
+			ssm.sendText("!Player"+","+strUser);
+			ssm.sendText("!Player");
+			thearea.append(strUser+": ,"+ "!Player" +"\n");
 			thefield2.setVisible(false);
-		
+			System.out.println("test");
 		}else if(evt.getSource() == buttonServer){
 			buttonServer.setVisible(false);
 			buttonClient.setVisible(false);
@@ -48,17 +49,18 @@ public class ssmtest implements ActionListener{
 		}
 	if(evt.getSource() == thebutton){
 		ssm.sendText(thefield.getText());
-		strText= thefield.getText();
-		thearea.append(strUser+  " "+strText+"\n");
-	}else if(evt.getSource() == ssm){
-				//~ thearea.append(ssm.readText() + "\n");
-			 strNetText = ssm.readText();
-			 strWords = strNetText.split(",");
-			 System.out.println(strWords);
-			 if(strWords.equals ("!Player")){
-				intPlayers = intPlayers +1;	 
-				System.out.println(intPlayers);
-			 }
+		strText = thefield.getText();
+		thearea.append(strUser+  " :"+strText+"\n");
+		
+	}
+	 if(evt.getSource() == ssm){
+		System.out.println("message");
+			 //~ strNetText = ssm.readText();
+			 //~ strWords = strNetText.split(",");
+			 //~ if(strWords[0].equals ("!Player")){
+				//~ intPlayers = intPlayers +1;	 
+				//~ System.out.println(intPlayers);
+			 //~ }
 			}
 		}
 	
@@ -113,6 +115,8 @@ public class ssmtest implements ActionListener{
 		theframe.pack();
 		theframe.setResizable(false);
 		theframe.setVisible(true);
+		ssm = new SuperSocketMaster(3000, this);
+			ssm.connect();
 
 	}
 	
