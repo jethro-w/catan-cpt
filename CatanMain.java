@@ -86,8 +86,6 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 			
 			if (isClient){//check if user is a host or a client
 				
-				
-				
 				ssm = new SuperSocketMaster(strIP, intPort, this);
 				ssm.connect();
 				
@@ -96,16 +94,27 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 		
 		}else if (evt.getSource() == buttonPort)
 		{
-		
 			try{
+				System.out.println("Grabbing and saving port.");
 				textPort.getText();
 				strPort = textPort.getText();
 				intPort = Integer.parseInt(strPort);
 				
+				if (strPort.length() == 4)
+				{
+					System.out.println("Saved Port");					
+					thepanel.blnMainMenu = true;
+					thepanel.blnSettings = false;
+					buttonPort.setVisible(false);
+					textPort.setVisible(false);
+				}else{
+					System.out.println("Port must have 4 digits");
+				}
+				
 			}catch(NumberFormatException e){
-				System.out.println("Invalid port");
+				System.out.println("Port invalid.");
 			}
-		
+			
 		}else if(evt.getSource() == buttonServer)
 		{
 			buttonServer.setVisible(false);
@@ -135,22 +144,24 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 
 		if (evt.getX() >= 900 && evt.getX() <= 1000 && evt.getY() >= 300 && evt.getY() <= 350)
 		{
-			thepanel.blnPlay = true;
+			thepanel.intRedText = 1;
+			
 		}else if (evt.getX() >= 900 && evt.getX() <= 1075 && evt.getY() >= 400 && evt.getY() <= 450)
 		{
-			thepanel.blnSettings = true;
+			thepanel.intRedText = 2;
+			
 		}else if (evt.getX() >= 900 && evt.getX() <= 1000 && evt.getY() >= 475 && evt.getY() <= 525)
 		{
-			thepanel.blnHelp = true;
+			thepanel.intRedText = 3;
+			
 		}else if (evt.getX() >= 900 && evt.getX() <= 1000 && evt.getY() >= 550 && evt.getY() <= 600)
 		{
-			thepanel.blnQuit = true;
+			thepanel.intRedText = 4;
+			
+			
 		}else
 		{
-			thepanel.blnPlay = false;
-			thepanel.blnSettings = false;
-			thepanel.blnHelp = false;
-			thepanel.blnQuit = false;
+			thepanel.intRedText = 0;
 		}
 
 		intMouseX = evt.getX();
@@ -165,25 +176,30 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 		System.out.println("Clicked");
 		if(evt.getX() >= 900 && evt.getX() <= 1000 && evt.getY() >= 300 && evt.getY() <=350)
 		{
-			System.out.println("Play");
+			System.out.println("Play Option");
 			
 			//opens server or client option. port will be in settings
 			buttonServer.setVisible(true);
 			buttonClient.setVisible(true);
-			thepanel.blnMainMenu = false;
-
+			
+			
 		}else if (evt.getX() >= 900 && evt.getX() <= 1075 && evt.getY() >= 400 && evt.getY() <= 450)
 		{
 			//place settings
+			System.out.println("Settings Option");
 			textPort.setVisible(true);
-			
+			buttonPort.setVisible(true);
+			thepanel.blnMainMenu = false;
+			thepanel.blnSettings = true;
 			
 		}else if (evt.getX() >= 900 && evt.getX() <= 1000 && evt.getY() >= 475 && evt.getY() <= 525)
 		{
 			//place help menu screens here.
+			System.out.println("Help Option");
 			
 		}else if (evt.getX() >= 900 && evt.getX() <= 1000 && evt.getY() >= 550 && evt.getY() <= 600)
 		{
+			System.out.println("Exit Option");
 			System.exit(0);
 		}
 		
@@ -225,7 +241,13 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 		thepanel.add(buttonIP);
 		buttonIP.setVisible(false);
 		
+		
 		buttonPort = new JButton("Enter");
+		
+		buttonPort.setFont(thepanel.f24);
+		buttonPort.setContentAreaFilled(false);
+		buttonPort.setBorderPainted(false);
+		
 		buttonPort.setSize(200,100);
 		buttonPort.setLocation(1000,600);
 		buttonPort.addActionListener(this);
@@ -240,7 +262,7 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 		
 		textPort = new JTextField("");
 		textPort.setSize(250,40);
-		textPort.setLocation(540,310);
+		textPort.setLocation(540,360);
 		textPort.setVisible(false);
 		thepanel.add(textPort);
 
