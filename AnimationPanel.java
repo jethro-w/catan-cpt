@@ -30,15 +30,15 @@ public class AnimationPanel extends JPanel
 		{
 			if (intRow == 0 || intRow == 4)
 			{
-				intTileX = 250;
+				intTileX = 200;
 			}
 			else if (intRow == 1 || intRow == 3)
 			{
-				intTileX = 200;
+				intTileX = 150;
 			}
 			else if (intRow == 2)
 			{
-				intTileX = 150;
+				intTileX = 100;
 			}
 			
 			for (intColumn = 0; intColumn < 9; intColumn++)
