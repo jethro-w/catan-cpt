@@ -4,18 +4,19 @@ import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.swing.JFrame;
 import javax.swing.Timer;
 
-// Purely for the settlements (ie. the intersections)
-public class mapTest implements ActionListener
+// Game phase code
+public class GameCode implements ActionListener
 {
 	public JFrame frame = new JFrame();
 	public AnimationPanel panel = new AnimationPanel();
 	public Timer timer = new Timer(1000 / 200, this);
 	public String[][] strMap = new String[5][9];
+	public int[] intTileNums = new int[18];
+	public int intStartTile;
+	
 	private int intCount;
 
 	public void actionPerformed (ActionEvent evt)
@@ -56,8 +57,36 @@ public class mapTest implements ActionListener
 
 		return strMap;
 	}
+	
+	private static int[] loadTileNumbers ()
+	{
+		int[] intTileNums = new int[18];
+		
+		// TileNumber,Rarity
+		
+		intTileNums[0] = 5;
+		intTileNums[1] = 2;
+		intTileNums[2] = 6;
+		intTileNums[3] = 3;
+		intTileNums[4] = 8;
+		intTileNums[5] = 10;
+		intTileNums[6] = 9;
+		intTileNums[7] = 12;
+		intTileNums[8] = 11;
+		intTileNums[9] = 4;
+		intTileNums[10] = 8;
+		intTileNums[11] = 10;
+		intTileNums[12] = 9;
+		intTileNums[13] = 4;
+		intTileNums[14] = 5;
+		intTileNums[15] = 6;
+		intTileNums[16] = 3;
+		intTileNums[17] = 11;
+		
+		return intTileNums;
+	}
 
-	public mapTest()
+	public GameCode()
 	{
 		panel = new AnimationPanel();
 		panel.setLayout(null);
@@ -75,7 +104,7 @@ public class mapTest implements ActionListener
 
 		try
 		{
-			strMap = mapTest.loadMap();
+			strMap = GameCode.loadMap();
 		}
 		catch (IOException e)
 		{
@@ -97,8 +126,7 @@ public class mapTest implements ActionListener
 		boolean hasMaxWood = false;
 		boolean hasMaxWool = false;
 		boolean hasDesert = false;
-		boolean printedTile = false;
-
+		
 		// Copy array to AnimationPanel
 		for (intRow = 0; intRow < 5; intRow++)
 		{
@@ -106,119 +134,69 @@ public class mapTest implements ActionListener
 			{
 				if (strMap[intRow][intColumn].equals("_"))
 				{
-					while (printedTile == false)
+					// Generate random tile
+					intRand = (int)(Math.random() * 6);
+					
+					while ((intRand == 0 && hasMaxOre == true) || (intRand == 1 && hasMaxBrick == true)
+							|| (intRand == 2 && hasMaxWheat == true) || (intRand == 3 && hasMaxWood == true)
+							|| (intRand == 4 && hasMaxWool == true) || (intRand == 5 && hasDesert == true))
 					{
 						intRand = (int) (Math.random() * 6);
 						System.out.println(intRand);
+					}
 
-						if (intRand == 0)
+					if (intRand == 0)
+					{
+						panel.strMap[intRow][intColumn] = "0";
+						intOre++;
+						if (intOre == 3)
 						{
-							if (hasMaxOre == true)
-							{
-								intRand = (int) (Math.random() * 6);
-							}
-							else
-							{
-								panel.strMap[intRow][intColumn] = "0";
-								intOre++;
-								printedTile = true;
-
-								// Capping ore tiles at 3 (same for other resource tiles)
-								if (intOre == 3)
-								{
-									hasMaxOre = true;
-								}
-							}
+							hasMaxOre = true;
 						}
-						if (intRand == 1)
+					}
+					if (intRand == 1)
+					{
+						panel.strMap[intRow][intColumn] = "1";
+						intBrick++;
+						if (intBrick == 3)
 						{
-							if (hasMaxBrick == true)
-							{
-								intRand = (int) (Math.random() * 6);
-							}
-							else
-							{
-								panel.strMap[intRow][intColumn] = "1";
-								intBrick++;
-								printedTile = true;
-
-								if (intBrick == 3)
-								{
-									hasMaxBrick = true;
-								}
-							}
+							hasMaxBrick = true;
 						}
-						if (intRand == 2)
+					}
+					if (intRand == 2)
+					{
+						panel.strMap[intRow][intColumn] = "2";
+						intWheat++;
+						if (intWheat == 4)
 						{
-							if (hasMaxWheat == true)
-							{
-								intRand = (int) (Math.random() * 6);
-							}
-							else
-							{
-								panel.strMap[intRow][intColumn] = "2";
-								intWheat++;
-								printedTile = true;
-
-								if (intWheat == 4)
-								{
-									hasMaxWheat = true;
-								}
-							}
+							hasMaxWheat = true;
 						}
-						if (intRand == 3)
+					}
+					if (intRand == 3)
+					{
+						panel.strMap[intRow][intColumn] = "3";
+						intWood++;
+						if (intWood == 4)
 						{
-							if (hasMaxWood == true)
-							{
-								intRand = (int) (Math.random() * 6);
-							}
-							else
-							{
-								panel.strMap[intRow][intColumn] = "3";
-								intWood++;
-								printedTile = true;
-
-								if (intWood == 4)
-								{
-									hasMaxWood = true;
-								}
-							}
+							hasMaxWood = true;
 						}
-						if (intRand == 4)
+					}
+					if (intRand == 4)
+					{
+						panel.strMap[intRow][intColumn] = "4";
+						intWool++;
+						if (intWool == 4)
 						{
-							if (hasMaxWool == true)
-							{
-								intRand = (int) (Math.random() * 6);
-							}
-							else
-							{
-								panel.strMap[intRow][intColumn] = "4";
-								intWool++;
-								printedTile = true;
-
-								if (intWool == 4)
-								{
-									hasMaxWool = true;
-								}
-							}
+							hasMaxWool = true;
 						}
-						if (intRand == 5)
+					}
+					if (intRand == 5)
+					{
+						panel.strMap[intRow][intColumn] = "5";
+						intDesert++;
+						if (intDesert == 1)
 						{
-							if (hasDesert == true)
-							{
-								intRand = (int) (Math.random() * 6);
-							}
-							else
-							{
-								panel.strMap[intRow][intColumn] = "5";
-								intDesert++;
-								printedTile = true;
-
-								if (intDesert == 1)
-								{
-									hasDesert = true;
-								}
-							}
+							hasDesert = true;
 						}
 					}
 				}
@@ -228,10 +206,33 @@ public class mapTest implements ActionListener
 				}
 			}
 		}
+		
+		// Decide where which tile starts
+		intTileNums = loadTileNumbers();
+		
+		intRand = (int) (Math.random() * 12);
+		
+		if (intRand == 0) 
+		{
+			intStartTile = 1;
+		}
+		else if ((intRand == 4) || (intRand == 5))
+		{
+			intStartTile = intRand + 3;
+		}
+		else if ((intRand == 6) || (intRand == 7))
+		{
+			intStartTile = intRand + 6;
+		}
+		else if ((intRand == 8) || (intRand == 9) || (intRand == 10) || (intRand == 11))
+		{
+			intStartTile = intRand + 8;
+		}
+
 	}
 
 	public static void main (String[] args) throws IOException
 	{
-		new mapTest();
+		new GameCode();
 	}
 }
