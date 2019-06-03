@@ -107,6 +107,8 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 					thepanel.blnSettings = false;
 					buttonPort.setVisible(false);
 					textPort.setVisible(false);
+					System.out.println("New port is now " + intPort);
+					
 				}else{
 					System.out.println("Port must have 4 digits");
 				}
@@ -120,13 +122,14 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 			buttonServer.setVisible(false);
 			buttonClient.setVisible(false);
 			
-			ssm = new SuperSocketMaster(3000, this);
+			ssm = new SuperSocketMaster(intPort, this);
 			System.out.println(ssm.getMyAddress());
 			strIP = ssm.getMyAddress();
 			ssm.connect();
 			
 			labelServerIP.setText("Server IP: " + strIP);
 			labelServerIP.setVisible(true);
+			
 			//from here i guess the game would start since the server is up.
 			
 		}else if (evt.getSource() == buttonClient)
@@ -351,7 +354,7 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 		theframe.setContentPane(thepanel);
 		theframe.pack();
 		theframe.setVisible(true);
-		thetimer = new Timer(1000 / 60, this);
+		thetimer = new Timer(1000 / 30, this);
 		thetimer.start();
 		theframe.setResizable(false);
 		
