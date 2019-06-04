@@ -11,8 +11,8 @@ public class AnimationPanel extends JPanel
 	// Properties
 	int intTileX;
 	int intTileY = 100;
-	String strMap[][] = new String [5][9];
-	BufferedImage[] tileImage = new BufferedImage [6];
+	String strMap[][] = new String[5][9];
+	BufferedImage[] tileImage = new BufferedImage[6];
 	BufferedImage menu = null;
 	BufferedImage settlement = null;
 	boolean printTile;
@@ -22,15 +22,16 @@ public class AnimationPanel extends JPanel
 	int intMouseX;
 	int intMouseY;
 	int intDrawX;
-	int intDrawY;
-	int intDeltaY = 30;
-	
+	int intDrawY = 80;
+	int intDeltaY = 56;
+	int intSettlementsRow = 1;
+
 	// Methods
 	// Override how this component paints itself
 	public void paintComponent (Graphics g)
 	{
 		super.paintComponent(g);
-		
+
 		// Print map
 		for (intRow = 0; intRow < 5; intRow++)
 		{
@@ -46,7 +47,7 @@ public class AnimationPanel extends JPanel
 			{
 				intTileX = 100;
 			}
-			
+
 			for (intColumn = 0; intColumn < 9; intColumn++)
 			{
 				if (strMap[intRow][intColumn].equals("0"))
@@ -87,36 +88,60 @@ public class AnimationPanel extends JPanel
 		}
 		intTileY = 100;
 		
-		for (intDrawX = 130; intDrawX <= 620; intDrawX = intDrawX + 50)
+		for (intSettlementsRow = 1; intSettlementsRow <= 12; intSettlementsRow++)
 		{
-			for (intDrawY = 80; intDrawY <= 700; intDrawY = intDrawY + intDeltaY)
+			if (intSettlementsRow == 1 || intSettlementsRow == 12)
 			{
-				if (((intMouseX >= intDrawX) && (intMouseX <= intDrawX + 40)) && ((intMouseY >= intDrawY) && (intMouseY <= intDrawY + 40)))
+				intDrawX = 230;
+			}
+			else if (intSettlementsRow == 2 || intSettlementsRow == 3 || intSettlementsRow == 10
+					|| intSettlementsRow == 11)
+			{
+				intDrawX = 180;
+			}
+			else if (intSettlementsRow == 4 || intSettlementsRow == 5 || intSettlementsRow == 8
+					|| intSettlementsRow == 9)
+			{
+				intDrawX = 130;
+			}
+			else if (intSettlementsRow == 6 || intSettlementsRow == 7)
+			{
+				intDrawX = 80;
+			}
+
+			for (intCount = 0; intDrawX <= 580; intDrawX = intDrawX + 100)
+			{
+				if (((intMouseX >= intDrawX) && (intMouseX <= intDrawX + 40))
+						&& ((intMouseY >= intDrawY) && (intMouseY <= intDrawY + 40)))
 				{
 					g.drawImage(settlement, intDrawX + 10, intDrawY + 10, null);
 				}
-				
-				if (intDeltaY == 30)
-				{
-					intDeltaY = 56;
-				}
-				else if (intDeltaY == 56)
-				{
-					intDeltaY = 30;
-				}
-				
-				System.out.println(intDeltaY);
+
+				g.setColor(Color.white);
+				g.drawRect(intDrawX + 10, intDrawY + 10, 20, 20);
 			}
+
+			if (intDeltaY == 30)
+			{
+				intDeltaY = 56;
+			}
+			else if (intDeltaY == 56)
+			{
+				intDeltaY = 30;
+			}
+
+			intDrawY = intDrawY + intDeltaY;
 		}
+		intDrawY = 80;
 	}
 
 	// Constructor
 	public AnimationPanel()
 	{
 		super();
-		
+
 		setBackground(Color.black);
-		
+
 		try
 		{
 			for (intCount = 0; intCount < 6; intCount++)
@@ -152,7 +177,7 @@ public class AnimationPanel extends JPanel
 					tileImage[intCount] = ImageIO.read(new File("DesertTile.png"));
 				}
 			}
-			
+
 			settlement = ImageIO.read(new File("settlement.png"));
 		}
 		catch (IOException e)
