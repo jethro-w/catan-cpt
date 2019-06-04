@@ -85,17 +85,13 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 			buttonIP.setVisible(false);
 			textIP.setVisible(false);
 			labelIP.setVisible(false);
-			
-			if (isClient){//check if user is a host or a client
+							
+			ssm = new SuperSocketMaster(strIP, intPort, this);
+			ssm.connect();
+			ssm.sendText("connected");
+			ssm.sendText(strUsername + " has connected");
 				
-				ssm = new SuperSocketMaster(strIP, intPort, this);
-				ssm.connect();
-				ssm.sendText("connected");
-				ssm.sendText(strUsername + " has connected");
-				
-				
-			}
-			thepanel.blnMainMenu = true;
+			buttonReady.setVisible(true);
 		
 		}else if (evt.getSource() == buttonPort)
 		{
@@ -114,11 +110,13 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 					textPort.setVisible(false);
 					System.out.println("New port is now " + intPort);
 					
-				}else{
+				}else
+				{
 					System.out.println("Port must have 4 digits");
 				}
 				
-			}catch(NumberFormatException e){
+			}catch(NumberFormatException e)
+			{
 				System.out.println("Port invalid.");
 			}
 			
@@ -171,6 +169,7 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 			}else if (buttonReady.getText().equals("Ready"))
 			{
 				buttonReady.setText("Not Ready");
+				ssm.sendText("notready");
 			}
 		
 		}else if (evt.getSource() == ssm)
@@ -179,14 +178,18 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 			strChat = ssm.readText();
 			if(strChat.equals("ready")){
 				
-				intReady = intReady +1;
+				intReady += 1;
 				if(intReady == intPlayers){
-					// connect
+					System.out.println("ALL MANS READY");//clients arent receiving this. so fix it
 				}
-			}else if(strChat.equals("connected")){
-				intPlayers = intPlayers +1;
-			
+			}else if (strChat.equals("notready"))
+			{
+				intReady -= 1;
 				
+			}else if(strChat.equals("connected"))
+			{
+				intPlayers += 1;
+			
 			}
 			
 		
@@ -342,7 +345,7 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 		buttonReady = new JButton("Not Ready");
 		buttonReady.setFont(thepanel.f24);
 		buttonReady.setSize(200,100);
-		buttonReady.setLocation(600,600);
+		buttonReady.setLocation(575,600);
 		buttonReady.addActionListener(this);
 		buttonReady.setVisible(false);
 		thepanel.add(buttonReady);
