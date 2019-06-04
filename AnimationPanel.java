@@ -14,10 +14,16 @@ public class AnimationPanel extends JPanel
 	String strMap[][] = new String [5][9];
 	BufferedImage[] tileImage = new BufferedImage [6];
 	BufferedImage menu = null;
+	BufferedImage settlement = null;
 	boolean printTile;
 	int intCount;
 	int intRow;
 	int intColumn;
+	int intMouseX;
+	int intMouseY;
+	int intDrawX;
+	int intDrawY;
+	int intDeltaY = 30;
 	
 	// Methods
 	// Override how this component paints itself
@@ -77,9 +83,31 @@ public class AnimationPanel extends JPanel
 				{
 				}
 			}
-			intTileY = intTileY + 87;
+			intTileY = intTileY + 86;
 		}
 		intTileY = 100;
+		
+		for (intDrawX = 130; intDrawX <= 620; intDrawX = intDrawX + 50)
+		{
+			for (intDrawY = 80; intDrawY <= 700; intDrawY = intDrawY + intDeltaY)
+			{
+				if (((intMouseX >= intDrawX) && (intMouseX <= intDrawX + 40)) && ((intMouseY >= intDrawY) && (intMouseY <= intDrawY + 40)))
+				{
+					g.drawImage(settlement, intDrawX + 10, intDrawY + 10, null);
+				}
+				
+				if (intDeltaY == 30)
+				{
+					intDeltaY = 56;
+				}
+				else if (intDeltaY == 56)
+				{
+					intDeltaY = 30;
+				}
+				
+				System.out.println(intDeltaY);
+			}
+		}
 	}
 
 	// Constructor
@@ -124,6 +152,8 @@ public class AnimationPanel extends JPanel
 					tileImage[intCount] = ImageIO.read(new File("DesertTile.png"));
 				}
 			}
+			
+			settlement = ImageIO.read(new File("settlement.png"));
 		}
 		catch (IOException e)
 		{

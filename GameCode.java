@@ -1,6 +1,8 @@
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -8,23 +10,51 @@ import javax.swing.JFrame;
 import javax.swing.Timer;
 
 // Game phase code
-public class GameCode implements ActionListener
+public class GameCode implements ActionListener, MouseListener
 {
+	// Properties
 	public JFrame frame = new JFrame();
 	public AnimationPanel panel = new AnimationPanel();
-	public Timer timer = new Timer(1000 / 200, this);
+	public Timer timer = new Timer(1000 / 10, this);
 	public String[][] strMap = new String[5][9];
 	public int[] intTileNums = new int[18];
 	public int intStartTile;
 	
 	private int intCount;
-
+	
+	// Methods
 	public void actionPerformed (ActionEvent evt)
 	{
 		if (evt.getSource() == timer)
 		{
 			panel.repaint();
 		}
+	}
+	
+	public void mouseClicked (MouseEvent evt)
+	{
+		panel.intMouseX = evt.getX();
+		panel.intMouseY = evt.getY();
+	}
+
+	public void mousePressed (MouseEvent evt)
+	{
+		
+	}
+
+	public void mouseReleased (MouseEvent evt)
+	{
+		
+	}
+
+	public void mouseEntered (MouseEvent evt)
+	{
+		
+	}
+
+	public void mouseExited (MouseEvent evt)
+	{
+		
 	}
 
 	public static String[][] loadMap () throws IOException
@@ -85,12 +115,14 @@ public class GameCode implements ActionListener
 		
 		return intTileNums;
 	}
-
+	
+	// Constructor
 	public GameCode()
 	{
 		panel = new AnimationPanel();
 		panel.setLayout(null);
 		panel.setPreferredSize(new Dimension(1280, 720));
+		panel.addMouseListener(this);
 
 		timer.addActionListener(this);
 		timer.start();
@@ -212,9 +244,9 @@ public class GameCode implements ActionListener
 		
 		intRand = (int) (Math.random() * 12);
 		
-		if (intRand == 0) 
+		if ((intRand == 0) || (intRand == 1) || (intRand == 2) || (intRand == 3)) 
 		{
-			intStartTile = 1;
+			intStartTile = intRand + 1;
 		}
 		else if ((intRand == 4) || (intRand == 5))
 		{
@@ -228,9 +260,9 @@ public class GameCode implements ActionListener
 		{
 			intStartTile = intRand + 8;
 		}
-
 	}
 
+	// Main method
 	public static void main (String[] args) throws IOException
 	{
 		new GameCode();
