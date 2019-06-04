@@ -34,6 +34,7 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 	JButton buttonIP;
 	JButton buttonPort;
 	JButton buttonClient;
+	JButton buttonReady;
 	JButton buttonServer;
 	
 	logic logic; //from logic class
@@ -42,7 +43,8 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 	JMenuBar thebar;
 	
 	SuperSocketMaster ssm;
-	
+	int intReady = 0;
+	int intPlayers = 0;
 	int intMouseX;
 	int intMouseY;
 	//~ JTextField textIP;
@@ -83,14 +85,13 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 			buttonIP.setVisible(false);
 			textIP.setVisible(false);
 			labelIP.setVisible(false);
-			
-			if (isClient){//check if user is a host or a client
+							
+			ssm = new SuperSocketMaster(strIP, intPort, this);
+			ssm.connect();
+			ssm.sendText("connected");
+			ssm.sendText(strUsername + " has connected");
 				
-				ssm = new SuperSocketMaster(strIP, intPort, this);
-				ssm.connect();
-				
-			}
-			thepanel.blnMainMenu = true;
+			buttonReady.setVisible(true);
 		
 		}else if (evt.getSource() == buttonPort)
 		{
@@ -107,11 +108,15 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 					thepanel.blnSettings = false;
 					buttonPort.setVisible(false);
 					textPort.setVisible(false);
-				}else{
+					System.out.println("New port is now " + intPort);
+					
+				}else
+				{
 					System.out.println("Port must have 4 digits");
 				}
 				
-			}catch(NumberFormatException e){
+			}catch(NumberFormatException e)
+			{
 				System.out.println("Port invalid.");
 			}
 			
@@ -120,14 +125,19 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 			buttonServer.setVisible(false);
 			buttonClient.setVisible(false);
 			
-			ssm = new SuperSocketMaster(3000, this);
+			ssm = new SuperSocketMaster(intPort, this);
 			System.out.println(ssm.getMyAddress());
 			strIP = ssm.getMyAddress();
 			ssm.connect();
 			
+			buttonReady.setVisible(true);
 			labelServerIP.setText("Server IP: " + strIP);
 			labelServerIP.setVisible(true);
+			
 			//from here i guess the game would start since the server is up.
+			
+			
+			
 			
 		}else if (evt.getSource() == buttonClient)
 		{	
@@ -149,6 +159,40 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 			buttonClient.setVisible(true);
 			buttonServer.setVisible(true);
 			//for user name 
+		}else if (evt.getSource() == buttonReady)
+		{
+			if (buttonReady.getText().equals("Not Ready"))
+			{
+				buttonReady.setText("Ready");
+				ssm.sendText("ready");
+				
+			}else if (buttonReady.getText().equals("Ready"))
+			{
+				buttonReady.setText("Not Ready");
+				ssm.sendText("notready");
+			}
+		
+		}else if (evt.getSource() == ssm)
+		{
+			String strChat;
+			strChat = ssm.readText();
+			if(strChat.equals("ready")){
+				
+				intReady += 1;
+				if(intReady == intPlayers){
+					System.out.println("ALL MANS READY");//clients arent receiving this. so fix it
+				}
+			}else if (strChat.equals("notready"))
+			{
+				intReady -= 1;
+				
+			}else if(strChat.equals("connected"))
+			{
+				intPlayers += 1;
+			
+			}
+			
+		
 		}
 	}
 
@@ -263,7 +307,6 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 		thepanel.add(buttonIP);
 		buttonIP.setVisible(false);
 		
-		
 		buttonPort = new JButton("Enter"); //button in settings
 		buttonPort.setFont(thepanel.f24);
 		//this is for making the jbutton invisible but functioning
@@ -274,24 +317,6 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 		buttonPort.addActionListener(this);
 		buttonPort.setVisible(false);
 		thepanel.add(buttonPort);
-
-		textIP = new JTextField("");//entering ip if client
-		textIP.setSize(250, 40);
-		textIP.setLocation(540, 400);
-		textIP.setVisible(false);
-		thepanel.add(textIP);
-		
-		textPort = new JTextField("");//for entering port in settings
-		textPort.setSize(250,40);
-		textPort.setLocation(540,360);
-		textPort.setVisible(false);
-		thepanel.add(textPort);
-		
-		textUser = new JTextField("");
-		textUser.setSize(250, 40);
-		textUser.setLocation(540, 360);
-		textUser.setVisible(false);
-		thepanel.add(textUser);
 		
 		buttonServer = new JButton("Server");//choose server option
 		buttonServer.setFont(thepanel.f24);
@@ -316,7 +341,35 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 		buttonUser.addActionListener(this);
 		buttonUser.setVisible(false);
 		thepanel.add(buttonUser);
+		
+		buttonReady = new JButton("Not Ready");
+		buttonReady.setFont(thepanel.f24);
+		buttonReady.setSize(200,100);
+		buttonReady.setLocation(575,600);
+		buttonReady.addActionListener(this);
+		buttonReady.setVisible(false);
+		thepanel.add(buttonReady);
 
+		
+		textIP = new JTextField("");//entering ip if client
+		textIP.setSize(250, 40);
+		textIP.setLocation(540, 400);
+		textIP.setVisible(false);
+		thepanel.add(textIP);
+		
+		textPort = new JTextField("");//for entering port in settings
+		textPort.setSize(250,40);
+		textPort.setLocation(540,360);
+		textPort.setVisible(false);
+		thepanel.add(textPort);
+		
+		textUser = new JTextField("");
+		textUser.setSize(250, 40);
+		textUser.setLocation(540, 360);
+		textUser.setVisible(false);
+		thepanel.add(textUser);
+		
+		
 		labelUser = new JLabel("Enter you Username: ");
 		labelUser.setFont(thepanel.f24);
 		labelUser.setSize(300, 120);
@@ -351,7 +404,7 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 		theframe.setContentPane(thepanel);
 		theframe.pack();
 		theframe.setVisible(true);
-		thetimer = new Timer(1000 / 60, this);
+		thetimer = new Timer(1000 / 30, this);
 		thetimer.start();
 		theframe.setResizable(false);
 		
