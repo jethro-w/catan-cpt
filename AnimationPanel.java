@@ -12,6 +12,7 @@ public class AnimationPanel extends JPanel
 	int intTileX;
 	int intTileY = 100;
 	String strMap[][] = new String[5][9];
+	String strSettlments[][] = new String[12][11];
 	BufferedImage[] tileImage = new BufferedImage[6];
 	BufferedImage menu = null;
 	BufferedImage settlement = null;

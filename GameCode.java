@@ -17,6 +17,7 @@ public class GameCode implements ActionListener, MouseListener
 	public AnimationPanel panel = new AnimationPanel();
 	public Timer timer = new Timer(1000 / 10, this);
 	public String[][] strMap = new String[5][9];
+	public String[][] strSettlements = new String[12][11];
 	public int[] intTileNums = new int[18];
 	public int intStartTile;
 	
@@ -88,6 +89,37 @@ public class GameCode implements ActionListener, MouseListener
 		return strMap;
 	}
 	
+	public static String[][] loadSettlements () throws IOException
+	{
+		BufferedReader map = null;
+		String[] strMapLine = new String[12];
+		String[][] strMap = new String[12][11];
+		int intCount;
+
+		try
+		{
+			map = new BufferedReader(new FileReader("catan-settlements-map.csv"));
+		}
+		catch (IOException e)
+		{
+
+		}
+
+		for (intCount = 0; intCount < 12; intCount++)
+		{
+			try
+			{
+				strMapLine[intCount] = map.readLine();
+			}
+			catch (IOException e)
+			{
+			}
+			strMap[intCount] = strMapLine[intCount].split(",");
+		}
+
+		return strMap;
+	}
+	
 	private static int[] loadTileNumbers ()
 	{
 		int[] intTileNums = new int[18];
@@ -137,10 +169,11 @@ public class GameCode implements ActionListener, MouseListener
 		try
 		{
 			strMap = GameCode.loadMap();
+			strSettlements = GameCode.loadSettlements();
 		}
 		catch (IOException e)
 		{
-			System.out.println("IOException");
+			System.out.println("Could not load map(s)");
 		}
 
 		int intColumn;
@@ -152,6 +185,7 @@ public class GameCode implements ActionListener, MouseListener
 		int intWood = 0;
 		int intWool = 0;
 		int intDesert = 0;
+		int intTemp = (int) (Math.random() * 2);
 		boolean hasMaxOre = false;
 		boolean hasMaxBrick = false;
 		boolean hasMaxWheat = false;
@@ -167,7 +201,14 @@ public class GameCode implements ActionListener, MouseListener
 				if (strMap[intRow][intColumn].equals("_"))
 				{
 					// Generate random tile
-					intRand = (int)(Math.random() * 6);
+					if (intTemp == 1)
+					{
+						intRand = (int)(Math.random() * 6);
+					}
+					else
+					{
+						intRand = (int)(Math.random() * 5);
+					}
 					
 					while ((intRand == 0 && hasMaxOre == true) || (intRand == 1 && hasMaxBrick == true)
 							|| (intRand == 2 && hasMaxWheat == true) || (intRand == 3 && hasMaxWood == true)
