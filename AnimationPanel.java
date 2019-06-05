@@ -12,7 +12,7 @@ public class AnimationPanel extends JPanel
 	int intTileX;
 	int intTileY = 100;
 	String strMap[][] = new String[5][9];
-	String strSettlments[][] = new String[12][11];
+	String strSettlements[][] = new String[12][11];
 	BufferedImage[] tileImage = new BufferedImage[6];
 	BufferedImage menu = null;
 	BufferedImage settlement = null;
@@ -25,7 +25,6 @@ public class AnimationPanel extends JPanel
 	int intDrawX;
 	int intDrawY = 80;
 	int intDeltaY = 56;
-	int intSettlementsRow = 1;
 
 	// Methods
 	// Override how this component paints itself
@@ -89,37 +88,49 @@ public class AnimationPanel extends JPanel
 		}
 		intTileY = 100;
 		
-		for (intSettlementsRow = 1; intSettlementsRow <= 12; intSettlementsRow++)
+		for (intRow = 0; intRow < 12; intRow++)
 		{
-			if (intSettlementsRow == 1 || intSettlementsRow == 12)
-			{
-				intDrawX = 230;
-			}
-			else if (intSettlementsRow == 2 || intSettlementsRow == 3 || intSettlementsRow == 10
-					|| intSettlementsRow == 11)
-			{
-				intDrawX = 180;
-			}
-			else if (intSettlementsRow == 4 || intSettlementsRow == 5 || intSettlementsRow == 8
-					|| intSettlementsRow == 9)
-			{
-				intDrawX = 130;
-			}
-			else if (intSettlementsRow == 6 || intSettlementsRow == 7)
+			intDrawX = 80;
+			/*
+			if (intRow == 0 || intRow == 11)
 			{
 				intDrawX = 80;
 			}
-
-			for (intCount = 0; intDrawX <= 580; intDrawX = intDrawX + 100)
+			else if (intRow == 1 || intRow == 2 || intRow == 9
+					|| intRow == 10)
 			{
-				if (((intMouseX >= intDrawX) && (intMouseX <= intDrawX + 40))
-						&& ((intMouseY >= intDrawY) && (intMouseY <= intDrawY + 40)))
-				{
-					g.drawImage(settlement, intDrawX + 10, intDrawY + 10, null);
-				}
+				intDrawX = 80;
+			}
+			else if (intRow == 3 || intRow == 4 || intRow == 7
+					|| intRow == 8)
+			{
+				intDrawX = 80;
+			}
+			else if (intRow == 5 || intRow == 6)
+			{
+				intDrawX = 80;
+			}
+			*/
 
-				g.setColor(Color.white);
-				g.drawRect(intDrawX + 10, intDrawY + 10, 20, 20);
+			for (intColumn = 0; intColumn < 11 && intDrawX <= 600; intColumn++)
+			{
+				if (strSettlements[intRow][intColumn].equals("r"))
+				{
+					g.setColor(Color.white);
+					g.drawRect(intDrawX + 10, intDrawY + 10, 20, 20);
+					g.drawImage(settlement, intDrawX + 10, intDrawY + 10, null);
+					intDrawX = intDrawX + 50;
+				}
+				else if (strSettlements[intRow][intColumn].equals("_"))
+				{
+					g.setColor(Color.white);
+					g.drawRect(intDrawX + 10, intDrawY + 10, 20, 20);
+					intDrawX = intDrawX + 50;
+				}
+				else if (strSettlements[intRow][intColumn].equals("x"))
+				{
+					intDrawX = intDrawX + 50;
+				}
 			}
 
 			if (intDeltaY == 30)

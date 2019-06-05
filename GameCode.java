@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,6 +21,12 @@ public class GameCode implements ActionListener, MouseListener
 	public String[][] strSettlements = new String[12][11];
 	public int[] intTileNums = new int[18];
 	public int intStartTile;
+	public int intMouseX;
+	public int intMouseY;
+	int intDrawX;
+	int intDrawY = 80;
+	int intDeltaY = 56;
+	int intSettlementsRow = 1;
 	
 	private int intCount;
 	
@@ -34,8 +41,60 @@ public class GameCode implements ActionListener, MouseListener
 	
 	public void mouseClicked (MouseEvent evt)
 	{
-		panel.intMouseX = evt.getX();
-		panel.intMouseY = evt.getY();
+		int intXCell;
+		int intYCell;
+		
+		intMouseX = evt.getX();
+		intMouseY = evt.getY();
+		
+		// panel.intMouseX = intMouseX;
+		// panel.intMouseY = intMouseY;
+		
+		for (intSettlementsRow = 1; intSettlementsRow <= 12; intSettlementsRow++)
+		{
+			if (intSettlementsRow == 1 || intSettlementsRow == 12)
+			{
+				intDrawX = 230;
+			}
+			else if (intSettlementsRow == 2 || intSettlementsRow == 3 || intSettlementsRow == 10
+					|| intSettlementsRow == 11)
+			{
+				intDrawX = 180;
+			}
+			else if (intSettlementsRow == 4 || intSettlementsRow == 5 || intSettlementsRow == 8
+					|| intSettlementsRow == 9)
+			{
+				intDrawX = 130;
+			}
+			else if (intSettlementsRow == 6 || intSettlementsRow == 7)
+			{
+				intDrawX = 80;
+			}
+
+			for (intCount = 0; intDrawX <= 580; intDrawX = intDrawX + 100)
+			{
+				if (((intMouseX >= intDrawX) && (intMouseX <= intDrawX + 40))
+						&& ((intMouseY >= intDrawY) && (intMouseY <= intDrawY + 40)))
+				{
+					intXCell = Math.round((intMouseX - 100) / 50);
+					intYCell = Math.round((intMouseY / 58) - 1);
+					
+					panel.strSettlements[intXCell][intYCell] = "r";
+					strSettlements[intXCell][intYCell] = "r";
+				}
+			}
+			if (intDeltaY == 30)
+			{
+				intDeltaY = 56;
+			}
+			else if (intDeltaY == 56)
+			{
+				intDeltaY = 30;
+			}
+
+			intDrawY = intDrawY + intDeltaY;
+		}
+		intDrawY = 80;
 	}
 
 	public void mousePressed (MouseEvent evt)
@@ -276,6 +335,21 @@ public class GameCode implements ActionListener, MouseListener
 				else if (strMap[intRow][intColumn].equals("x"))
 				{
 					panel.strMap[intRow][intColumn] = "x";
+				}
+			}
+		}
+		
+		for (intRow = 0; intRow < 12; intRow ++)
+		{
+			for (intColumn = 0; intColumn < 11; intColumn ++)
+			{
+				if (strSettlements[intRow][intColumn].equals("_"))
+				{
+					panel.strSettlements[intRow][intColumn] = "_";
+				}
+				else if (strSettlements[intRow][intColumn].equals("x"))
+				{
+					panel.strSettlements[intRow][intColumn] = "x";
 				}
 			}
 		}
