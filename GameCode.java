@@ -40,10 +40,9 @@ public class GameCode implements ActionListener, MouseListener
 	
 	public void mouseClicked (MouseEvent evt)
 	{
-		int intXCell;
-		int intYCell;
+		int intXCell; // Column
+		int intYCell; // Row
 		int intRow;
-		int intColumn;
 		
 		intMouseX = evt.getX();
 		intMouseY = evt.getY();
@@ -78,10 +77,10 @@ public class GameCode implements ActionListener, MouseListener
 					intXCell = (int) Math.round((intMouseX - 100) / 50.0);
 					intYCell = Math.round((intMouseY / 58) - 1);
 					
-					panel.strSettlements[intXCell][intYCell] = "r";
-					strSettlements[intXCell][intYCell] = "r";
+					panel.strSettlements[intYCell][intXCell] = "r";
+					strSettlements[intYCell][intXCell] = "r";
 					
-					System.out.println("intersection [" + intXCell + "][" + intYCell + "]");
+					System.out.println("intersection [" + intYCell + "][" + intXCell + "]");
 					System.out.println(intMouseX + ", " + intMouseY);
 				}
 			}
