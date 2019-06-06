@@ -24,9 +24,8 @@ public class GameCode implements ActionListener, MouseListener
 	public int intMouseX;
 	public int intMouseY;
 	int intDrawX;
-	int intDrawY = 80;
+	int intDrawY = 90;
 	int intDeltaY = 56;
-	int intSettlementsRow = 1;
 	
 	private int intCount;
 	
@@ -43,44 +42,47 @@ public class GameCode implements ActionListener, MouseListener
 	{
 		int intXCell;
 		int intYCell;
+		int intRow;
+		int intColumn;
 		
 		intMouseX = evt.getX();
 		intMouseY = evt.getY();
 		
-		// panel.intMouseX = intMouseX;
-		// panel.intMouseY = intMouseY;
 		
-		for (intSettlementsRow = 1; intSettlementsRow <= 12; intSettlementsRow++)
+		for (intRow = 1; intRow <= 12; intRow++)
 		{
-			if (intSettlementsRow == 1 || intSettlementsRow == 12)
+			if (intRow == 1 || intRow == 12)
 			{
-				intDrawX = 230;
+				intDrawX = 240;
 			}
-			else if (intSettlementsRow == 2 || intSettlementsRow == 3 || intSettlementsRow == 10
-					|| intSettlementsRow == 11)
+			else if (intRow == 2 || intRow == 3 || intRow == 10
+					|| intRow == 11)
 			{
-				intDrawX = 180;
+				intDrawX = 190;
 			}
-			else if (intSettlementsRow == 4 || intSettlementsRow == 5 || intSettlementsRow == 8
-					|| intSettlementsRow == 9)
+			else if (intRow == 4 || intRow == 5 || intRow == 8
+					|| intRow == 9)
 			{
-				intDrawX = 130;
+				intDrawX = 140;
 			}
-			else if (intSettlementsRow == 6 || intSettlementsRow == 7)
+			else if (intRow == 6 || intRow == 7)
 			{
-				intDrawX = 80;
+				intDrawX = 90;
 			}
 
 			for (intCount = 0; intDrawX <= 580; intDrawX = intDrawX + 100)
 			{
-				if (((intMouseX >= intDrawX) && (intMouseX <= intDrawX + 40))
-						&& ((intMouseY >= intDrawY) && (intMouseY <= intDrawY + 40)))
+				if (((intMouseX >= intDrawX) && (intMouseX <= intDrawX + 20))
+						&& ((intMouseY >= intDrawY) && (intMouseY <= intDrawY + 20)))
 				{
-					intXCell = Math.round((intMouseX - 100) / 50);
+					intXCell = (int) Math.round((intMouseX - 100) / 50.0);
 					intYCell = Math.round((intMouseY / 58) - 1);
 					
 					panel.strSettlements[intXCell][intYCell] = "r";
 					strSettlements[intXCell][intYCell] = "r";
+					
+					System.out.println("intersection [" + intXCell + "][" + intYCell + "]");
+					System.out.println(intMouseX + ", " + intMouseY);
 				}
 			}
 			if (intDeltaY == 30)
@@ -94,7 +96,60 @@ public class GameCode implements ActionListener, MouseListener
 
 			intDrawY = intDrawY + intDeltaY;
 		}
+		intDrawY = 90;
+		
+		/*
+		for (intRow = 0; intRow < 12; intRow++)
+		{
+			if (intRow == 0 || intRow == 11)
+			{
+				intDrawX = 230;
+			}
+			else if (intRow == 1 || intRow == 2 || intRow == 9
+					|| intRow == 10)
+			{
+				intDrawX = 180;
+			}
+			else if (intRow == 3 || intRow == 4 || intRow == 7
+					|| intRow == 8)
+			{
+				intDrawX = 130;
+			}
+			else if (intRow == 5 || intRow == 6)
+			{
+				intDrawX = 80;
+			}
+
+			for (intColumn = 0; intColumn < 11 && intDrawX <= 580; intColumn++)
+			{
+				if (((intMouseX >= intDrawX) && (intMouseX <= intDrawX + 40))
+						&& ((intMouseY >= intDrawY) && (intMouseY <= intDrawY + 40)))
+				{
+					intXCell = Math.round((intMouseX - 100) / 50);
+					intYCell = Math.round((intMouseY / 58) - 1);
+					
+					panel.strSettlements[intXCell][intYCell] = "r";
+					strSettlements[intXCell][intYCell] = "r";
+					
+					intDrawX = intDrawX + 100;
+					
+					System.out.println("intersection");
+				}
+			}
+
+			if (intDeltaY == 30)
+			{
+				intDeltaY = 56;
+			}
+			else if (intDeltaY == 56)
+			{
+				intDeltaY = 30;
+			}
+
+			intDrawY = intDrawY + intDeltaY;
+		}
 		intDrawY = 80;
+		*/
 	}
 
 	public void mousePressed (MouseEvent evt)
@@ -244,7 +299,6 @@ public class GameCode implements ActionListener, MouseListener
 		int intWood = 0;
 		int intWool = 0;
 		int intDesert = 0;
-		int intTemp = (int) (Math.random() * 2);
 		boolean hasMaxOre = false;
 		boolean hasMaxBrick = false;
 		boolean hasMaxWheat = false;
@@ -260,24 +314,17 @@ public class GameCode implements ActionListener, MouseListener
 				if (strMap[intRow][intColumn].equals("_"))
 				{
 					// Generate random tile
-					if (intTemp == 1)
-					{
-						intRand = (int)(Math.random() * 6);
-					}
-					else
-					{
-						intRand = (int)(Math.random() * 5);
-					}
+					intRand = (int)(Math.random() * 11);
 					
-					while ((intRand == 0 && hasMaxOre == true) || (intRand == 1 && hasMaxBrick == true)
-							|| (intRand == 2 && hasMaxWheat == true) || (intRand == 3 && hasMaxWood == true)
-							|| (intRand == 4 && hasMaxWool == true) || (intRand == 5 && hasDesert == true))
+					while (((intRand == 0 || intRand == 1) && hasMaxOre == true) || ((intRand == 2 || intRand == 3) && hasMaxBrick == true)
+							|| ((intRand == 4 || intRand == 5) && hasMaxWheat == true) || ((intRand == 6 || intRand == 7) && hasMaxWood == true)
+							|| ((intRand == 8 || intRand == 9) && hasMaxWool == true) || (intRand == 10 && hasDesert == true))
 					{
-						intRand = (int) (Math.random() * 6);
+						intRand = (int) (Math.random() * 11);
 						System.out.println(intRand);
 					}
 
-					if (intRand == 0)
+					if (intRand == 0 || intRand == 1)
 					{
 						panel.strMap[intRow][intColumn] = "0";
 						intOre++;
@@ -286,16 +333,16 @@ public class GameCode implements ActionListener, MouseListener
 							hasMaxOre = true;
 						}
 					}
-					if (intRand == 1)
+					if (intRand == 2 || intRand == 3)
 					{
 						panel.strMap[intRow][intColumn] = "1";
 						intBrick++;
-						if (intBrick == 3)
+						if (intBrick == 4)
 						{
 							hasMaxBrick = true;
 						}
 					}
-					if (intRand == 2)
+					if (intRand == 4 || intRand == 5)
 					{
 						panel.strMap[intRow][intColumn] = "2";
 						intWheat++;
@@ -304,7 +351,7 @@ public class GameCode implements ActionListener, MouseListener
 							hasMaxWheat = true;
 						}
 					}
-					if (intRand == 3)
+					if (intRand == 6 || intRand == 7)
 					{
 						panel.strMap[intRow][intColumn] = "3";
 						intWood++;
@@ -313,7 +360,7 @@ public class GameCode implements ActionListener, MouseListener
 							hasMaxWood = true;
 						}
 					}
-					if (intRand == 4)
+					if (intRand == 8 || intRand == 9)
 					{
 						panel.strMap[intRow][intColumn] = "4";
 						intWool++;
@@ -322,7 +369,7 @@ public class GameCode implements ActionListener, MouseListener
 							hasMaxWool = true;
 						}
 					}
-					if (intRand == 5)
+					if (intRand == 10)
 					{
 						panel.strMap[intRow][intColumn] = "5";
 						intDesert++;
