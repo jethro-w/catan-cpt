@@ -11,7 +11,7 @@ public class AnimationPanel extends JPanel
 	// Properties
 	int intTileX;
 	int intTileY = 100;
-	String strMap[][] = new String[5][9];
+	String strTiles[][] = new String[5][9];
 	String strSettlements[][] = new String[12][11];
 	BufferedImage[] tileImage = new BufferedImage[6];
 	BufferedImage menu = null;
@@ -50,37 +50,37 @@ public class AnimationPanel extends JPanel
 
 			for (intColumn = 0; intColumn < 9; intColumn++)
 			{
-				if (strMap[intRow][intColumn].equals("0"))
+				if (strTiles[intRow][intColumn].equals("0"))
 				{
 					g.drawImage(tileImage[0], intTileX, intTileY, null);
 					intTileX = intTileX + 100;
 				}
-				else if (strMap[intRow][intColumn].equals("1"))
+				else if (strTiles[intRow][intColumn].equals("1"))
 				{
 					g.drawImage(tileImage[1], intTileX, intTileY, null);
 					intTileX = intTileX + 100;
 				}
-				else if (strMap[intRow][intColumn].equals("2"))
+				else if (strTiles[intRow][intColumn].equals("2"))
 				{
 					g.drawImage(tileImage[2], intTileX, intTileY, null);
 					intTileX = intTileX + 100;
 				}
-				else if (strMap[intRow][intColumn].equals("3"))
+				else if (strTiles[intRow][intColumn].equals("3"))
 				{
 					g.drawImage(tileImage[3], intTileX, intTileY, null);
 					intTileX = intTileX + 100;
 				}
-				else if (strMap[intRow][intColumn].equals("4"))
+				else if (strTiles[intRow][intColumn].equals("4"))
 				{
 					g.drawImage(tileImage[4], intTileX, intTileY, null);
 					intTileX = intTileX + 100;
 				}
-				else if (strMap[intRow][intColumn].equals("5"))
+				else if (strTiles[intRow][intColumn].equals("5"))
 				{
 					g.drawImage(tileImage[5], intTileX, intTileY, null);
 					intTileX = intTileX + 100;
 				}
-				else if (strMap[intRow][intColumn].equals("x"))
+				else if (strTiles[intRow][intColumn].equals("x"))
 				{
 				}
 			}

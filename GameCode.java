@@ -17,8 +17,9 @@ public class GameCode implements ActionListener, MouseListener
 	public JFrame frame = new JFrame();
 	public AnimationPanel panel = new AnimationPanel();
 	public Timer timer = new Timer(1000 / 10, this);
-	public String[][] strMap = new String[5][9];
+	public String[][] strTiles = new String[5][9];
 	public String[][] strSettlements = new String[12][11];
+	public String[][] strRoads = new String[11][11];
 	public int[] intTileNums = new int[18];
 	public int intStartTile;
 	public int intMouseX;
@@ -69,18 +70,18 @@ public class GameCode implements ActionListener, MouseListener
 				intDrawX = 90;
 			}
 
-			for (intCount = 0; intDrawX <= 580; intDrawX = intDrawX + 100)
+			for (intCount = 0; intDrawX <= 590; intDrawX = intDrawX + 100)
 			{
 				if (((intMouseX >= intDrawX) && (intMouseX <= intDrawX + 20))
 						&& ((intMouseY >= intDrawY) && (intMouseY <= intDrawY + 20)))
 				{
 					intXCell = (int) Math.round((intMouseX - 100) / 50.0);
-					intYCell = Math.round((intMouseY / 58) - 1);
+					intYCell = (int) Math.round((intMouseY / 43.0) - 2);
 					
 					panel.strSettlements[intYCell][intXCell] = "r";
 					strSettlements[intYCell][intXCell] = "r";
 					
-					System.out.println("intersection [" + intYCell + "][" + intXCell + "]");
+					System.out.println("intersection [" + intXCell + "][" + intYCell + "]");
 					System.out.println(intMouseX + ", " + intMouseY);
 				}
 			}
@@ -232,6 +233,36 @@ public class GameCode implements ActionListener, MouseListener
 
 		return strMap;
 	}
+	public static String[][] loadRoads () throws IOException
+	{
+		BufferedReader map = null;
+		String[] strMapLine = new String[11];
+		String[][] strMap = new String[11][11];
+		int intCount;
+
+		try
+		{
+			map = new BufferedReader(new FileReader("catan-roads-map.csv"));
+		}
+		catch (IOException e)
+		{
+
+		}
+
+		for (intCount = 0; intCount < 11; intCount++)
+		{
+			try
+			{
+				strMapLine[intCount] = map.readLine();
+			}
+			catch (IOException e)
+			{
+			}
+			strMap[intCount] = strMapLine[intCount].split(",");
+		}
+
+		return strMap;
+	}
 	
 	private static int[] loadTileNumbers ()
 	{
@@ -281,7 +312,7 @@ public class GameCode implements ActionListener, MouseListener
 
 		try
 		{
-			strMap = GameCode.loadMap();
+			strTiles = GameCode.loadMap();
 			strSettlements = GameCode.loadSettlements();
 		}
 		catch (IOException e)
@@ -310,7 +341,7 @@ public class GameCode implements ActionListener, MouseListener
 		{
 			for (intColumn = 0; intColumn < 9; intColumn++)
 			{
-				if (strMap[intRow][intColumn].equals("_"))
+				if (strTiles[intRow][intColumn].equals("_"))
 				{
 					// Generate random tile
 					intRand = (int)(Math.random() * 11);
@@ -325,7 +356,7 @@ public class GameCode implements ActionListener, MouseListener
 
 					if (intRand == 0 || intRand == 1)
 					{
-						panel.strMap[intRow][intColumn] = "0";
+						panel.strTiles[intRow][intColumn] = "0";
 						intOre++;
 						if (intOre == 3)
 						{
@@ -334,7 +365,7 @@ public class GameCode implements ActionListener, MouseListener
 					}
 					if (intRand == 2 || intRand == 3)
 					{
-						panel.strMap[intRow][intColumn] = "1";
+						panel.strTiles[intRow][intColumn] = "1";
 						intBrick++;
 						if (intBrick == 4)
 						{
@@ -343,7 +374,7 @@ public class GameCode implements ActionListener, MouseListener
 					}
 					if (intRand == 4 || intRand == 5)
 					{
-						panel.strMap[intRow][intColumn] = "2";
+						panel.strTiles[intRow][intColumn] = "2";
 						intWheat++;
 						if (intWheat == 4)
 						{
@@ -352,7 +383,7 @@ public class GameCode implements ActionListener, MouseListener
 					}
 					if (intRand == 6 || intRand == 7)
 					{
-						panel.strMap[intRow][intColumn] = "3";
+						panel.strTiles[intRow][intColumn] = "3";
 						intWood++;
 						if (intWood == 4)
 						{
@@ -361,7 +392,7 @@ public class GameCode implements ActionListener, MouseListener
 					}
 					if (intRand == 8 || intRand == 9)
 					{
-						panel.strMap[intRow][intColumn] = "4";
+						panel.strTiles[intRow][intColumn] = "4";
 						intWool++;
 						if (intWool == 4)
 						{
@@ -370,7 +401,7 @@ public class GameCode implements ActionListener, MouseListener
 					}
 					if (intRand == 10)
 					{
-						panel.strMap[intRow][intColumn] = "5";
+						panel.strTiles[intRow][intColumn] = "5";
 						intDesert++;
 						if (intDesert == 1)
 						{
@@ -378,9 +409,9 @@ public class GameCode implements ActionListener, MouseListener
 						}
 					}
 				}
-				else if (strMap[intRow][intColumn].equals("x"))
+				else if (strTiles[intRow][intColumn].equals("x"))
 				{
-					panel.strMap[intRow][intColumn] = "x";
+					panel.strTiles[intRow][intColumn] = "x";
 				}
 			}
 		}
