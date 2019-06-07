@@ -13,6 +13,7 @@ public class AnimationPanel extends JPanel
 	int intTileY = 100;
 	String strTiles[][] = new String[5][9];
 	String strSettlements[][] = new String[12][11];
+	String strRoads[][] = new String[11][11];
 	BufferedImage[] tileImage = new BufferedImage[6];
 	BufferedImage menu = null;
 	BufferedImage settlement = null;
@@ -91,26 +92,6 @@ public class AnimationPanel extends JPanel
 		for (intRow = 0; intRow < 12; intRow++)
 		{
 			intDrawX = 80;
-			/*
-			if (intRow == 0 || intRow == 11)
-			{
-				intDrawX = 80;
-			}
-			else if (intRow == 1 || intRow == 2 || intRow == 9
-					|| intRow == 10)
-			{
-				intDrawX = 80;
-			}
-			else if (intRow == 3 || intRow == 4 || intRow == 7
-					|| intRow == 8)
-			{
-				intDrawX = 80;
-			}
-			else if (intRow == 5 || intRow == 6)
-			{
-				intDrawX = 80;
-			}
-			*/
 
 			for (intColumn = 0; intColumn < 11 && intDrawX <= 600; intColumn++)
 			{
