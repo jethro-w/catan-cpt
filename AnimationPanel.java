@@ -1,7 +1,6 @@
 import java.io.*;
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.image.*;
 import javax.imageio.*;
 import javax.swing.JPanel;
@@ -17,6 +16,9 @@ public class AnimationPanel extends JPanel
 	BufferedImage[] tileImage = new BufferedImage[6];
 	BufferedImage menu = null;
 	BufferedImage settlement = null;
+	BufferedImage vertRoad = null;
+	BufferedImage upRoad = null;
+	BufferedImage downRoad = null;
 	boolean printTile;
 	int intCount;
 	int intRow;
@@ -33,7 +35,7 @@ public class AnimationPanel extends JPanel
 	{
 		super.paintComponent(g);
 
-		// Print map
+		// Draw resource tiles
 		for (intRow = 0; intRow < 5; intRow++)
 		{
 			if (intRow == 0 || intRow == 4)
@@ -87,8 +89,10 @@ public class AnimationPanel extends JPanel
 			}
 			intTileY = intTileY + 86;
 		}
+		
 		intTileY = 100;
 		
+		// Draw settlements
 		for (intRow = 0; intRow < 12; intRow++)
 		{
 			intDrawX = 80;
@@ -125,6 +129,67 @@ public class AnimationPanel extends JPanel
 
 			intDrawY = intDrawY + intDeltaY;
 		}
+		
+		// Draw roads
+		for (intRow = 0; intRow < 11; intRow++)
+		{
+			if (intRow == 0 || intRow == 10)
+			{
+				intTileX = 200;
+			}
+			else if (intRow == 1 || intRow == 9)
+			{
+				intTileX = 195;
+			}
+			else if (intRow == 2 || intRow == 8)
+			{
+				intTileX = 150;
+			}
+			else if (intRow == 3 || intRow == 7)
+			{
+				intTileX = 145;
+			}
+			else if (intRow == 4 || intRow == 6)
+			{
+				intTileX = 100;
+			}
+			else if (intRow == 5)
+			{
+				intTileX = 95;
+			}
+
+			for (intColumn = 0; intColumn < 11 && intDrawX <= 600; intColumn++)
+			{
+				if (strRoads[intColumn][intRow].equals("r"))
+				{
+					g.drawImage(vertRoad, intDrawX + 10, intDrawY + 10, null);
+					intDrawX = intDrawX + 50;
+				}
+				else if (strRoads[intColumn][intRow].equals("_") || strRoads[intColumn][intRow].equals("x"))
+				{
+					if (intRow == 0 || intRow == 2 || intRow == 4 || intRow == 6 || intRow == 8 || intRow == 10)
+					{
+						intDrawX = intDrawX + 50;
+					}
+					else
+					{
+						intDrawX = intDrawX + 100;
+					}
+				}
+			}
+
+			if (intDeltaY == 30)
+			{
+				intDeltaY = 56;
+			}
+			else if (intDeltaY == 56)
+			{
+				intDeltaY = 30;
+			}
+
+			intDrawY = intDrawY + intDeltaY;
+		}
+		
 		intDrawY = 80;
 	}
 
@@ -172,6 +237,9 @@ public class AnimationPanel extends JPanel
 			}
 
 			settlement = ImageIO.read(new File("settlement.png"));
+			vertRoad = ImageIO.read(new File("vertRoad.png"));
+			// upRoad = ImageIO.read(new File("upRoad.png"));
+			// downRoad = ImageIO.read(new File("downRoad.png"));
 		}
 		catch (IOException e)
 		{
