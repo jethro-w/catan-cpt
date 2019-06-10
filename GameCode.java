@@ -1,4 +1,3 @@
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -167,8 +166,8 @@ public class GameCode implements ActionListener, MouseListener
 							intXCell = (int) Math.floor((intMouseX - 100) / 50.0);
 							intYCell = (int) Math.round((intMouseY / 43.0) - 2.8);
 							
-							panel.strRoads[intXCell][intYCell] = "r";
-							strRoads[intXCell][intYCell] = "r";
+							panel.strRoads[intYCell][intXCell] = "r";
+							strRoads[intYCell][intXCell] = "r";
 							
 							System.out.println("road [" + intXCell + "][" + intYCell + "]");
 							System.out.println(intMouseX + ", " + intMouseY);
@@ -182,8 +181,8 @@ public class GameCode implements ActionListener, MouseListener
 							intXCell = (int) Math.floor((intMouseX - 100) / 50.0);
 							intYCell = (int) Math.round((intMouseY / 43.0) - 2.8);
 							
-							panel.strRoads[intXCell][intYCell] = "r";
-							strRoads[intXCell][intYCell] = "r";
+							panel.strRoads[intYCell][intXCell] = "r";
+							strRoads[intYCell][intXCell] = "r";
 							
 							System.out.println("road [" + intXCell + "][" + intYCell + "]");
 							System.out.println(intMouseX + ", " + intMouseY);
@@ -426,7 +425,7 @@ public class GameCode implements ActionListener, MouseListener
 					{
 						panel.strTiles[intRow][intColumn] = "1";
 						intBrick++;
-						if (intBrick == 4)
+						if (intBrick == 3)
 						{
 							hasMaxBrick = true;
 						}

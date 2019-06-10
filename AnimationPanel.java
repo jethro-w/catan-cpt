@@ -20,6 +20,7 @@ public class AnimationPanel extends JPanel
 	BufferedImage upRoad = null;
 	BufferedImage downRoad = null;
 	boolean printTile;
+	boolean isSlantedUp;
 	int intCount;
 	int intRow;
 	int intColumn;
@@ -28,6 +29,7 @@ public class AnimationPanel extends JPanel
 	int intDrawX;
 	int intDrawY = 80;
 	int intDeltaY = 56;
+	int intTempY;
 
 	// Methods
 	// Override how this component paints itself
@@ -36,7 +38,7 @@ public class AnimationPanel extends JPanel
 		super.paintComponent(g);
 
 		// Draw resource tiles
-		for (intRow = 0; intRow < 5; intRow++)
+		for (intRow = 0; intRow < 5; intRow ++)
 		{
 			if (intRow == 0 || intRow == 4)
 			{
@@ -51,7 +53,7 @@ public class AnimationPanel extends JPanel
 				intTileX = 100;
 			}
 
-			for (intColumn = 0; intColumn < 9; intColumn++)
+			for (intColumn = 0; intColumn < 9; intColumn ++)
 			{
 				if (strTiles[intRow][intColumn].equals("0"))
 				{
@@ -93,11 +95,11 @@ public class AnimationPanel extends JPanel
 		intTileY = 100;
 		
 		// Draw settlements
-		for (intRow = 0; intRow < 12; intRow++)
+		for (intRow = 0; intRow < 12; intRow ++)
 		{
 			intDrawX = 80;
 
-			for (intColumn = 0; intColumn < 11 && intDrawX <= 600; intColumn++)
+			for (intColumn = 0; intColumn < 11 && intDrawX <= 600; intColumn ++)
 			{
 				if (strSettlements[intRow][intColumn].equals("r"))
 				{
@@ -130,64 +132,90 @@ public class AnimationPanel extends JPanel
 			intDrawY = intDrawY + intDeltaY;
 		}
 		
+		intDrawY = 100;
+		
 		// Draw roads
-		for (intRow = 0; intRow < 11; intRow++)
+		for (intRow = 0; intRow < 11; intRow ++)
 		{
 			if (intRow == 0 || intRow == 10)
 			{
-				intTileX = 200;
+				intDrawX = 200;
 			}
 			else if (intRow == 1 || intRow == 9)
 			{
-				intTileX = 195;
+				intDrawX = 195;
 			}
 			else if (intRow == 2 || intRow == 8)
 			{
-				intTileX = 150;
+				intDrawX = 150;
 			}
 			else if (intRow == 3 || intRow == 7)
 			{
-				intTileX = 145;
+				intDrawX = 145;
 			}
 			else if (intRow == 4 || intRow == 6)
 			{
-				intTileX = 100;
+				intDrawX = 100;
 			}
 			else if (intRow == 5)
 			{
-				intTileX = 95;
+				intDrawX = 95;
 			}
-
-			for (intColumn = 0; intColumn < 11 && intDrawX <= 600; intColumn++)
+			
+			if (intRow == 0 || intRow == 2 || intRow == 4)
 			{
-				if (strRoads[intColumn][intRow].equals("r"))
-				{
-					g.drawImage(vertRoad, intDrawX + 10, intDrawY + 10, null);
-					intDrawX = intDrawX + 50;
-				}
-				else if (strRoads[intColumn][intRow].equals("_") || strRoads[intColumn][intRow].equals("x"))
-				{
-					if (intRow == 0 || intRow == 2 || intRow == 4 || intRow == 6 || intRow == 8 || intRow == 10)
+				isSlantedUp = true;
+			}
+			else if (intRow == 6 || intRow == 8 || intRow == 10)
+			{
+				isSlantedUp = false;
+			}
+			
+			for (intColumn = 0; intColumn < 11; intColumn ++)
+			{
+				if (strRoads[intRow][intColumn].equals("r"))
+				{	
+					if (intRow == 0 || intRow == 2 || intRow == 4 ||
+							intRow == 6 || intRow == 8 || intRow == 10)
 					{
+						if (isSlantedUp == true)
+						{
+							g.drawImage(upRoad, intDrawX, intDrawY, null);
+							isSlantedUp = false;
+						}
+						else if (isSlantedUp == false)
+						{
+							g.drawImage(downRoad, intDrawX, intDrawY, null);
+							isSlantedUp = true;
+						}
 						intDrawX = intDrawX + 50;
 					}
 					else
 					{
+						g.drawImage(vertRoad, intDrawX, intDrawY, null);
 						intDrawX = intDrawX + 100;
 					}
 				}
+				else if (strRoads[intRow][intColumn].equals("_"))
+				{
+					
+				}
+				else if (strRoads[intRow][intColumn].equals("x"))
+				{
+					
+				}
+			}
+			
+			if (intTempY == 30)
+			{
+				intTempY = 56;
+			}
+			else if (intTempY == 56)
+			{
+				intTempY = 30;
 			}
 
-			if (intDeltaY == 30)
-			{
-				intDeltaY = 56;
-			}
-			else if (intDeltaY == 56)
-			{
-				intDeltaY = 30;
-			}
-
-			intDrawY = intDrawY + intDeltaY;
+			intDrawY = intDrawY + intTempY;
 		}
 		
 		intDrawY = 80;
@@ -202,7 +230,7 @@ public class AnimationPanel extends JPanel
 
 		try
 		{
-			for (intCount = 0; intCount < 6; intCount++)
+			for (intCount = 0; intCount < 6; intCount ++)
 			{
 				// Ore Tile = 0
 				if (intCount == 0)
@@ -238,8 +266,8 @@ public class AnimationPanel extends JPanel
 
 			settlement = ImageIO.read(new File("settlement.png"));
 			vertRoad = ImageIO.read(new File("vertRoad.png"));
-			// upRoad = ImageIO.read(new File("upRoad.png"));
-			// downRoad = ImageIO.read(new File("downRoad.png"));
+			upRoad = ImageIO.read(new File("upRoad.png"));
+			downRoad = ImageIO.read(new File("downRoad.png"));
 		}
 		catch (IOException e)
 		{
