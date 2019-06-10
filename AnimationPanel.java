@@ -29,7 +29,8 @@ public class AnimationPanel extends JPanel
 	int intDrawX;
 	int intDrawY = 80;
 	int intDeltaY = 56;
-	int intTempY;
+	int intRoadDeltaY = 56;
+	int intRoadY = 100;
 
 	// Methods
 	// Override how this component paints itself
@@ -132,32 +133,18 @@ public class AnimationPanel extends JPanel
 			intDrawY = intDrawY + intDeltaY;
 		}
 		
-		intDrawY = 100;
+		intRoadY = 100;
 		
 		// Draw roads
 		for (intRow = 0; intRow < 11; intRow ++)
 		{
-			if (intRow == 0 || intRow == 10)
-			{
-				intDrawX = 200;
-			}
-			else if (intRow == 1 || intRow == 9)
-			{
-				intDrawX = 195;
-			}
-			else if (intRow == 2 || intRow == 8)
-			{
-				intDrawX = 150;
-			}
-			else if (intRow == 3 || intRow == 7)
-			{
-				intDrawX = 145;
-			}
-			else if (intRow == 4 || intRow == 6)
+			if (intRow == 0 || intRow == 2 || intRow == 4 || intRow == 6
+					|| intRow == 8 || intRow == 10)
 			{
 				intDrawX = 100;
 			}
-			else if (intRow == 5)
+			else if (intRow == 1 || intRow == 3|| intRow == 5|| intRow == 7||
+					intRow == 9)
 			{
 				intDrawX = 95;
 			}
@@ -174,48 +161,56 @@ public class AnimationPanel extends JPanel
 			for (intColumn = 0; intColumn < 11; intColumn ++)
 			{
 				if (strRoads[intRow][intColumn].equals("r"))
-				{	
+				{
 					if (intRow == 0 || intRow == 2 || intRow == 4 ||
 							intRow == 6 || intRow == 8 || intRow == 10)
 					{
 						if (isSlantedUp == true)
 						{
-							g.drawImage(upRoad, intDrawX, intDrawY, null);
+							g.drawImage(upRoad, intDrawX, intRoadY, null);
 							isSlantedUp = false;
 						}
 						else if (isSlantedUp == false)
 						{
-							g.drawImage(downRoad, intDrawX, intDrawY, null);
+							g.drawImage(downRoad, intDrawX, intRoadY, null);
 							isSlantedUp = true;
 						}
 						intDrawX = intDrawX + 50;
 					}
 					else
 					{
-						g.drawImage(vertRoad, intDrawX, intDrawY, null);
-						intDrawX = intDrawX + 100;
+						g.drawImage(vertRoad, intDrawX, intRoadY, null);
+						intDrawX = intDrawX + 50;
 					}
 				}
-				else if (strRoads[intRow][intColumn].equals("_"))
+				else
 				{
-					
-				}
-				else if (strRoads[intRow][intColumn].equals("x"))
-				{
-					
+					if ((intRow == 0 || intRow == 0 || intRow == 2 || intRow == 4 ||
+							intRow == 6 || intRow == 8 || intRow == 10) && strRoads[intRow][intColumn].equals("_"))
+					{
+						if (isSlantedUp == true)
+						{
+							isSlantedUp = false;
+						}
+						else if (isSlantedUp == false)
+						{
+							isSlantedUp = true;
+						}
+					}
+					intDrawX = intDrawX + 50;
 				}
 			}
 			
-			if (intTempY == 30)
+			if (intRoadDeltaY == 30)
 			{
-				intTempY = 56;
+				intRoadDeltaY = 56;
 			}
-			else if (intTempY == 56)
+			else if (intRoadDeltaY == 56)
 			{
-				intTempY = 30;
+				intRoadDeltaY = 30;
 			}
 
-			intDrawY = intDrawY + intTempY;
+			intRoadY = intRoadY + intRoadDeltaY;
 		}
 		
 		intDrawY = 80;

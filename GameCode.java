@@ -28,9 +28,9 @@ public class GameCode implements ActionListener, MouseListener
 	public int intMouseY;
 	public boolean drawSettlement = true;
 	public boolean drawRoad = false;
-	int intDrawX;
-	int intDrawY = 90;
-	int intDeltaY = 56;
+	public int intDrawX;
+	public int intDrawY = 90;
+	public int intDeltaY = 56;
 	int intDeltaX = 100;
 	
 	private int intCount;
@@ -95,15 +95,41 @@ public class GameCode implements ActionListener, MouseListener
 					{
 						intXCell = (int) Math.round((intMouseX - 100) / 50.0);
 						intYCell = (int) Math.round((intMouseY / 43.0) - 2.1);
-
-						panel.strSettlements[intYCell][intXCell] = "r";
 						
-						// ADD FEATURE TO DISABLE SURROUNDING SPOTS (dependent on row number)
-						
-						strSettlements[intYCell][intXCell] = "r";
+						if (strSettlements[intYCell][intXCell].equals("_"))
+						{
+							panel.strSettlements[intYCell][intXCell] = "r";
+							strSettlements[intYCell][intXCell] = "r";
 
-						System.out.println("settlements [" + intXCell + "][" + intYCell + "]");
-						System.out.println(intMouseX + ", " + intMouseY);
+							System.out.println("settlements [" + intXCell + "][" + intYCell + "]");
+							System.out.println(intMouseX + ", " + intMouseY);
+
+							// ADD FEATURE TO DISABLE SURROUNDING SPOTS (dependent on row number)
+							if (intRow == 1 || intRow == 3 || intRow == 5 || intRow == 7 || intRow == 9 || intRow == 11)
+							{
+								panel.strSettlements[intYCell + 1][intXCell + 1] = "x";
+								panel.strSettlements[intYCell + 1][intXCell - 1] = "x";
+								strSettlements[intYCell + 1][intXCell + 1] = "x";
+								strSettlements[intYCell + 1][intXCell - 1] = "x";
+								if (intRow != 1)
+								{
+									panel.strSettlements[intYCell - 1][intXCell] = "x";
+									strSettlements[intYCell - 1][intXCell] = "x";
+								}
+							}
+							else if (intRow == 2 || intRow == 4 || intRow == 6 || intRow == 8 || intRow == 10 || intRow == 12)
+							{
+								panel.strSettlements[intYCell - 1][intXCell + 1] = "x";
+								panel.strSettlements[intYCell - 1][intXCell - 1] = "x";
+								strSettlements[intYCell - 1][intXCell + 1] = "x";
+								strSettlements[intYCell - 1][intXCell - 1] = "x";
+								if (intRow != 12)
+								{
+									panel.strSettlements[intYCell + 1][intXCell] = "x";
+									strSettlements[intYCell + 1][intXCell] = "x";
+								}
+							}
+						}
 					}
 				}
 				if (intDeltaY == 30)
@@ -178,7 +204,7 @@ public class GameCode implements ActionListener, MouseListener
 						if (intMouseX >= intDrawX && intMouseX <= intDrawX + 30
 								&& intMouseY >= intDrawY && intMouseY <= intDrawY + 56)
 						{
-							intXCell = (int) Math.floor((intMouseX - 100) / 50.0);
+							intXCell = (int) Math.round((intMouseX - 100) / 50.0);
 							intYCell = (int) Math.round((intMouseY / 43.0) - 2.8);
 							
 							panel.strRoads[intYCell][intXCell] = "r";
