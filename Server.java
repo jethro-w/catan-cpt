@@ -120,10 +120,10 @@ public class Server implements ActionListener
 	}
 	
 	// Constructor
-	public Server (int intPlayer, int intGrain, int intOre, int intBrick, int intWood, int intWool,
+	public Server (int intGrain, int intOre, int intBrick, int intWood, int intWool,
 			int intRoadSegs, int intKnights, int intSettlements, int intCities, int intLCRS)
 	{
-		this.intPlayer = intPlayer;
+		
 		this.intGrain = intGrain;
 		this.intOre = intOre;
 		this.intBrick = intBrick;

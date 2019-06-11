@@ -120,10 +120,10 @@ public class Client implements ActionListener
 	}
 	
 	// Constructor
-	public Client (int intPlayer, int intGrain, int intOre, int intBrick, int intWood, int intWool,
+	public Client (int intGrain, int intOre, int intBrick, int intWood, int intWool,
 			int intRoadSegs, int intKnights, int intSettlements, int intCities, int intLCRS)
 	{
-		this.intPlayer = intPlayer;
+	
 		this.intGrain = intGrain;
 		this.intOre = intOre;
 		this.intBrick = intBrick;

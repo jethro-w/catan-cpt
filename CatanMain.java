@@ -90,10 +90,9 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 			textIP.setVisible(false);
 			labelIP.setVisible(false);
 							
-			ssm = new SuperSocketMaster(strIP, intPort, this);
-			ssm.connect();
-			ssm.sendText("connected");
-				
+			Client client = new Client(0,0,0,0,0,0,0,0,0,0);
+			intPlayers += 1;	
+			ssm.sendText("0," + intPlayers + "");
 			buttonReady.setVisible(true);
 		
 		}else if (evt.getSource() == buttonPort)
@@ -130,12 +129,9 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 			buttonServer.setVisible(false);
 			buttonClient.setVisible(false);
 			
-			ssm = new SuperSocketMaster(intPort, this);
-			System.out.println(ssm.getMyAddress());
-			strIP = ssm.getMyAddress();
-			ssm.connect();
+			Server server = new Server(0,0,0,0,0,0,0,0,0,0);
 			intPlayers += 1;
-			
+			ssm.sendText("0, " + intPlayers + "");
 			buttonReady.setVisible(true);
 			labelServerIP.setText("Server IP: " + strIP);
 			labelServerIP.setVisible(true);
@@ -173,8 +169,8 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 			if (buttonReady.getText().equals("Not Ready"))
 			{
 				intReady += 1;
-				System.out.println("Players ready: " + intReady);
-				System.out.println("Total players: " + intPlayers);
+				System.out.println("Players: " + intPlayers);
+				System.out.println("Readys: " + intReady);
 				
 				buttonReady.setText("Ready");
 				ssm.sendText("ready");
@@ -182,8 +178,8 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 			}else if (buttonReady.getText().equals("Ready"))
 			{
 				intReady -= 1;
-				System.out.println("Players ready: " + intReady);
-				System.out.println("Total players: " + intPlayers);
+				System.out.println("Players: " + intPlayers);
+				System.out.println("Readys: " + intReady);
 				
 				buttonReady.setText("Not Ready");
 				ssm.sendText("notready");
@@ -196,8 +192,8 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 			strSSM = strChat.split(",");
 			if(strChat.equals("ready")){
 				intReady += 1;
-				System.out.println("Players ready: " + intReady);
-				System.out.println("Total players: " + intPlayers);
+				System.out.println("Players: " + intPlayers);
+				System.out.println("Readys: " + intReady);
 				if(intReady == intPlayers){
 					
 					System.out.println("ALL MANS READY");//clients arent receiving this. so fix it
@@ -205,19 +201,15 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 				}
 			}else if (strChat.equals("notready"))
 			{
-				System.out.println("Players ready: " + intReady);
-				System.out.println("Total players: " + intPlayers);
+				System.out.println("Players: " + intPlayers);
+				System.out.println("Readys: " + intReady);
 				intReady -= 1;
-			}else if(strChat.equals("connected"))//for right when a player inputs the ip
-			{
-				System.out.println("a player has connected");
-				System.out.println("Players ready: " + intReady);
-				System.out.println("Total players: " + intPlayers);
-				intPlayers += 1;
+			}
 				
-			}else if (strSSM.equals("1"))//indicates phase 1.
-			{
 				
+			if (strSSM[0].equals("0"))//indicates phase 0
+			{
+				intPlayers = intPlayers +  Integer.parseInt(strSSM[1]);
 			}
 			
 		
