@@ -1,4 +1,3 @@
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -7,7 +6,10 @@ import java.awt.event.MouseListener;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JTextArea;
 import javax.swing.Timer;
 
 // Game phase code
@@ -17,17 +19,28 @@ public class GameCode implements ActionListener, MouseListener
 	public JFrame frame = new JFrame();
 	public AnimationPanel panel = new AnimationPanel();
 	public Timer timer = new Timer(1000 / 10, this);
-	public String[][] strMap = new String[5][9];
+	public JButton changeDraw = new JButton("/");
+	public JButton redPlayer = new JButton("r");
+	public JButton bluePlayer = new JButton("b");
+	public String[][] strTiles = new String[5][9];
 	public String[][] strSettlements = new String[12][11];
+	public String[][] strRoads = new String[11][11];
 	public int[] intTileNums = new int[18];
 	public int intStartTile;
 	public int intMouseX;
 	public int intMouseY;
-	int intDrawX;
-	int intDrawY = 90;
-	int intDeltaY = 56;
-	
+	public boolean drawSettlement = true;
+	public boolean drawRoad = false;
+	public int intDrawX;
+	public int intDrawY = 90;
+	public int intDeltaY = 56;
+	public int intDeltaX = 100;
+	public int intPlayer = 0; // Red = 0, Blue = 1, White = 2, Orange = 3
+
 	private int intCount;
+	private String strPlayerColour = "r";
+	private JTextArea settlements = new JTextArea();
+	private JTextArea roads = new JTextArea();
 	
 	// Methods
 	public void actionPerformed (ActionEvent evt)
@@ -35,6 +48,58 @@ public class GameCode implements ActionListener, MouseListener
 		if (evt.getSource() == timer)
 		{
 			panel.repaint();
+			
+			int intRow;
+			int intColumn;
+			
+			settlements.setText("");
+			roads.setText("");
+			
+			// Display arrays in TextArea
+			for (intRow = 0; intRow < 12; intRow ++)
+			{
+				for (intColumn = 0; intColumn < 11; intColumn ++)
+				{
+					settlements.append(strSettlements[intRow][intColumn] + " ");
+				}
+				settlements.append("\n");
+			}
+			
+			for (intRow = 0; intRow < 11; intRow ++)
+			{
+				for (intColumn = 0; intColumn < 11; intColumn ++)
+				{
+					roads.append(strRoads[intRow][intColumn] + " ");
+				}
+				roads.append("\n");
+			}
+		}
+		else if (evt.getSource() == changeDraw)
+		{
+			if (drawSettlement == true)
+			{
+				drawSettlement = false;
+				drawRoad = true;
+				
+				System.out.println("road mode");
+			}
+			else if (drawRoad == true)
+			{
+				drawSettlement = true;
+				drawRoad = false;
+				
+				System.out.println("settlement mode");
+			}
+		}
+		else if (evt.getSource() == redPlayer)
+		{
+			intPlayer = 0;
+			strPlayerColour = "r";
+		}
+		else if (evt.getSource() == bluePlayer)
+		{
+			intPlayer = 1;
+			strPlayerColour = "b";
 		}
 	}
 	
@@ -47,108 +112,171 @@ public class GameCode implements ActionListener, MouseListener
 		intMouseX = evt.getX();
 		intMouseY = evt.getY();
 		
+		System.out.println(intMouseX + ", " + intMouseY);
 		
-		for (intRow = 1; intRow <= 12; intRow++)
+		if (drawSettlement == true)
 		{
-			if (intRow == 1 || intRow == 12)
+			intDrawY = 90;
+			for (intRow = 1; intRow <= 12; intRow++)
 			{
-				intDrawX = 240;
-			}
-			else if (intRow == 2 || intRow == 3 || intRow == 10
-					|| intRow == 11)
-			{
-				intDrawX = 190;
-			}
-			else if (intRow == 4 || intRow == 5 || intRow == 8
-					|| intRow == 9)
-			{
-				intDrawX = 140;
-			}
-			else if (intRow == 6 || intRow == 7)
-			{
-				intDrawX = 90;
-			}
-
-			for (intCount = 0; intDrawX <= 580; intDrawX = intDrawX + 100)
-			{
-				if (((intMouseX >= intDrawX) && (intMouseX <= intDrawX + 20))
-						&& ((intMouseY >= intDrawY) && (intMouseY <= intDrawY + 20)))
+				if (intRow == 1 || intRow == 12)
 				{
-					intXCell = (int) Math.round((intMouseX - 100) / 50.0);
-					intYCell = Math.round((intMouseY / 58) - 1);
-					
-					panel.strSettlements[intYCell][intXCell] = "r";
-					strSettlements[intYCell][intXCell] = "r";
-					
-					System.out.println("intersection [" + intYCell + "][" + intXCell + "]");
-					System.out.println(intMouseX + ", " + intMouseY);
+					intDrawX = 240;
 				}
-			}
-			if (intDeltaY == 30)
-			{
-				intDeltaY = 56;
-			}
-			else if (intDeltaY == 56)
-			{
-				intDeltaY = 30;
-			}
+				else if (intRow == 2 || intRow == 3 || intRow == 10 || intRow == 11)
+				{
+					intDrawX = 190;
+				}
+				else if (intRow == 4 || intRow == 5 || intRow == 8 || intRow == 9)
+				{
+					intDrawX = 140;
+				}
+				else if (intRow == 6 || intRow == 7)
+				{
+					intDrawX = 90;
+				}
 
-			intDrawY = intDrawY + intDeltaY;
+				for (intCount = 0; intDrawX <= 590; intDrawX = intDrawX + 100)
+				{
+					if (intMouseX >= intDrawX && intMouseX <= intDrawX + 20
+							&& intMouseY >= intDrawY && intMouseY <= intDrawY + 20)
+					{
+						intXCell = (int) Math.round((intMouseX - 100) / 50.0);
+						intYCell = (int) Math.round((intMouseY / 43.0) - 2.1);
+						
+						if (strSettlements[intYCell][intXCell].equals("_"))
+						{
+							panel.strSettlements[intYCell][intXCell] = strPlayerColour;
+							strSettlements[intYCell][intXCell] = strPlayerColour;
+
+							System.out.println("settlements [" + intXCell + "][" + intYCell + "]");
+
+							// ADD FEATURE TO DISABLE SURROUNDING SPOTS (dependent on row number)
+							if (intRow == 1 || intRow == 3 || intRow == 5 || intRow == 7 || intRow == 9 || intRow == 11)
+							{
+								panel.strSettlements[intYCell + 1][intXCell + 1] = "x";
+								panel.strSettlements[intYCell + 1][intXCell - 1] = "x";
+								strSettlements[intYCell + 1][intXCell + 1] = "x";
+								strSettlements[intYCell + 1][intXCell - 1] = "x";
+								if (intRow != 1)
+								{
+									panel.strSettlements[intYCell - 1][intXCell] = "x";
+									strSettlements[intYCell - 1][intXCell] = "x";
+								}
+							}
+							else if (intRow == 2 || intRow == 4 || intRow == 6 || intRow == 8 || intRow == 10 || intRow == 12)
+							{
+								panel.strSettlements[intYCell - 1][intXCell + 1] = "x";
+								panel.strSettlements[intYCell - 1][intXCell - 1] = "x";
+								strSettlements[intYCell - 1][intXCell + 1] = "x";
+								strSettlements[intYCell - 1][intXCell - 1] = "x";
+								if (intRow != 12)
+								{
+									panel.strSettlements[intYCell + 1][intXCell] = "x";
+									strSettlements[intYCell + 1][intXCell] = "x";
+								}
+							}
+							
+							// ADD IF STATEMENTS TO ONLY ALLOW SETTLEMENTS CONNECTED TO ROAD SEGMENTS
+						}
+					}
+				}
+				if (intDeltaY == 30)
+				{
+					intDeltaY = 56;
+				}
+				else if (intDeltaY == 56)
+				{
+					intDeltaY = 30;
+				}
+
+				intDrawY = intDrawY + intDeltaY;
+			}
 		}
-		intDrawY = 90;
-		
-		/*
-		for (intRow = 0; intRow < 12; intRow++)
+		else if (drawRoad == true)
 		{
-			if (intRow == 0 || intRow == 11)
+			intDeltaY = 56;
+			intDrawY = 100;
+			for (intRow = 1; intRow <= 11 ; intRow++)
 			{
-				intDrawX = 230;
-			}
-			else if (intRow == 1 || intRow == 2 || intRow == 9
-					|| intRow == 10)
-			{
-				intDrawX = 180;
-			}
-			else if (intRow == 3 || intRow == 4 || intRow == 7
-					|| intRow == 8)
-			{
-				intDrawX = 130;
-			}
-			else if (intRow == 5 || intRow == 6)
-			{
-				intDrawX = 80;
-			}
-
-			for (intColumn = 0; intColumn < 11 && intDrawX <= 580; intColumn++)
-			{
-				if (((intMouseX >= intDrawX) && (intMouseX <= intDrawX + 40))
-						&& ((intMouseY >= intDrawY) && (intMouseY <= intDrawY + 40)))
+				if (intRow == 1 || intRow == 11)
 				{
-					intXCell = Math.round((intMouseX - 100) / 50);
-					intYCell = Math.round((intMouseY / 58) - 1);
-					
-					panel.strSettlements[intXCell][intYCell] = "r";
-					strSettlements[intXCell][intYCell] = "r";
-					
-					intDrawX = intDrawX + 100;
-					
-					System.out.println("intersection");
+					intDrawX = 200;
+					intDeltaX = 50;
 				}
-			}
+				else if (intRow == 2 || intRow == 10)
+				{
+					intDrawX = 185;
+					intDeltaX = 100;
+				}
+				else if (intRow == 3 || intRow == 9)
+				{
+					intDrawX = 150;
+					intDeltaX = 50;
+				}
+				else if (intRow == 4 || intRow == 8)
+				{
+					intDrawX = 135;
+					intDeltaX = 100;
+				}
+				else if (intRow == 5 || intRow == 7)
+				{
+					intDrawX = 100;
+					intDeltaX = 50;
+				}
+				else if (intRow == 6)
+				{
+					intDrawX = 85;
+					intDeltaX = 100;
+				}
 
-			if (intDeltaY == 30)
-			{
-				intDeltaY = 56;
-			}
-			else if (intDeltaY == 56)
-			{
-				intDeltaY = 30;
-			}
+				for (intCount = 0; intDrawX <= 590; intDrawX = intDrawX + intDeltaX)
+				{
+					if (intRow == 1 || intRow == 3 || intRow == 5 || intRow == 7 ||
+							intRow == 9 || intRow == 11)
+					{
+						if (intMouseX >= intDrawX && intMouseX <= intDrawX + 50
+								&& intMouseY >= intDrawY && intMouseY <= intDrawY + 30)
+						{
+							intXCell = (int) Math.floor((intMouseX - 100) / 50.0);
+							intYCell = (int) Math.round((intMouseY / 43.0) - 2.8);
+							
+							panel.strRoads[intYCell][intXCell] = strPlayerColour;
+							strRoads[intYCell][intXCell] = strPlayerColour;
+							
+							System.out.println("road [" + intXCell + "][" + intYCell + "]");
+							System.out.println(intMouseX + ", " + intMouseY);
+						}
+					}
+					else if (intRow == 2 || intRow == 4 || intRow == 6 || intRow == 8 ||intRow == 10)
+					{
+						if (intMouseX >= intDrawX && intMouseX <= intDrawX + 30
+								&& intMouseY >= intDrawY && intMouseY <= intDrawY + 56)
+						{
+							intXCell = (int) Math.round((intMouseX - 100) / 50.0);
+							intYCell = (int) Math.round((intMouseY / 43.0) - 2.8);
+							
+							panel.strRoads[intYCell][intXCell] = strPlayerColour;
+							strRoads[intYCell][intXCell] = strPlayerColour;
+							
+							System.out.println("road [" + intXCell + "][" + intYCell + "]");
+							System.out.println(intMouseX + ", " + intMouseY);
+						}
+					}
+				}
+				
+				if (intDeltaY == 30)
+				{
+					intDeltaY = 56;
+				}
+				else if (intDeltaY == 56)
+				{
+					intDeltaY = 30;
+				}
 
-			intDrawY = intDrawY + intDeltaY;
+				intDrawY = intDrawY + intDeltaY;
+			}
 		}
-		intDrawY = 80;
-		*/
 	}
 
 	public void mousePressed (MouseEvent evt)
@@ -232,6 +360,36 @@ public class GameCode implements ActionListener, MouseListener
 
 		return strMap;
 	}
+	public static String[][] loadRoads () throws IOException
+	{
+		BufferedReader map = null;
+		String[] strMapLine = new String[11];
+		String[][] strMap = new String[11][11];
+		int intCount;
+
+		try
+		{
+			map = new BufferedReader(new FileReader("catan-roads-map.csv"));
+		}
+		catch (IOException e)
+		{
+
+		}
+
+		for (intCount = 0; intCount < 11; intCount++)
+		{
+			try
+			{
+				strMapLine[intCount] = map.readLine();
+			}
+			catch (IOException e)
+			{
+			}
+			strMap[intCount] = strMapLine[intCount].split(",");
+		}
+
+		return strMap;
+	}
 	
 	private static int[] loadTileNumbers ()
 	{
@@ -268,7 +426,25 @@ public class GameCode implements ActionListener, MouseListener
 		panel.setLayout(null);
 		panel.setPreferredSize(new Dimension(1280, 720));
 		panel.addMouseListener(this);
-
+		
+		changeDraw.setBounds(100, 100, 30, 30);
+		changeDraw.addActionListener(this);
+		panel.add(changeDraw);
+		
+		redPlayer.setBounds(50, 50, 30, 30);
+		redPlayer.addActionListener(this);
+		panel.add(redPlayer);
+		
+		bluePlayer.setBounds(80, 50, 30, 30);
+		bluePlayer.addActionListener(this);
+		panel.add(bluePlayer);
+		
+		settlements.setBounds(700, 100, 200, 200);
+		panel.add(settlements);
+		
+		roads.setBounds(700, 400, 200, 200);
+		panel.add(roads);
+		
 		timer.addActionListener(this);
 		timer.start();
 
@@ -281,8 +457,9 @@ public class GameCode implements ActionListener, MouseListener
 
 		try
 		{
-			strMap = GameCode.loadMap();
+			strTiles = GameCode.loadMap();
 			strSettlements = GameCode.loadSettlements();
+			strRoads = GameCode.loadRoads();
 		}
 		catch (IOException e)
 		{
@@ -310,7 +487,7 @@ public class GameCode implements ActionListener, MouseListener
 		{
 			for (intColumn = 0; intColumn < 9; intColumn++)
 			{
-				if (strMap[intRow][intColumn].equals("_"))
+				if (strTiles[intRow][intColumn].equals("_"))
 				{
 					// Generate random tile
 					intRand = (int)(Math.random() * 11);
@@ -325,7 +502,7 @@ public class GameCode implements ActionListener, MouseListener
 
 					if (intRand == 0 || intRand == 1)
 					{
-						panel.strMap[intRow][intColumn] = "0";
+						panel.strTiles[intRow][intColumn] = "0";
 						intOre++;
 						if (intOre == 3)
 						{
@@ -334,16 +511,16 @@ public class GameCode implements ActionListener, MouseListener
 					}
 					if (intRand == 2 || intRand == 3)
 					{
-						panel.strMap[intRow][intColumn] = "1";
+						panel.strTiles[intRow][intColumn] = "1";
 						intBrick++;
-						if (intBrick == 4)
+						if (intBrick == 3)
 						{
 							hasMaxBrick = true;
 						}
 					}
 					if (intRand == 4 || intRand == 5)
 					{
-						panel.strMap[intRow][intColumn] = "2";
+						panel.strTiles[intRow][intColumn] = "2";
 						intWheat++;
 						if (intWheat == 4)
 						{
@@ -352,7 +529,7 @@ public class GameCode implements ActionListener, MouseListener
 					}
 					if (intRand == 6 || intRand == 7)
 					{
-						panel.strMap[intRow][intColumn] = "3";
+						panel.strTiles[intRow][intColumn] = "3";
 						intWood++;
 						if (intWood == 4)
 						{
@@ -361,7 +538,7 @@ public class GameCode implements ActionListener, MouseListener
 					}
 					if (intRand == 8 || intRand == 9)
 					{
-						panel.strMap[intRow][intColumn] = "4";
+						panel.strTiles[intRow][intColumn] = "4";
 						intWool++;
 						if (intWool == 4)
 						{
@@ -370,7 +547,7 @@ public class GameCode implements ActionListener, MouseListener
 					}
 					if (intRand == 10)
 					{
-						panel.strMap[intRow][intColumn] = "5";
+						panel.strTiles[intRow][intColumn] = "5";
 						intDesert++;
 						if (intDesert == 1)
 						{
@@ -378,9 +555,9 @@ public class GameCode implements ActionListener, MouseListener
 						}
 					}
 				}
-				else if (strMap[intRow][intColumn].equals("x"))
+				else if (strTiles[intRow][intColumn].equals("x"))
 				{
-					panel.strMap[intRow][intColumn] = "x";
+					panel.strTiles[intRow][intColumn] = "x";
 				}
 			}
 		}
@@ -400,7 +577,23 @@ public class GameCode implements ActionListener, MouseListener
 			}
 		}
 		
+		for (intRow = 0; intRow < 11; intRow ++)
+		{
+			for (intColumn = 0; intColumn < 11; intColumn ++)
+			{
+				if (strRoads[intRow][intColumn].equals("_"))
+				{
+					panel.strRoads[intRow][intColumn] = "_";
+				}
+				else if (strRoads[intRow][intColumn].equals("x"))
+				{
+					panel.strRoads[intRow][intColumn] = "x";
+				}
+			}
+		}
+		
 		// Decide where which tile starts
+		/*
 		intTileNums = loadTileNumbers();
 		
 		intRand = (int) (Math.random() * 12);
@@ -421,6 +614,7 @@ public class GameCode implements ActionListener, MouseListener
 		{
 			intStartTile = intRand + 8;
 		}
+		*/
 	}
 
 	// Main method
