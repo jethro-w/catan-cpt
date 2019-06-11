@@ -86,17 +86,20 @@ public class AnimationPanel extends JPanel
 					g.drawImage(tileImage[5], intTileX, intTileY, null);
 					intTileX = intTileX + 100;
 				}
+
+		
 				else if (strTiles[intRow][intColumn].equals("x"))
 				{
 				}
+
 			}
 			intTileY = intTileY + 86;
 		}
 
 		intTileY = 100;
-
+		
 		intRoadY = 100;
-
+		
 		// Draw roads
 		for (intRow = 0; intRow < 11; intRow ++)
 		{
