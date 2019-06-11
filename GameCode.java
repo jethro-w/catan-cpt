@@ -156,6 +156,8 @@ public class GameCode implements ActionListener, MouseListener
 						intXCell = (int) Math.round((intMouseX - 100) / 50.0);
 						intYCell = (int) Math.round((intMouseY / 43.0) - 2.1);
 						
+						System.out.println("hi");
+						
 						if (strSettlements[intYCell][intXCell].equals("_"))
 						{
 							panel.strSettlements[intYCell][intXCell] = strPlayerColour;
