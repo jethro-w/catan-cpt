@@ -5,7 +5,7 @@ import javax.swing.event.*;
 import java.io.*;
 
 // Main Program
-public class CatanMain2 implements ActionListener, MouseMotionListener, KeyListener, MouseListener{
+public class CatanDraft implements ActionListener, MouseMotionListener, KeyListener, MouseListener{
 	// Properties
 	JFrame theframe;
 	ReplacementPanel thepanel;
@@ -264,7 +264,7 @@ public class CatanMain2 implements ActionListener, MouseMotionListener, KeyListe
 	{
 	}
 	// Constructor
-	public CatanMain2()
+	public CatanDraft()
 	{
 		thepanel = new ReplacementPanel();
 		thepanel.setLayout(null);
@@ -398,7 +398,7 @@ public class CatanMain2 implements ActionListener, MouseMotionListener, KeyListe
 	// Main method
 	public static void main (String[] args)
 	{
-		new CatanMain2();
+		new CatanDraft();
 		//experimenting with painting main menu options
 		//no jlabel use, just editing color in JPanel
 	}
