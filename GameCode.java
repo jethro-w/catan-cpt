@@ -9,6 +9,7 @@ import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JTextArea;
 import javax.swing.Timer;
 
 // Game phase code
@@ -18,7 +19,9 @@ public class GameCode implements ActionListener, MouseListener
 	public JFrame frame = new JFrame();
 	public AnimationPanel panel = new AnimationPanel();
 	public Timer timer = new Timer(1000 / 10, this);
-	public JButton changeDraw = new JButton();
+	public JButton changeDraw = new JButton("/");
+	public JButton redPlayer = new JButton("r");
+	public JButton bluePlayer = new JButton("b");
 	public String[][] strTiles = new String[5][9];
 	public String[][] strSettlements = new String[12][11];
 	public String[][] strRoads = new String[11][11];
@@ -31,9 +34,13 @@ public class GameCode implements ActionListener, MouseListener
 	public int intDrawX;
 	public int intDrawY = 90;
 	public int intDeltaY = 56;
-	int intDeltaX = 100;
-	
+	public int intDeltaX = 100;
+	public int intPlayer = 0; // Red = 0, Blue = 1, White = 2, Orange = 3
+
 	private int intCount;
+	private String strPlayerColour = "r";
+	private JTextArea settlements = new JTextArea();
+	private JTextArea roads = new JTextArea();
 	
 	// Methods
 	public void actionPerformed (ActionEvent evt)
@@ -41,6 +48,31 @@ public class GameCode implements ActionListener, MouseListener
 		if (evt.getSource() == timer)
 		{
 			panel.repaint();
+			
+			int intRow;
+			int intColumn;
+			
+			settlements.setText("");
+			roads.setText("");
+			
+			// Display arrays in TextArea
+			for (intRow = 0; intRow < 12; intRow ++)
+			{
+				for (intColumn = 0; intColumn < 11; intColumn ++)
+				{
+					settlements.append(strSettlements[intRow][intColumn] + " ");
+				}
+				settlements.append("\n");
+			}
+			
+			for (intRow = 0; intRow < 11; intRow ++)
+			{
+				for (intColumn = 0; intColumn < 11; intColumn ++)
+				{
+					roads.append(strRoads[intRow][intColumn] + " ");
+				}
+				roads.append("\n");
+			}
 		}
 		else if (evt.getSource() == changeDraw)
 		{
@@ -48,12 +80,26 @@ public class GameCode implements ActionListener, MouseListener
 			{
 				drawSettlement = false;
 				drawRoad = true;
+				
+				System.out.println("road mode");
 			}
 			else if (drawRoad == true)
 			{
 				drawSettlement = true;
 				drawRoad = false;
+				
+				System.out.println("settlement mode");
 			}
+		}
+		else if (evt.getSource() == redPlayer)
+		{
+			intPlayer = 0;
+			strPlayerColour = "r";
+		}
+		else if (evt.getSource() == bluePlayer)
+		{
+			intPlayer = 1;
+			strPlayerColour = "b";
 		}
 	}
 	
@@ -65,6 +111,8 @@ public class GameCode implements ActionListener, MouseListener
 		
 		intMouseX = evt.getX();
 		intMouseY = evt.getY();
+		
+		System.out.println(intMouseX + ", " + intMouseY);
 		
 		if (drawSettlement == true)
 		{
@@ -98,11 +146,10 @@ public class GameCode implements ActionListener, MouseListener
 						
 						if (strSettlements[intYCell][intXCell].equals("_"))
 						{
-							panel.strSettlements[intYCell][intXCell] = "r";
-							strSettlements[intYCell][intXCell] = "r";
+							panel.strSettlements[intYCell][intXCell] = strPlayerColour;
+							strSettlements[intYCell][intXCell] = strPlayerColour;
 
 							System.out.println("settlements [" + intXCell + "][" + intYCell + "]");
-							System.out.println(intMouseX + ", " + intMouseY);
 
 							// ADD FEATURE TO DISABLE SURROUNDING SPOTS (dependent on row number)
 							if (intRow == 1 || intRow == 3 || intRow == 5 || intRow == 7 || intRow == 9 || intRow == 11)
@@ -129,6 +176,8 @@ public class GameCode implements ActionListener, MouseListener
 									strSettlements[intYCell + 1][intXCell] = "x";
 								}
 							}
+							
+							// ADD IF STATEMENTS TO ONLY ALLOW SETTLEMENTS CONNECTED TO ROAD SEGMENTS
 						}
 					}
 				}
@@ -192,8 +241,8 @@ public class GameCode implements ActionListener, MouseListener
 							intXCell = (int) Math.floor((intMouseX - 100) / 50.0);
 							intYCell = (int) Math.round((intMouseY / 43.0) - 2.8);
 							
-							panel.strRoads[intYCell][intXCell] = "r";
-							strRoads[intYCell][intXCell] = "r";
+							panel.strRoads[intYCell][intXCell] = strPlayerColour;
+							strRoads[intYCell][intXCell] = strPlayerColour;
 							
 							System.out.println("road [" + intXCell + "][" + intYCell + "]");
 							System.out.println(intMouseX + ", " + intMouseY);
@@ -207,8 +256,8 @@ public class GameCode implements ActionListener, MouseListener
 							intXCell = (int) Math.round((intMouseX - 100) / 50.0);
 							intYCell = (int) Math.round((intMouseY / 43.0) - 2.8);
 							
-							panel.strRoads[intYCell][intXCell] = "r";
-							strRoads[intYCell][intXCell] = "r";
+							panel.strRoads[intYCell][intXCell] = strPlayerColour;
+							strRoads[intYCell][intXCell] = strPlayerColour;
 							
 							System.out.println("road [" + intXCell + "][" + intYCell + "]");
 							System.out.println(intMouseX + ", " + intMouseY);
@@ -378,10 +427,23 @@ public class GameCode implements ActionListener, MouseListener
 		panel.setPreferredSize(new Dimension(1280, 720));
 		panel.addMouseListener(this);
 		
-		changeDraw.setSize(20, 20);
-		changeDraw.setLocation(100, 100);
+		changeDraw.setBounds(100, 100, 30, 30);
 		changeDraw.addActionListener(this);
 		panel.add(changeDraw);
+		
+		redPlayer.setBounds(50, 50, 30, 30);
+		redPlayer.addActionListener(this);
+		panel.add(redPlayer);
+		
+		bluePlayer.setBounds(80, 50, 30, 30);
+		bluePlayer.addActionListener(this);
+		panel.add(bluePlayer);
+		
+		settlements.setBounds(700, 100, 200, 200);
+		panel.add(settlements);
+		
+		roads.setBounds(700, 400, 200, 200);
+		panel.add(roads);
 		
 		timer.addActionListener(this);
 		timer.start();
