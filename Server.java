@@ -1,4 +1,7 @@
-public class Server
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class Server implements ActionListener
 {
 	// Properties
 	/** Player name */
@@ -29,6 +32,14 @@ public class Server
 	public boolean hasLargestArmy = false;
 	/** Whether or not the player has the longest road (ie. longest consecutive road segments). If so, the player gets points for having this attribute. */
 	public boolean hasLongestRoad = false;
+	
+	public SuperSocketMaster ssm;
+	
+	// Implemented Methods
+	public void actionPerformed (ActionEvent evt)
+	{
+		
+	}
 	
 	// Methods
 	/** Generates two random numbers between 1 and 6 adds them to simulate a dice roll. */
