@@ -95,7 +95,7 @@ public class AnimationPanel extends JPanel
 			}
 			intTileY = intTileY + 86;
 		}
-		
+
 		intTileY = 100;
 		
 		intRoadY = 100;
@@ -103,17 +103,15 @@ public class AnimationPanel extends JPanel
 		// Draw roads
 		for (intRow = 0; intRow < 11; intRow ++)
 		{
-			if (intRow == 0 || intRow == 2 || intRow == 4 || intRow == 6
-					|| intRow == 8 || intRow == 10)
+			if (intRow == 0 || intRow == 2 || intRow == 4 || intRow == 6 || intRow == 8 || intRow == 10)
 			{
 				intDrawX = 100;
 			}
-			else if (intRow == 1 || intRow == 3|| intRow == 5|| intRow == 7||
-					intRow == 9)
+			else if (intRow == 1 || intRow == 3 || intRow == 5 || intRow == 7 || intRow == 9)
 			{
 				intDrawX = 95;
 			}
-			
+
 			if (intRow == 0 || intRow == 2 || intRow == 4)
 			{
 				isSlantedUp = true;
@@ -122,22 +120,51 @@ public class AnimationPanel extends JPanel
 			{
 				isSlantedUp = false;
 			}
-			
+
 			for (intColumn = 0; intColumn < 11; intColumn ++)
 			{
 				if (strRoads[intRow][intColumn].equals("r") || strRoads[intRow][intColumn].equals("b"))
 				{
-					if (intRow == 0 || intRow == 2 || intRow == 4 ||
-							intRow == 6 || intRow == 8 || intRow == 10)
+					if (intRow == 0 || intRow == 2 || intRow == 4 || intRow == 6 || intRow == 8 || intRow == 10)
 					{
 						if (isSlantedUp == true)
 						{
-							g.drawImage(upRoad[0], intDrawX, intRoadY, null);
+							if (strRoads[intRow][intColumn].equals("r"))
+							{
+								g.drawImage(upRoad[0], intDrawX, intRoadY, null);
+							}
+							else if (strRoads[intRow][intColumn].equals("b"))
+							{
+								g.drawImage(upRoad[1], intDrawX, intRoadY, null);
+							}
+							else if (strRoads[intRow][intColumn].equals("w"))
+							{
+								g.drawImage(upRoad[2], intDrawX, intRoadY, null);
+							}
+							else if (strRoads[intRow][intColumn].equals("o"))
+							{
+								g.drawImage(upRoad[3], intDrawX, intRoadY, null);
+							}
 							isSlantedUp = false;
 						}
 						else if (isSlantedUp == false)
 						{
-							g.drawImage(downRoad[0], intDrawX, intRoadY, null);
+							if (strRoads[intRow][intColumn].equals("r"))
+							{
+								g.drawImage(downRoad[0], intDrawX, intRoadY, null);
+							}
+							else if (strRoads[intRow][intColumn].equals("b"))
+							{
+								g.drawImage(downRoad[1], intDrawX, intRoadY, null);
+							}
+							else if (strRoads[intRow][intColumn].equals("w"))
+							{
+								g.drawImage(downRoad[2], intDrawX, intRoadY, null);
+							}
+							else if (strRoads[intRow][intColumn].equals("o"))
+							{
+								g.drawImage(downRoad[3], intDrawX, intRoadY, null);
+							}
 							isSlantedUp = true;
 						}
 						intDrawX = intDrawX + 50;
@@ -150,16 +177,15 @@ public class AnimationPanel extends JPanel
 						}
 						else if (strRoads[intRow][intColumn].equals("b"))
 						{
-							g.setColor(Color.blue);
-							g.fillRect(intDrawX, intRoadY, 10, 50);
+							g.drawImage(vertRoad[1], intDrawX, intRoadY, null);
 						}
 						intDrawX = intDrawX + 50;
 					}
 				}
 				else
 				{
-					if ((intRow == 0 || intRow == 0 || intRow == 2 || intRow == 4 ||
-							intRow == 6 || intRow == 8 || intRow == 10) && strRoads[intRow][intColumn].equals("_"))
+					if ((intRow == 0 || intRow == 0 || intRow == 2 || intRow == 4 || intRow == 6 || intRow == 8
+							|| intRow == 10) && strRoads[intRow][intColumn].equals("_"))
 					{
 						if (isSlantedUp == true)
 						{
@@ -173,7 +199,7 @@ public class AnimationPanel extends JPanel
 					intDrawX = intDrawX + 50;
 				}
 			}
-			
+
 			if (intRoadDeltaY == 30)
 			{
 				intRoadDeltaY = 56;
@@ -185,7 +211,7 @@ public class AnimationPanel extends JPanel
 
 			intRoadY = intRoadY + intRoadDeltaY;
 		}
-		
+
 		// Draw settlements
 		for (intRow = 0; intRow < 12; intRow ++)
 		{
@@ -193,19 +219,27 @@ public class AnimationPanel extends JPanel
 
 			for (intColumn = 0; intColumn < 11 && intDrawX <= 600; intColumn ++)
 			{
-				if (strSettlements[intRow][intColumn].equals("r") || strSettlements[intRow][intColumn].equals("b"))
+				if (strSettlements[intRow][intColumn].equals("r") || strSettlements[intRow][intColumn].equals("b")
+						|| strSettlements[intRow][intColumn].equals("w") || strSettlements[intRow][intColumn].equals("o"))
 				{
 					g.setColor(Color.white);
 					g.drawRect(intDrawX + 10, intDrawY + 10, 20, 20);
-					
+
 					if (strSettlements[intRow][intColumn].equals("r"))
 					{
 						g.drawImage(settlement[0], intDrawX + 10, intDrawY + 10, null);
 					}
 					else if (strSettlements[intRow][intColumn].equals("b"))
 					{
-						g.setColor(Color.blue);
-						g.fillRect(intDrawX + 10, intDrawY + 10, 20, 20);
+						g.drawImage(settlement[1], intDrawX + 10, intDrawY + 10, null);
+					}
+					else if (strSettlements[intRow][intColumn].equals("w"))
+					{
+						g.drawImage(settlement[2], intDrawX + 10, intDrawY + 10, null);
+					}
+					else if (strSettlements[intRow][intColumn].equals("o"))
+					{
+						g.drawImage(settlement[3], intDrawX + 10, intDrawY + 10, null);
 					}
 					intDrawX = intDrawX + 50;
 				}
@@ -232,12 +266,12 @@ public class AnimationPanel extends JPanel
 
 			intDrawY = intDrawY + intDeltaY;
 		}
-		
+
 		intDrawY = 80;
 	}
 
 	// Constructor
-	public AnimationPanel()
+	public AnimationPanel ()
 	{
 		super();
 
@@ -245,39 +279,12 @@ public class AnimationPanel extends JPanel
 
 		try
 		{
-			for (intCount = 0; intCount < 6; intCount ++)
-			{
-				// Ore Tile = 0
-				if (intCount == 0)
-				{
-					tileImage[intCount] = ImageIO.read(new File("OreTile.png"));
-				}
-				// Brick Tile = 1
-				else if (intCount == 1)
-				{
-					tileImage[intCount] = ImageIO.read(new File("BrickTile.png"));
-				}
-				// Wheat Tile = 2
-				else if (intCount == 2)
-				{
-					tileImage[intCount] = ImageIO.read(new File("WheatTile.png"));
-				}
-				// Wood Tile = 3
-				else if (intCount == 3)
-				{
-					tileImage[intCount] = ImageIO.read(new File("WoodTile.png"));
-				}
-				// Wool Tile = 4
-				else if (intCount == 4)
-				{
-					tileImage[intCount] = ImageIO.read(new File("WoolTile.png"));
-				}
-				// Desert Tile = 5
-				else if (intCount == 5)
-				{
-					tileImage[intCount] = ImageIO.read(new File("DesertTile.png"));
-				}
-			}
+			tileImage[0] = ImageIO.read(new File("OreTile.png"));
+			tileImage[1] = ImageIO.read(new File("BrickTile.png"));
+			tileImage[2] = ImageIO.read(new File("WheatTile.png"));
+			tileImage[3] = ImageIO.read(new File("WoodTile.png"));
+			tileImage[4] = ImageIO.read(new File("WoolTile.png"));
+			tileImage[5] = ImageIO.read(new File("DesertTile.png"));
 
 			settlement[0] = ImageIO.read(new File("settlementRed.png"));
 			settlement[1] = ImageIO.read(new File("settlementBlue.png"));
@@ -288,16 +295,16 @@ public class AnimationPanel extends JPanel
 			vertRoad[1] = ImageIO.read(new File("vertRoadBlue.png"));
 			vertRoad[2] = ImageIO.read(new File("vertRoadWhite.png"));
 			vertRoad[3] = ImageIO.read(new File("vertRoadOrange.png"));
-			
+
 			upRoad[0] = ImageIO.read(new File("upRoadRed.png"));
 			upRoad[1] = ImageIO.read(new File("upRoadBlue.png"));
 			upRoad[2] = ImageIO.read(new File("upRoadWhite.png"));
 			upRoad[3] = ImageIO.read(new File("upRoadOrange.png"));
-			
+
 			downRoad[0] = ImageIO.read(new File("downRoadRed.png"));
 			downRoad[1] = ImageIO.read(new File("downRoadBlue.png"));
 			downRoad[2] = ImageIO.read(new File("downRoadWhite.png"));
-			downRoad[3] = ImageIO.read(new File("downRoadOrage.png"));
+			downRoad[3] = ImageIO.read(new File("downRoadOrange.png"));
 		}
 		catch (IOException e)
 		{

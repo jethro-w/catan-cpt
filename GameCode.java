@@ -19,9 +19,6 @@ public class GameCode implements ActionListener, MouseListener
 	public JFrame frame = new JFrame();
 	public AnimationPanel panel = new AnimationPanel();
 	public Timer timer = new Timer(1000 / 10, this);
-	public JButton changeDraw = new JButton("/");
-	public JButton redPlayer = new JButton("r");
-	public JButton bluePlayer = new JButton("b");
 	public String[][] strTiles = new String[5][9];
 	public String[][] strSettlements = new String[12][11];
 	public String[][] strRoads = new String[11][11];
@@ -41,6 +38,11 @@ public class GameCode implements ActionListener, MouseListener
 	private String strPlayerColour = "r";
 	private JTextArea settlements = new JTextArea();
 	private JTextArea roads = new JTextArea();
+	private JButton changeDraw = new JButton("/");
+	private JButton redPlayer = new JButton("r");
+	private JButton bluePlayer = new JButton("b");
+	private JButton whitePlayer = new JButton("w");
+	private JButton orangePlayer = new JButton("o");
 	
 	// Methods
 	public void actionPerformed (ActionEvent evt)
@@ -101,6 +103,16 @@ public class GameCode implements ActionListener, MouseListener
 			intPlayer = 1;
 			strPlayerColour = "b";
 		}
+		else if (evt.getSource() == whitePlayer)
+		{
+			intPlayer = 2;
+			strPlayerColour = "w";
+		}
+		else if (evt.getSource() == orangePlayer)
+		{
+			intPlayer = 3;
+			strPlayerColour = "o";
+		}
 	}
 	
 	public void mouseClicked (MouseEvent evt)
@@ -143,6 +155,8 @@ public class GameCode implements ActionListener, MouseListener
 					{
 						intXCell = (int) Math.round((intMouseX - 100) / 50.0);
 						intYCell = (int) Math.round((intMouseY / 43.0) - 2.1);
+						
+						System.out.println("hi");
 						
 						if (strSettlements[intYCell][intXCell].equals("_"))
 						{
@@ -241,11 +255,14 @@ public class GameCode implements ActionListener, MouseListener
 							intXCell = (int) Math.floor((intMouseX - 100) / 50.0);
 							intYCell = (int) Math.round((intMouseY / 43.0) - 2.8);
 							
-							panel.strRoads[intYCell][intXCell] = strPlayerColour;
-							strRoads[intYCell][intXCell] = strPlayerColour;
-							
-							System.out.println("road [" + intXCell + "][" + intYCell + "]");
-							System.out.println(intMouseX + ", " + intMouseY);
+							if (strRoads[intYCell][intXCell].equals("_"))
+							{
+								panel.strRoads[intYCell][intXCell] = strPlayerColour;
+								strRoads[intYCell][intXCell] = strPlayerColour;
+
+								System.out.println("road [" + intXCell + "][" + intYCell + "]");
+								System.out.println(intMouseX + ", " + intMouseY);
+							}
 						}
 					}
 					else if (intRow == 2 || intRow == 4 || intRow == 6 || intRow == 8 ||intRow == 10)
@@ -256,11 +273,14 @@ public class GameCode implements ActionListener, MouseListener
 							intXCell = (int) Math.round((intMouseX - 100) / 50.0);
 							intYCell = (int) Math.round((intMouseY / 43.0) - 2.8);
 							
-							panel.strRoads[intYCell][intXCell] = strPlayerColour;
-							strRoads[intYCell][intXCell] = strPlayerColour;
-							
-							System.out.println("road [" + intXCell + "][" + intYCell + "]");
-							System.out.println(intMouseX + ", " + intMouseY);
+							if (strRoads[intXCell][intYCell].equals("_"))
+							{
+								panel.strRoads[intYCell][intXCell] = strPlayerColour;
+								strRoads[intYCell][intXCell] = strPlayerColour;
+
+								System.out.println("road [" + intXCell + "][" + intYCell + "]");
+								System.out.println(intMouseX + ", " + intMouseY);
+							}
 						}
 					}
 				}
@@ -431,13 +451,21 @@ public class GameCode implements ActionListener, MouseListener
 		changeDraw.addActionListener(this);
 		panel.add(changeDraw);
 		
-		redPlayer.setBounds(50, 50, 30, 30);
+		redPlayer.setBounds(0, 0, 50, 30);
 		redPlayer.addActionListener(this);
 		panel.add(redPlayer);
 		
-		bluePlayer.setBounds(80, 50, 30, 30);
+		bluePlayer.setBounds(50, 0, 50, 30);
 		bluePlayer.addActionListener(this);
 		panel.add(bluePlayer);
+		
+		whitePlayer.setBounds(100, 0, 50, 30);
+		whitePlayer.addActionListener(this);
+		panel.add(whitePlayer);
+		
+		orangePlayer.setBounds(150, 0, 50, 30);
+		orangePlayer.addActionListener(this);
+		panel.add(orangePlayer);
 		
 		settlements.setBounds(700, 100, 200, 200);
 		panel.add(settlements);

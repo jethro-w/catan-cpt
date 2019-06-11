@@ -1,4 +1,4 @@
-public class player
+public class Server
 {
 	// Properties
 	/** Player name */
@@ -80,7 +80,7 @@ public class player
 	}
 	
 	// Constructor
-	public player (int intPlayer, int intGrain, int intOre, int intBrick, int intWood, int intWool,
+	public Server (int intPlayer, int intGrain, int intOre, int intBrick, int intWood, int intWool,
 			int intRoadSegs, int intKnights, int intSettlements, int intCities, int intLCRS)
 	{
 		this.intPlayer = intPlayer;
