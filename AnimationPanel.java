@@ -80,9 +80,9 @@ public class AnimationPanel extends JPanel
 					g.drawImage(tileImage[5], intTileX, intTileY, null);
 					intTileX = intTileX + 100;
 				}
-				else if (strMap[intRow][intColumn].equals("x"))
-				{
-				}
+				//else if (strMap[intRow][intColumn].equals("x"))
+				//{
+				//}
 			}
 			intTileY = intTileY + 86;
 		}
