@@ -27,8 +27,8 @@ public class AnimationPanel extends JPanel
 	int intMouseX;
 	int intMouseY;
 	int intDrawX;
-	int intDrawY = 80;
-	int intDeltaY = 56;
+	int intSettleY = 80;
+	int intSettleDeltaY = 56;
 	int intRoadDeltaY = 56;
 	int intRoadY = 100;
 
@@ -123,7 +123,8 @@ public class AnimationPanel extends JPanel
 
 			for (intColumn = 0; intColumn < 11; intColumn ++)
 			{
-				if (strRoads[intRow][intColumn].equals("r") || strRoads[intRow][intColumn].equals("b"))
+				if (strRoads[intRow][intColumn].equals("r") || strRoads[intRow][intColumn].equals("b") ||
+						strRoads[intRow][intColumn].equals("w") || strRoads[intRow][intColumn].equals("o"))
 				{
 					if (intRow == 0 || intRow == 2 || intRow == 4 || intRow == 6 || intRow == 8 || intRow == 10)
 					{
@@ -223,30 +224,30 @@ public class AnimationPanel extends JPanel
 						|| strSettlements[intRow][intColumn].equals("w") || strSettlements[intRow][intColumn].equals("o"))
 				{
 					g.setColor(Color.white);
-					g.drawRect(intDrawX + 10, intDrawY + 10, 20, 20);
+					g.drawRect(intDrawX + 10, intSettleY + 10, 20, 20);
 
 					if (strSettlements[intRow][intColumn].equals("r"))
 					{
-						g.drawImage(settlement[0], intDrawX + 10, intDrawY + 10, null);
+						g.drawImage(settlement[0], intDrawX + 10, intSettleY + 10, null);
 					}
 					else if (strSettlements[intRow][intColumn].equals("b"))
 					{
-						g.drawImage(settlement[1], intDrawX + 10, intDrawY + 10, null);
+						g.drawImage(settlement[1], intDrawX + 10, intSettleY + 10, null);
 					}
 					else if (strSettlements[intRow][intColumn].equals("w"))
 					{
-						g.drawImage(settlement[2], intDrawX + 10, intDrawY + 10, null);
+						g.drawImage(settlement[2], intDrawX + 10, intSettleY + 10, null);
 					}
 					else if (strSettlements[intRow][intColumn].equals("o"))
 					{
-						g.drawImage(settlement[3], intDrawX + 10, intDrawY + 10, null);
+						g.drawImage(settlement[3], intDrawX + 10, intSettleY + 10, null);
 					}
 					intDrawX = intDrawX + 50;
 				}
 				else if (strSettlements[intRow][intColumn].equals("_"))
 				{
 					g.setColor(Color.white);
-					g.drawRect(intDrawX + 10, intDrawY + 10, 20, 20);
+					g.drawRect(intDrawX + 10, intSettleY + 10, 20, 20);
 					intDrawX = intDrawX + 50;
 				}
 				else if (strSettlements[intRow][intColumn].equals("x"))
@@ -255,19 +256,19 @@ public class AnimationPanel extends JPanel
 				}
 			}
 
-			if (intDeltaY == 30)
+			if (intSettleDeltaY == 30)
 			{
-				intDeltaY = 56;
+				intSettleDeltaY = 56;
 			}
-			else if (intDeltaY == 56)
+			else if (intSettleDeltaY == 56)
 			{
-				intDeltaY = 30;
+				intSettleDeltaY = 30;
 			}
 
-			intDrawY = intDrawY + intDeltaY;
+			intSettleY = intSettleY + intSettleDeltaY;
 		}
 
-		intDrawY = 80;
+		intSettleY = 80;
 	}
 
 	// Constructor
