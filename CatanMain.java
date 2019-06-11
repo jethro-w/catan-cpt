@@ -32,6 +32,7 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 	String strSSM[];
 	 
 	boolean isClient = false;
+	boolean blnClickable = true;
 	JButton buttonUser;
 	JButton buttonIP;
 	JButton buttonPort;
@@ -92,7 +93,6 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 			ssm = new SuperSocketMaster(strIP, intPort, this);
 			ssm.connect();
 			ssm.sendText("connected");
-			ssm.sendText(strUsername + " has connected");
 				
 			buttonReady.setVisible(true);
 		
@@ -106,11 +106,13 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 				
 				if (strPort.length() == 4)
 				{
+					
 					System.out.println("Saved Port");					
 					thepanel.blnMainMenu = true;
 					thepanel.blnSettings = false;
 					buttonPort.setVisible(false);
 					textPort.setVisible(false);
+					blnClickable = true;
 					System.out.println("New port is now " + intPort);
 					
 				}else
@@ -137,6 +139,9 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 			buttonReady.setVisible(true);
 			labelServerIP.setText("Server IP: " + strIP);
 			labelServerIP.setVisible(true);
+			
+			System.out.println("Players: " + intPlayers);
+			System.out.println("Readys: " + intReady);
 			
 			//from here i guess the game would start since the server is up.
 			
@@ -167,11 +172,19 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 		{
 			if (buttonReady.getText().equals("Not Ready"))
 			{
+				intReady += 1;
+				System.out.println("Players ready: " + intReady);
+				System.out.println("Total players: " + intPlayers);
+				
 				buttonReady.setText("Ready");
 				ssm.sendText("ready");
 				
 			}else if (buttonReady.getText().equals("Ready"))
 			{
+				intReady -= 1;
+				System.out.println("Players ready: " + intReady);
+				System.out.println("Total players: " + intPlayers);
+				
 				buttonReady.setText("Not Ready");
 				ssm.sendText("notready");
 			}
@@ -184,20 +197,22 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 			if(strChat.equals("ready")){
 				intReady += 1;
 				System.out.println("Players ready: " + intReady);
-				System.out.println("Total players :" + intPlayers);
+				System.out.println("Total players: " + intPlayers);
 				if(intReady == intPlayers){
+					
 					System.out.println("ALL MANS READY");//clients arent receiving this. so fix it
 					
 				}
 			}else if (strChat.equals("notready"))
 			{
 				System.out.println("Players ready: " + intReady);
-				System.out.println("Total players :" + intPlayers);
+				System.out.println("Total players: " + intPlayers);
 				intReady -= 1;
 			}else if(strChat.equals("connected"))//for right when a player inputs the ip
 			{
+				System.out.println("a player has connected");
 				System.out.println("Players ready: " + intReady);
-				System.out.println("Total players :" + intPlayers);
+				System.out.println("Total players: " + intPlayers);
 				intPlayers += 1;
 				
 			}else if (strSSM.equals("1"))//indicates phase 1.
@@ -244,13 +259,15 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 	}
 	public void mouseClicked(MouseEvent evt){
 		System.out.println("Clicked");
-		if(evt.getX() >= 900 && evt.getX() <= 1000 && evt.getY() >= 300 && evt.getY() <=350)
+		if(evt.getX() >= 900 && evt.getX() <= 1000 && evt.getY() >= 300 && evt.getY() <=350 && blnClickable == true)
 		{
 			System.out.println("Play Option");
 			thepanel.blnMainMenu = false;
+			blnClickable = false;//so you cant click if the options arent visible
 			labelUser.setVisible(true);
 			buttonUser.setVisible(true);
 			textUser.setVisible(true);
+			
 			//opens server or client option. port will be in settings
 			
 			
@@ -261,7 +278,7 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 			//buttonClient.setVisible(true);
 			
 			
-		}else if (evt.getX() >= 900 && evt.getX() <= 1075 && evt.getY() >= 400 && evt.getY() <= 450)
+		}else if (evt.getX() >= 900 && evt.getX() <= 1075 && evt.getY() >= 400 && evt.getY() <= 450 && blnClickable == true)
 		{
 			//place settings
 			System.out.println("Settings Option");
@@ -269,6 +286,7 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 			buttonPort.setVisible(true);
 			thepanel.blnMainMenu = false;
 			thepanel.blnSettings = true;
+			blnClickable = false;
 			
 		}else if (evt.getX() >= 900 && evt.getX() <= 1000 && evt.getY() >= 475 && evt.getY() <= 525)
 		{

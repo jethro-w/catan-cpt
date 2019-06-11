@@ -18,6 +18,7 @@ public class ReplacementPanel extends JPanel
 	boolean blnSettings = false;
 	boolean blnHelp = false;
 	boolean blnQuit = false;
+	boolean blnClickable = true;
 	public void paintComponent(Graphics g)
 	{
 		g.drawImage(background,0,0,null);
