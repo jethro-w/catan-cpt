@@ -28,6 +28,8 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 	String strIP;
 	String strPort = "3000";
 	int intPort = 3000;
+	
+	String strSSM[];
 	 
 	boolean isClient = false;
 	JButton buttonUser;
@@ -47,6 +49,7 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 	int intPlayers = 0;
 	int intMouseX;
 	int intMouseY;
+	int intRNG;
 	//~ JTextField textIP;
 	JLabel labelUser;
 	JLabel labelIP;
@@ -129,6 +132,7 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 			System.out.println(ssm.getMyAddress());
 			strIP = ssm.getMyAddress();
 			ssm.connect();
+			intPlayers += 1;
 			
 			buttonReady.setVisible(true);
 			labelServerIP.setText("Server IP: " + strIP);
@@ -176,20 +180,29 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 		{
 			String strChat;
 			strChat = ssm.readText();
+			strSSM = strChat.split(",");
 			if(strChat.equals("ready")){
-				
 				intReady += 1;
+				System.out.println("Players ready: " + intReady);
+				System.out.println("Total players :" + intPlayers);
 				if(intReady == intPlayers){
 					System.out.println("ALL MANS READY");//clients arent receiving this. so fix it
+					
 				}
 			}else if (strChat.equals("notready"))
 			{
+				System.out.println("Players ready: " + intReady);
+				System.out.println("Total players :" + intPlayers);
 				intReady -= 1;
-				
-			}else if(strChat.equals("connected"))
+			}else if(strChat.equals("connected"))//for right when a player inputs the ip
 			{
+				System.out.println("Players ready: " + intReady);
+				System.out.println("Total players :" + intPlayers);
 				intPlayers += 1;
-			
+				
+			}else if (strSSM.equals("1"))//indicates phase 1.
+			{
+				
 			}
 			
 		
