@@ -34,11 +34,40 @@ public class Client implements ActionListener
 	public boolean hasLongestRoad = false;
 	
 	public SuperSocketMaster ssm;
+	public int intSocket;
+	public String strIP;
+	public String strUsername;
+	
+	private String strSSMLine;
+	private String[] strSSMSplit;
 	
 	// Implemented Methods
 	public void actionPerformed (ActionEvent evt)
 	{
-		
+		if (evt.getSource() == ssm)
+		{
+			strSSMLine = ssm.readText();
+			
+			strSSMSplit = strSSMLine.split(",");
+			
+			if (strSSMSplit[0].contentEquals("1"))
+			{
+				// Phase number 1 (placing)
+			}
+			else if (strSSMSplit[0].contentEquals("2"))
+			{
+				// Phase number 2 (game)
+			}
+			else if (strSSMSplit[0].contentEquals("3"))
+			{
+				// Phase number 3 (win/lose screen)
+			}
+			else if (strSSMSplit[0].contentEquals("4"))
+			{
+				// Phase number 4 (chat)
+				
+			}
+		}
 	}
 	
 	// Methods
@@ -105,5 +134,8 @@ public class Client implements ActionListener
 		this.intSettlements = intSettlements;
 		this.intCities = intCities;
 		this.intLCRS = intLCRS;
+		
+		ssm = new SuperSocketMaster(strIP, intSocket, this);
+		ssm.connect();
 	}
 }
