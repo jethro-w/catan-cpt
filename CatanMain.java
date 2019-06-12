@@ -115,6 +115,10 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 			client.strIP = strIP;
 			*/
 			
+			CatanMain.createPlayer();
+			
+			
+			
 		}
 		else if (evt.getSource() == buttonPort)
 		{
@@ -218,6 +222,7 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 			}
 			
 		}
+
 	}
 	
 	public void mouseMoved (MouseEvent evt)
