@@ -149,7 +149,7 @@ public class Server implements ActionListener
 	}
 	
 	// Constructor
-	public Server (String strIP, int intSocekt, String strUsername)
+	public Server (String strIP, int intSocket, String strUsername)
 	{
 		ssm = new SuperSocketMaster(intSocket, this);
 		strIP = ssm.getMyAddress();
