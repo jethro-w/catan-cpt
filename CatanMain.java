@@ -103,11 +103,12 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 			buttonIP.setVisible(false);
 			textIP.setVisible(false);
 			labelIP.setVisible(false);
-			
+
 			Client client = new Client(0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 			client.intPlayers += 1;
 			
 			// ssm.sendText("0," + intPlayers + "");
+			
 			buttonReady.setVisible(true);
 			
 		}
@@ -153,6 +154,7 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 			buttonClient.setVisible(false);
 
 			// ssm.sendText("0, " + intPlayers + "");
+
 			buttonReady.setVisible(true);
 			labelServerIP.setText("Server IP: " + strIP);
 			labelServerIP.setVisible(true);
