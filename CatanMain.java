@@ -149,6 +149,7 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 		}
 		else if (evt.getSource() == buttonServer)
 		{
+			strIP = ssm.getMyAddress();
 			createServer = true;
 			CatanMain.createPlayer();
 			server.strUsername = strUsername;
