@@ -155,10 +155,10 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 		}
 		else if (evt.getSource() == buttonServer)
 		{
-			
+			SuperSocketMaster ssmserver = new SuperSocketMaster(3000,this);
+			strIP = ssmserver.getMyAddress();
 			createServer = true;
 			CatanMain.createPlayer();
-			strIP = server.strIP;
 			buttonServer.setVisible(false);
 			buttonClient.setVisible(false);
 		
