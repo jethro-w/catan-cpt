@@ -202,7 +202,7 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 				}
 				else if (isClient == true)
 				{
-					client.intReady =+ 1;
+					client.sendReady(true);
 				}
 				
 				buttonReady.setText("Ready");				
@@ -215,7 +215,7 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 				}
 				else if (isClient == true)
 				{
-					client.intReady =- 1;
+					client.sendReady(false);
 				}
 				
 				buttonReady.setText("Not Ready");

@@ -43,7 +43,7 @@ public class Client implements ActionListener
 	
 	private String strSSMLine;
 	private String[] strSSMSplit;
-	private Timer timer;
+	// private Timer timer;
 	
 	// Implemented Methods
 	public void actionPerformed (ActionEvent evt)
@@ -75,20 +75,22 @@ public class Client implements ActionListener
 				// Phase number 4 (chat)
 			}
 		}
-		else if (evt.getSource() == timer)
-		{
-			if (intReady == 0)
-			{
-				ssm.sendText("0,not");
-			}
-			else if (intReady == 0)
-			{
-				ssm.sendText("0,ready");
-			}
-		}
 	}
 	
 	// Methods
+	public void sendReady(boolean isReady)
+	{
+		if (isReady == true)
+		{
+			ssm.sendText("0,ready");
+			System.out.println("ready");
+		}
+		else
+		{
+			ssm.sendText("0,not");
+			System.out.println("not ready");
+		}
+	}
 	/** Generates two random numbers between 1 and 6 adds them to simulate a dice roll. */
 	public void rollDice ()
 	{
@@ -145,8 +147,8 @@ public class Client implements ActionListener
 		
 		ssm.sendText("0,not,1");
 		
-		timer = new Timer (1000, this);
-		timer.start();
+		// timer = new Timer (1000, this);
+		// timer.start();
 		
 		System.out.println("client initialized");
 		System.out.println(strIP + "," + intSocket);

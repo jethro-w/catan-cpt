@@ -58,10 +58,20 @@ public class Server implements ActionListener
 				if (strSSMSplit[1].equals("ready"))
 				{
 					intReady ++;
+					
+					if (strSSMSplit[2].contentEquals("1"))
+					{
+						intPlayer ++;
+					}
 				}
 				else if (strSSMSplit[1].equals("not"))
 				{
 					intReady --;
+					
+					if (strSSMSplit[2].contentEquals("1"))
+					{
+						intPlayer ++;
+					}
 				}
 				
 				System.out.println("Players: " + intPlayers);
