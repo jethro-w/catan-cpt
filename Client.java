@@ -153,6 +153,8 @@ public class Client implements ActionListener
 		this.intCities = intCities;
 		this.intLCRS = intLCRS;
 		
+		
+		
 		ssm = new SuperSocketMaster(strIP, intSocket, this);
 		ssm.connect();
 		
