@@ -1,6 +1,8 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.Timer;
+
 public class Server implements ActionListener
 {
 	// Properties
@@ -32,14 +34,16 @@ public class Server implements ActionListener
 	public boolean hasLargestArmy = false;
 	/** Whether or not the player has the longest road (ie. longest consecutive road segments). If so, the player gets points for having this attribute. */
 	public boolean hasLongestRoad = false;
-	
 	public SuperSocketMaster ssm;
 	public int intSocket;
 	public String strIP;
 	public String strUsername;
+	public int intPlayers;
+	public int intReady;
 	
 	private String strSSMLine;
 	private String[] strSSMSplit;
+	private Timer timer;
 	
 	// Implemented Methods
 	public void actionPerformed (ActionEvent evt)
@@ -47,10 +51,25 @@ public class Server implements ActionListener
 		if (evt.getSource() == ssm)
 		{
 			strSSMLine = ssm.readText();
-			
 			strSSMSplit = strSSMLine.split(",");
 			
-			if (strSSMSplit[0].contentEquals("1"))
+			if (strSSMSplit[0].equals("0"))
+			{
+				intPlayers ++;
+				
+				if (strSSMSplit[1].equals("ready"))
+				{
+					intReady ++;
+				}
+				else if (strSSMSplit[1].equals("not"))
+				{
+					intReady --;
+				}
+				
+				System.out.println("Players: " + intPlayers);
+				System.out.println("Readys: " + intReady);
+			}
+			else if (strSSMSplit[0].contentEquals("1"))
 			{
 				// Phase number 1 (placing)
 			}
@@ -68,9 +87,19 @@ public class Server implements ActionListener
 				
 			}
 		}
+		else if (evt.getSource() == timer)
+		{
+			System.out.println("timer");
+			ssm.sendText("0," + intPlayers + "," + intReady);
+		}
 	}
 	
 	// Methods
+	public void checkReady()
+	{
+		
+	}
+	
 	/** Generates two random numbers between 1 and 6 adds them to simulate a dice roll. */
 	public void rollDice ()
 	{
@@ -123,7 +152,6 @@ public class Server implements ActionListener
 	public Server (int intGrain, int intOre, int intBrick, int intWood, int intWool,
 			int intRoadSegs, int intKnights, int intSettlements, int intCities, int intLCRS)
 	{
-		
 		this.intGrain = intGrain;
 		this.intOre = intOre;
 		this.intBrick = intBrick;
@@ -137,5 +165,8 @@ public class Server implements ActionListener
 		
 		ssm = new SuperSocketMaster(intSocket, this);
 		ssm.connect();
+		
+		timer = new Timer(1000, this);
+		timer.start();
 	}
 }

@@ -1,6 +1,8 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.Timer;
+
 public class Client implements ActionListener
 {
 	// Properties
@@ -32,14 +34,16 @@ public class Client implements ActionListener
 	public boolean hasLargestArmy = false;
 	/** Whether or not the player has the longest road (ie. longest consecutive road segments). If so, the player gets points for having this attribute. */
 	public boolean hasLongestRoad = false;
-	
 	public SuperSocketMaster ssm;
 	public int intSocket;
 	public String strIP;
 	public String strUsername;
+	public int intPlayers;
+	public int intReady;
 	
 	private String strSSMLine;
 	private String[] strSSMSplit;
+	private Timer timer;
 	
 	// Implemented Methods
 	public void actionPerformed (ActionEvent evt)
@@ -47,10 +51,15 @@ public class Client implements ActionListener
 		if (evt.getSource() == ssm)
 		{
 			strSSMLine = ssm.readText();
+			CatanMain.textField.setVisible(true);
 			
 			strSSMSplit = strSSMLine.split(",");
 			
-			if (strSSMSplit[0].contentEquals("1"))
+			if (strSSMSplit[0].contentEquals("0"))
+			{
+				
+			}
+			else if (strSSMSplit[0].contentEquals("1"))
 			{
 				// Phase number 1 (placing)
 			}
@@ -65,7 +74,17 @@ public class Client implements ActionListener
 			else if (strSSMSplit[0].contentEquals("4"))
 			{
 				// Phase number 4 (chat)
-				
+			}
+		}
+		else if (evt.getSource() == timer)
+		{
+			if (intReady == 0)
+			{
+				ssm.sendText("0,not");
+			}
+			else if (intReady == 0)
+			{
+				ssm.sendText("0,ready");
 			}
 		}
 	}
@@ -137,5 +156,10 @@ public class Client implements ActionListener
 		
 		ssm = new SuperSocketMaster(strIP, intSocket, this);
 		ssm.connect();
+		
+		ssm.sendText("0,ready");
+		
+		timer = new Timer (1000, this);
+		timer.start();
 	}
 }
