@@ -143,7 +143,7 @@ public class Client implements ActionListener
 		ssm = new SuperSocketMaster(strIP, intSocket, this);
 		ssm.connect();
 		
-		ssm.sendText("0,not");
+		ssm.sendText("0,not,1");
 		
 		timer = new Timer (1000, this);
 		timer.start();
