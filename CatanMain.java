@@ -150,9 +150,10 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 		}
 		else if (evt.getSource() == buttonServer)
 		{
-			strIP = ssm.getMyAddress();
+			
 			createServer = true;
 			CatanMain.createPlayer();
+			strIP = server.strIP;
 			server.strUsername = strUsername;
 			server.intSocket = intPort;
 			buttonServer.setVisible(false);
@@ -333,6 +334,7 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 	// Constructor
 	public CatanMain ()
 	{
+		
 		thepanel = new ReplacementPanel();
 		thepanel.setLayout(null);
 		thepanel.setPreferredSize(new Dimension(1280, 720));
