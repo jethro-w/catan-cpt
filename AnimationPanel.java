@@ -19,6 +19,7 @@ public class AnimationPanel extends JPanel
 	BufferedImage[] vertRoad = new BufferedImage[4];
 	BufferedImage[] upRoad = new BufferedImage[4];
 	BufferedImage[] downRoad = new BufferedImage[4];
+	BufferedImage[] help = new BufferedImage[4];
 	boolean printTile;
 	boolean isSlantedUp;
 	int intCount;
@@ -306,6 +307,12 @@ public class AnimationPanel extends JPanel
 			downRoad[1] = ImageIO.read(new File("downRoadBlue.png"));
 			downRoad[2] = ImageIO.read(new File("downRoadWhite.png"));
 			downRoad[3] = ImageIO.read(new File("downRoadOrange.png"));
+			
+			help[0] = ImageIO.read(new File("building.png"));
+			help[1] = ImageIO.read(new File("helprules.png"));
+			help[2] = ImageIO.read(new File("knightrobber.png"));
+			help[3] = ImageIO.read(new File("resourcetiles.png"));
+			help[4] = ImageIO.read(new File("victorypoints.png"));
 		}
 		catch (IOException e)
 		{
