@@ -25,11 +25,11 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 
 	
 	// usernames
-	String strUsername;
+	static String strUsername;
 	String strText;
-	String strIP;
+	static String strIP;
 	String strPort = "3000";
-	int intPort = 3000;
+	static int intPort = 3000;
 	
 	String strSSM[];
 	
@@ -67,14 +67,14 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 	{
 		if (createServer == true)
 		{
-			server = new Server(0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+			server = new Server(strIP, intPort, strUsername);
 			server.intPlayers += 1;
 			System.out.println("server created");
 		
 		}
 		else if (createClient == true)
 		{
-			client = new Client(0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+			client = new Client(strIP, intPort, strUsername);
 			System.out.println("client created");
 		}
 	}
@@ -111,9 +111,13 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 			
 			CatanMain.createPlayer();
 			
+
+			/*
+
 			client.strUsername = strUsername;
 			client.intSocket = intPort;
 			client.strIP = strIP;
+			*/
 			
 		}
 		else if (evt.getSource() == buttonPort)
@@ -155,8 +159,6 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 			createServer = true;
 			CatanMain.createPlayer();
 			strIP = server.strIP;
-			server.strUsername = strUsername;
-			server.intSocket = intPort;
 			buttonServer.setVisible(false);
 			buttonClient.setVisible(false);
 		
