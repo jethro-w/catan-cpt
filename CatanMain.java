@@ -121,6 +121,7 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 				strPort = textPort.getText();
 				intPort = Integer.parseInt(strPort);
 				
+				
 				if (strPort.length() == 4)
 				{
 					System.out.println("Saved Port");
@@ -149,10 +150,10 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 			createServer = true;
 			CatanMain.createPlayer();
 			server.strUsername = strUsername;
-			
+			server.intSocket = intPort;
 			buttonServer.setVisible(false);
 			buttonClient.setVisible(false);
-
+		
 			// ssm.sendText("0, " + intPlayers + "");
 
 			buttonReady.setVisible(true);
@@ -166,8 +167,9 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 			createClient = true;
 			CatanMain.createPlayer();
 			client.strUsername = strUsername;
-
-						
+			client.intSocket = intPort;
+			
+			
 			isClient = true;
 			buttonServer.setVisible(false);
 			buttonClient.setVisible(false);
