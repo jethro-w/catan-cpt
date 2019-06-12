@@ -78,6 +78,12 @@ public class Server implements ActionListener
 					}
 				}
 				
+				if (intPlayer == intReady)
+				{
+					// Enter Phase 1
+					ssm.sendText("1,start");
+				}
+				
 				System.out.println("Players: " + intPlayers);
 				System.out.println("Readys: " + intReady);
 			}
