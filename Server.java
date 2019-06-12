@@ -164,6 +164,7 @@ public class Server implements ActionListener
 		this.intLCRS = intLCRS;
 		
 		ssm = new SuperSocketMaster(intSocket, this);
+		strIP = ssm.getMyAddress();
 		ssm.connect();
 		
 		timer = new Timer(1000, this);
