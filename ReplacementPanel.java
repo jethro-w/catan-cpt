@@ -97,8 +97,6 @@ public class ReplacementPanel extends JPanel
 		{
 		}
 	
-	
-	
 	}
 
 

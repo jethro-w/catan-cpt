@@ -11,11 +11,12 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 	JFrame theframe;
 	ReplacementPanel thepanel;
 	Timer thetimer;
-	//JLabel playLabel;
 	
+	//JLabel playLabel;
 	JTextField textIP;
 	JTextField textPort;
 	JTextField textUser;
+	
 	//for noobchat
 	JTextField thefield;
 	JTextArea thearea;
