@@ -92,8 +92,8 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 			labelIP.setVisible(false);
 							
 			Client client = new Client(0,0,0,0,0,0,0,0,0,0);
-			intPlayers += 1;	
-			ssm.sendText("0," + intPlayers + "");
+			
+			
 			buttonReady.setVisible(true);
 		
 		}else if (evt.getSource() == buttonPort)
@@ -131,8 +131,7 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 			buttonClient.setVisible(false);
 			
 			Server server = new Server(0,0,0,0,0,0,0,0,0,0);
-			intPlayers += 1;
-			ssm.sendText("0, " + intPlayers + "");
+			
 			buttonReady.setVisible(true);
 			labelServerIP.setText("Server IP: " + strIP);
 			labelServerIP.setVisible(true);
@@ -191,27 +190,6 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 			String strChat;
 			strChat = ssm.readText();
 			strSSM = strChat.split(",");
-			if(strChat.equals("ready")){
-				intReady += 1;
-				System.out.println("Players: " + intPlayers);
-				System.out.println("Readys: " + intReady);
-				if(intReady == intPlayers){
-					
-					System.out.println("ALL MANS READY");//clients arent receiving this. so fix it
-					
-				}
-			}else if (strChat.equals("notready"))
-			{
-				System.out.println("Players: " + intPlayers);
-				System.out.println("Readys: " + intReady);
-				intReady -= 1;
-			}
-				
-				
-			if (strSSM[0].equals("0"))//indicates phase 0
-			{
-				intPlayers = intPlayers +  Integer.parseInt(strSSM[1]);
-			}
 			
 		
 		}

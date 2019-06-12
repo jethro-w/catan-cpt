@@ -51,7 +51,6 @@ public class Client implements ActionListener
 		if (evt.getSource() == ssm)
 		{
 			strSSMLine = ssm.readText();
-			CatanMain.textField.setVisible(true);
 			
 			strSSMSplit = strSSMLine.split(",");
 			
