@@ -218,38 +218,6 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 			}
 			
 		}
-		/*
-		else if (evt.getSource() == ssm)
-		{
-			String strChat;
-			strChat = ssm.readText();
-			strSSM = strChat.split(",");
-			if (strChat.equals("ready"))
-			{
-				intReady += 1;
-				System.out.println("Players: " + intPlayers);
-				System.out.println("Readys: " + intReady);
-				if (intReady == intPlayers)
-				{
-					
-					System.out.println("ALL MANS READY");// clients arent receiving this. so fix it
-					
-				}
-			}
-			else if (strChat.equals("notready"))
-			{
-				System.out.println("Players: " + intPlayers);
-				System.out.println("Readys: " + intReady);
-				intReady -= 1;
-			}
-			
-			if (strSSM[0].equals("0"))// indicates phase 0
-			{
-				intPlayers = intPlayers + Integer.parseInt(strSSM[1]);
-			}
-			
-		}
-		*/
 	}
 	
 	public void mouseMoved (MouseEvent evt)
