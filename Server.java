@@ -54,9 +54,7 @@ public class Server implements ActionListener
 			strSSMSplit = strSSMLine.split(",");
 			
 			if (strSSMSplit[0].equals("0"))
-			{
-				intPlayers ++;
-				
+			{				
 				if (strSSMSplit[1].equals("ready"))
 				{
 					intReady ++;
@@ -89,7 +87,6 @@ public class Server implements ActionListener
 		}
 		else if (evt.getSource() == timer)
 		{
-			System.out.println("timer");
 			ssm.sendText("0," + intPlayers + "," + intReady);
 		}
 	}
