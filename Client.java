@@ -138,21 +138,8 @@ public class Client implements ActionListener
 	}
 	
 	// Constructor
-	public Client (int intGrain, int intOre, int intBrick, int intWood, int intWool,
-			int intRoadSegs, int intKnights, int intSettlements, int intCities, int intLCRS)
+	public Client (String strIP, int intSocket, String strUsername)
 	{
-	
-		this.intGrain = intGrain;
-		this.intOre = intOre;
-		this.intBrick = intBrick;
-		this.intWood = intWood;
-		this.intWool = intWool;
-		this.intRoadSegs = intRoadSegs;
-		this.intKnights = intKnights;
-		this.intSettlements = intSettlements;
-		this.intCities = intCities;
-		this.intLCRS = intLCRS;
-		
 		ssm = new SuperSocketMaster(strIP, intSocket, this);
 		ssm.connect();
 		
