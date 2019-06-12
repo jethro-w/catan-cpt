@@ -59,10 +59,13 @@ public class Server implements ActionListener
 				{
 					intReady ++;
 					
+					/*
 					if (strSSMSplit[2].contentEquals("1"))
 					{
 						intPlayer ++;
+						intReady ++;
 					}
+					*/
 				}
 				else if (strSSMSplit[1].equals("not"))
 				{
@@ -71,6 +74,7 @@ public class Server implements ActionListener
 					if (strSSMSplit[2].contentEquals("1"))
 					{
 						intPlayer ++;
+						intReady ++;
 					}
 				}
 				
