@@ -103,12 +103,8 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 			buttonIP.setVisible(false);
 			textIP.setVisible(false);
 			labelIP.setVisible(false);
-
-			Client client = new Client(0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-			client.intPlayers += 1;
-			
-			// ssm.sendText("0," + intPlayers + "");
-			
+			client.strIP = strIP;
+						
 			buttonReady.setVisible(true);
 			
 		}

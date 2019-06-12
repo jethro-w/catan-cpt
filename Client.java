@@ -161,6 +161,6 @@ public class Client implements ActionListener
 		timer = new Timer (1000, this);
 		timer.start();
 		
-		System.out.println("Client");
+		System.out.println("client initialized");
 	}
 }
