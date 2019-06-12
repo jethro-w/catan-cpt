@@ -51,7 +51,6 @@ public class Client implements ActionListener
 		if (evt.getSource() == ssm)
 		{
 			strSSMLine = ssm.readText();
-			CatanMain.textField.setVisible(true);
 			
 			strSSMSplit = strSSMLine.split(",");
 			
@@ -157,7 +156,7 @@ public class Client implements ActionListener
 		ssm = new SuperSocketMaster(strIP, intSocket, this);
 		ssm.connect();
 		
-		ssm.sendText("0,ready");
+		ssm.sendText("0,not");
 		
 		timer = new Timer (1000, this);
 		timer.start();
