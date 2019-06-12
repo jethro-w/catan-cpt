@@ -38,8 +38,8 @@ public class Server implements ActionListener
 	public int intSocket;
 	public String strIP;
 	public String strUsername;
-	public int intPlayers;
-	public int intReady;
+	public int intPlayers = 1;
+	public int intReady = 0;
 	
 	private String strSSMLine;
 	private String[] strSSMSplit;

@@ -82,12 +82,12 @@ public class Client implements ActionListener
 	{
 		if (isReady == true)
 		{
-			ssm.sendText("0,ready");
+			ssm.sendText("0,ready,0");
 			System.out.println("ready");
 		}
 		else
 		{
-			ssm.sendText("0,not");
+			ssm.sendText("0,not,0");
 			System.out.println("not ready");
 		}
 	}
