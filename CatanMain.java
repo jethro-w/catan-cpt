@@ -70,6 +70,7 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 			server = new Server(0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 			server.intPlayers += 1;
 			System.out.println("server created");
+		
 		}
 		else if (createClient == true)
 		{
