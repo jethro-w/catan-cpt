@@ -108,6 +108,11 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 						
 			buttonReady.setVisible(true);
 			
+			createClient = true;
+			CatanMain.createPlayer();
+			client.strUsername = strUsername;
+			client.intSocket = intPort;
+			
 		}
 		else if (evt.getSource() == buttonPort)
 		{
@@ -161,12 +166,6 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 		}
 		else if (evt.getSource() == buttonClient)
 		{
-			createClient = true;
-			CatanMain.createPlayer();
-			client.strUsername = strUsername;
-			client.intSocket = intPort;
-			
-			
 			isClient = true;
 			buttonServer.setVisible(false);
 			buttonClient.setVisible(false);
