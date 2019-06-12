@@ -168,5 +168,8 @@ public class Server implements ActionListener
 		
 		timer = new Timer(1000, this);
 		timer.start();
+		
+		System.out.println(strIP + "," + intSocket);
+
 	}
 }

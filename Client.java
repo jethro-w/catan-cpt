@@ -162,5 +162,6 @@ public class Client implements ActionListener
 		timer.start();
 		
 		System.out.println("client initialized");
+		System.out.println(strIP + "," + intSocket);
 	}
 }
