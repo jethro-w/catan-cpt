@@ -70,6 +70,10 @@ public class Server implements ActionListener
 				else if (strSSMSplit[1].equals("not"))
 				{
 					intReady --;
+					if (intReady <= 0){
+						intReady = 0;
+					}
+					
 					
 					if (strSSMSplit[2].contentEquals("1"))
 					{
