@@ -41,6 +41,7 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 	JButton buttonClient;
 	JButton buttonReady;
 	JButton buttonServer;
+	JButton buttonNext; // help thing
 	
 	logic logic; // from logic class
 	
@@ -299,6 +300,7 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 		{
 			// place help menu screens here.
 			System.out.println("Help Option");
+			thepanel.blnMainMenu = false;
 			
 		}
 		else if (evt.getX() >= 900 && evt.getX() <= 1000 && evt.getY() >= 550 && evt.getY() <= 600)
@@ -396,6 +398,14 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 		buttonReady.addActionListener(this);
 		buttonReady.setVisible(false);
 		thepanel.add(buttonReady);
+		
+		buttonNext = new JButton("Next");// enter button for username
+		buttonNext.setFont(thepanel.f24);
+		buttonNext.setSize(200, 100);
+		buttonNext.setLocation(1000, 600);
+		buttonNext.addActionListener(this);
+		buttonNext.setVisible(false);
+		thepanel.add(buttonNext);
 		
 		textIP = new JTextField("");// entering ip if client
 		textIP.setSize(250, 40);
