@@ -4,35 +4,39 @@ import java.awt.event.*;
 import javax.swing.event.*;
 import java.io.*;
 
+/**
+ * <h1>Settlers of Catan<h1>
+ * This game is Settlers of Catan by Justin, Jethro, and Jason
+ * written for the ICS4U1 course. Users play online in a strategy game
+ * against friends
+ * @authors Justin, Jethro, and Jason
+ * @version 0.1
+ * @since 2019-06-01
+ */
+
+
 // Main Program
 public class CatanMain implements ActionListener, MouseMotionListener, KeyListener, MouseListener
 {
 	// Properties
 	JFrame theframe;
-	ReplacementPanel thepanel;
+	AnimationPanel thepanel;
 	Timer thetimer;
-	
 	JTextField textIP;
 	JTextField textPort;
 	JTextField textUser;
-	
+	JTextField textField;
 	// for noobchat
 	JTextField thefield;
 	JTextArea thearea;
 	JButton thebutton;
-	// temp
-	static JTextField textField;
-
-	
 	// usernames
 	static String strUsername;
 	String strText;
 	static String strIP;
 	String strPort = "3000";
 	static int intPort = 3000;
-	
 	String strSSM[];
-	
 	boolean isClient = false;
 	boolean blnClickable = true;
 	JButton buttonUser;
@@ -41,10 +45,8 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 	JButton buttonClient;
 	JButton buttonReady;
 	JButton buttonServer;
-	JButton buttonNext; // help thing
-	
+	JButton buttonNext; // help menu next button
 	logic logic; // from logic class
-	
 	JScrollPane thescroll;
 	JMenuBar thebar;
 	SuperSocketMaster ssm;
@@ -53,11 +55,9 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 	int intMouseX;
 	int intMouseY;
 	int intRNG;
-	// ~ JTextField textIP;
 	JLabel labelUser;
 	JLabel labelIP;
 	JLabel labelServerIP;
-	
 	static Server server = null;
 	static Client client = null;
 	static boolean createServer = false;
@@ -86,20 +86,8 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 		{
 			thepanel.repaint();
 		}
-		/*
-		 * if (evt.getSource() == playLabel) { playLabel.setVisible(false);
-		 * buttonHelp.setVisible(false); buttonSettings.setVisible(false);
-		 * buttonQuit.setVisible(false); buttonUser.setVisible(true);
-		 * textUser.setVisible(true); }
-		 * 
-		 * if (evt.getSource() == buttonQuit) { System.exit(0); }
-		 * 
-		 */
-		
 		if (evt.getSource() == buttonIP)
 		{
-			// System.out.println("ENTER USERNAME");
-			// strPlayer1 = textIP.getText();
 			
 			strIP = textIP.getText();
 			buttonIP.setVisible(false);
@@ -111,15 +99,6 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 			createClient = true;
 			
 			CatanMain.createPlayer();
-			
-
-			/*
-
-			client.strUsername = strUsername;
-			client.intSocket = intPort;
-			client.strIP = strIP;
-			*/
-			
 		}
 		else if (evt.getSource() == buttonPort)
 		{
@@ -343,7 +322,7 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 	public CatanMain ()
 	{
 		
-		thepanel = new ReplacementPanel();
+		thepanel = new AnimationPanel();
 		thepanel.setLayout(null);
 		thepanel.setPreferredSize(new Dimension(1280, 720));
 		thepanel.addMouseMotionListener(this);
