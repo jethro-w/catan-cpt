@@ -39,7 +39,7 @@ public class Server implements ActionListener
 	public String strIP;
 	public String strUsername;
 	public int intPlayers = 1;
-	public int intReady = 1;
+	public int intReady = 0;
 	
 	private String strSSMLine;
 	private String[] strSSMSplit;
@@ -82,6 +82,7 @@ public class Server implements ActionListener
 				{
 					// Enter Phase 1
 					ssm.sendText("1,start");
+					System.out.println("all ready");
 				}
 				
 				System.out.println("Players: " + intPlayers);
@@ -107,7 +108,7 @@ public class Server implements ActionListener
 		}
 		else if (evt.getSource() == timer)
 		{
-			ssm.sendText("0," + intPlayers + "," + intReady);
+			// ssm.sendText("0," + intPlayers + "," + intReady);
 		}
 	}
 	

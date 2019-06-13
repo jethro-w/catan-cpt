@@ -38,6 +38,7 @@ public class Client implements ActionListener
 	public String strUsername;
 	public int intPlayers;
 	public int intReady;
+	public int intPhase;
 	
 	private String strSSMLine;
 	private String[] strSSMSplit;
@@ -59,6 +60,7 @@ public class Client implements ActionListener
 			else if (strSSMSplit[0].contentEquals("1"))
 			{
 				// Phase number 1 (placing)
+				intPhase = 1;
 			}
 			else if (strSSMSplit[0].contentEquals("2"))
 			{
