@@ -114,7 +114,7 @@ public class AnimationPanel extends JPanel
 			}
 			else if (blnHelp)
 			{
-				
+				g.drawImage(help[0], 0, 0, null);
 			}
 			else if (blnSettings)
 			{

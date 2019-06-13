@@ -15,7 +15,7 @@ import java.io.IOException;
  * @since 2019-06-01
  */
 
-// Happy birthday sir...Our program sucks
+// Happy birthday Sir...Our program sucks
 
 /* TO DO LIST:
  * 1. When Server.java sees everyone is ready (2 people) then it will send ssm message
@@ -457,9 +457,11 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 		}
 		else if (evt.getX() >= 900 && evt.getX() <= 1000 && evt.getY() >= 475 && evt.getY() <= 525)
 		{
-			// place help menu screens here.
+			// Place help menu screens here.
 			System.out.println("Help Option");
 			thepanel.blnMainMenu = false;
+			thepanel.blnHelp = true;
+			
 			
 		}
 		else if (evt.getX() >= 900 && evt.getX() <= 1000 && evt.getY() >= 550 && evt.getY() <= 600)
