@@ -12,6 +12,15 @@ import java.awt.event.*;
  * @since 2019-06-01
  */
 
+/* TO DO LIST:
+ * 1. When Server.java sees everyone is ready (2 people) then it will send ssm message
+ * to Client.java.
+ * 2. Then they synchronize and print a blank screen.
+ * 3. Merge ServerGameCode and CatanMain.
+ * 4. Get CatanMain to copy its arrays to Server (starting with strTiles)
+ * 5. Get Server to send the arrays through ssm
+ * 6. Get Client to read and split into its own CatanMain
+*/
 
 // Main Program
 public class CatanMain implements ActionListener, MouseMotionListener, KeyListener, MouseListener
@@ -77,6 +86,11 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 			client = new Client(strIP, intPort, strUsername);
 			System.out.println("client created");
 		}
+	}
+	
+	public void phaseOne ()
+	{
+		
 	}
 	
 	public void actionPerformed (ActionEvent evt)

@@ -440,7 +440,7 @@ public class ServerGameCode implements ActionListener, MouseListener
 	}
 	
 	// Constructor
-	public ServerGameCode()
+	public ServerGameCode(AnimationPanel panel)
 	{
 		panel = new AnimationPanel();
 		panel.setLayout(null);
@@ -644,10 +644,11 @@ public class ServerGameCode implements ActionListener, MouseListener
 		}
 		*/
 	}
-
+	/*
 	// Main method
 	public static void main (String[] args) throws IOException
 	{
 		new ServerGameCode();
 	}
+	*/
 }
