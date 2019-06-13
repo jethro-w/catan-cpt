@@ -40,10 +40,15 @@ public class Server implements ActionListener
 	public String strUsername;
 	public int intPlayers = 1;
 	public int intReady = 0;
-	
+	public String[][] strTiles = new String[5][9];
+	public int intPhase;
+
 	private String strSSMLine;
 	private String[] strSSMSplit;
 	private Timer timer;
+	private String strMapArray;
+	private int intRow;
+	private int intColumn;
 	
 	// Implemented Methods
 	public void actionPerformed (ActionEvent evt)
@@ -114,6 +119,17 @@ public class Server implements ActionListener
 		else if (evt.getSource() == timer)
 		{
 			// ssm.sendText("0," + intPlayers + "," + intReady);
+			if (intPhase == 1)
+			{
+				for (intRow = 0; intRow < 5; intRow ++)
+				{
+					for (intColumn = 0; intColumn < 9; intColumn ++)
+					{
+						strMapArray = strMapArray + strTiles[intRow][intColumn];
+					}
+				}
+				ssm.sendText("1,map," + strMapArray);
+			}
 		}
 	}
 	
