@@ -39,7 +39,7 @@ public class Server implements ActionListener
 	public String strIP;
 	public String strUsername;
 	public int intPlayers = 1;
-	public int intReady = 0;
+	public int intReady = 1;
 	
 	private String strSSMLine;
 	private String[] strSSMSplit;

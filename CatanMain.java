@@ -1,8 +1,6 @@
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
-import javax.swing.event.*;
-import java.io.*;
 
 /**
  * <h1>Settlers of Catan<h1>
