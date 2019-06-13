@@ -75,6 +75,7 @@ public class Server implements ActionListener
 					}
 					
 					
+					
 					if (strSSMSplit[2].contentEquals("1"))
 					{
 						intPlayer ++;
