@@ -38,8 +38,8 @@ public class Server implements ActionListener
 	public int intSocket;
 	public String strIP;
 	public String strUsername;
-	public int intPlayers;
-	public int intReady;
+	public int intPlayers = 1;
+	public int intReady = 0;
 	
 	private String strSSMLine;
 	private String[] strSSMSplit;
@@ -54,16 +54,34 @@ public class Server implements ActionListener
 			strSSMSplit = strSSMLine.split(",");
 			
 			if (strSSMSplit[0].equals("0"))
-			{
-				intPlayers ++;
-				
+			{				
 				if (strSSMSplit[1].equals("ready"))
 				{
 					intReady ++;
+					
+					/*
+					if (strSSMSplit[2].contentEquals("1"))
+					{
+						intPlayer ++;
+						intReady ++;
+					}
+					*/
 				}
 				else if (strSSMSplit[1].equals("not"))
 				{
 					intReady --;
+					
+					if (strSSMSplit[2].contentEquals("1"))
+					{
+						intPlayer ++;
+						intReady ++;
+					}
+				}
+				
+				if (intPlayer == intReady)
+				{
+					// Enter Phase 1
+					ssm.sendText("1,start");
 				}
 				
 				System.out.println("Players: " + intPlayers);
@@ -89,7 +107,6 @@ public class Server implements ActionListener
 		}
 		else if (evt.getSource() == timer)
 		{
-			System.out.println("timer");
 			ssm.sendText("0," + intPlayers + "," + intReady);
 		}
 	}
@@ -149,24 +166,16 @@ public class Server implements ActionListener
 	}
 	
 	// Constructor
-	public Server (int intGrain, int intOre, int intBrick, int intWood, int intWool,
-			int intRoadSegs, int intKnights, int intSettlements, int intCities, int intLCRS)
+	public Server (String strIP, int intSocket, String strUsername)
 	{
-		this.intGrain = intGrain;
-		this.intOre = intOre;
-		this.intBrick = intBrick;
-		this.intWood = intWood;
-		this.intWool = intWool;
-		this.intRoadSegs = intRoadSegs;
-		this.intKnights = intKnights;
-		this.intSettlements = intSettlements;
-		this.intCities = intCities;
-		this.intLCRS = intLCRS;
-		
 		ssm = new SuperSocketMaster(intSocket, this);
+		strIP = ssm.getMyAddress();
 		ssm.connect();
 		
 		timer = new Timer(1000, this);
 		timer.start();
+		
+		System.out.println(strIP + "," + intSocket);
+
 	}
 }

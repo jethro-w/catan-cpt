@@ -43,7 +43,7 @@ public class Client implements ActionListener
 	
 	private String strSSMLine;
 	private String[] strSSMSplit;
-	private Timer timer;
+	// private Timer timer;
 	
 	// Implemented Methods
 	public void actionPerformed (ActionEvent evt)
@@ -51,7 +51,6 @@ public class Client implements ActionListener
 		if (evt.getSource() == ssm)
 		{
 			strSSMLine = ssm.readText();
-			CatanMain.textField.setVisible(true);
 			
 			strSSMSplit = strSSMLine.split(",");
 			
@@ -76,20 +75,22 @@ public class Client implements ActionListener
 				// Phase number 4 (chat)
 			}
 		}
-		else if (evt.getSource() == timer)
-		{
-			if (intReady == 0)
-			{
-				ssm.sendText("0,not");
-			}
-			else if (intReady == 0)
-			{
-				ssm.sendText("0,ready");
-			}
-		}
 	}
 	
 	// Methods
+	public void sendReady(boolean isReady)
+	{
+		if (isReady == true)
+		{
+			ssm.sendText("0,ready,0");
+			System.out.println("ready");
+		}
+		else
+		{
+			ssm.sendText("0,not,0");
+			System.out.println("not ready");
+		}
+	}
 	/** Generates two random numbers between 1 and 6 adds them to simulate a dice roll. */
 	public void rollDice ()
 	{
@@ -139,27 +140,17 @@ public class Client implements ActionListener
 	}
 	
 	// Constructor
-	public Client (int intGrain, int intOre, int intBrick, int intWood, int intWool,
-			int intRoadSegs, int intKnights, int intSettlements, int intCities, int intLCRS)
+	public Client (String strIP, int intSocket, String strUsername)
 	{
-	
-		this.intGrain = intGrain;
-		this.intOre = intOre;
-		this.intBrick = intBrick;
-		this.intWood = intWood;
-		this.intWool = intWool;
-		this.intRoadSegs = intRoadSegs;
-		this.intKnights = intKnights;
-		this.intSettlements = intSettlements;
-		this.intCities = intCities;
-		this.intLCRS = intLCRS;
-		
 		ssm = new SuperSocketMaster(strIP, intSocket, this);
 		ssm.connect();
 		
-		ssm.sendText("0,ready");
+		ssm.sendText("0,not,1");
 		
-		timer = new Timer (1000, this);
-		timer.start();
+		// timer = new Timer (1000, this);
+		// timer.start();
+		
+		System.out.println("client initialized");
+		System.out.println(strIP + "," + intSocket);
 	}
 }
