@@ -13,7 +13,7 @@ import javax.swing.JTextArea;
 import javax.swing.Timer;
 
 // Game phase code
-public class GameCode implements ActionListener, MouseListener
+public class ServerGameCode implements ActionListener, MouseListener
 {
 	// Properties
 	public JFrame frame = new JFrame();
@@ -440,7 +440,7 @@ public class GameCode implements ActionListener, MouseListener
 	}
 	
 	// Constructor
-	public GameCode()
+	public ServerGameCode()
 	{
 		panel = new AnimationPanel();
 		panel.setLayout(null);
@@ -485,9 +485,9 @@ public class GameCode implements ActionListener, MouseListener
 
 		try
 		{
-			strTiles = GameCode.loadMap();
-			strSettlements = GameCode.loadSettlements();
-			strRoads = GameCode.loadRoads();
+			strTiles = ServerGameCode.loadMap();
+			strSettlements = ServerGameCode.loadSettlements();
+			strRoads = ServerGameCode.loadRoads();
 		}
 		catch (IOException e)
 		{
@@ -648,6 +648,6 @@ public class GameCode implements ActionListener, MouseListener
 	// Main method
 	public static void main (String[] args) throws IOException
 	{
-		new GameCode();
+		new ServerGameCode();
 	}
 }
