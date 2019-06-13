@@ -278,6 +278,7 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 			// place help menu screens here.
 			System.out.println("Help Option");
 			thepanel.blnMainMenu = false;
+			buttonNext.setVisible(true);
 			
 		}
 		else if (evt.getX() >= 900 && evt.getX() <= 1000 && evt.getY() >= 550 && evt.getY() <= 600)
@@ -285,7 +286,6 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 			System.out.println("Exit Option");
 			System.exit(0);
 		}
-		
 	}
 	
 	public void mousePressed (MouseEvent evt)
