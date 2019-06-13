@@ -171,6 +171,12 @@ public class Server implements ActionListener
 	}
 	
 	// Constructor
+	/** Constructor
+	 * Constructs with parameters:
+	 * @param strIP
+	 * @param intSocket
+	 * @param strUsername
+	 */
 	public Server (String strIP, int intSocket, String strUsername)
 	{
 		ssm = new SuperSocketMaster(intSocket, this);
