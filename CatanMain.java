@@ -1,6 +1,9 @@
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 
 /**
  * <h1>Settlers of Catan<h1>
@@ -11,6 +14,8 @@ import java.awt.event.*;
  * @version 0.1
  * @since 2019-06-01
  */
+
+// Happy birthday sir...Our program sucks
 
 /* TO DO LIST:
  * 1. When Server.java sees everyone is ready (2 people) then it will send ssm message
@@ -26,50 +31,73 @@ import java.awt.event.*;
 public class CatanMain implements ActionListener, MouseMotionListener, KeyListener, MouseListener
 {
 	// Properties
-	JFrame theframe;
-	AnimationPanel thepanel;
-	Timer thetimer;
-	JTextField textIP;
-	JTextField textPort;
-	JTextField textUser;
-	JTextField textField;
-	// for noobchat
-	JTextField thefield;
-	JTextArea thearea;
-	JButton thebutton;
-	// usernames
-	static String strUsername;
-	String strText;
-	static String strIP;
-	String strPort = "3000";
-	static int intPort = 3000;
-	String strSSM[];
-	boolean isClient = false;
-	boolean blnClickable = true;
-	JButton buttonUser;
-	JButton buttonIP;
-	JButton buttonPort;
-	JButton buttonClient;
-	JButton buttonReady;
-	JButton buttonServer;
-	JButton buttonNext; // help menu next button
-	logic logic; // from logic class
-	JScrollPane thescroll;
-	JMenuBar thebar;
-	SuperSocketMaster ssm;
-	int intReady = 0;
-	int intPlayers = 0;
-	int intMouseX;
-	int intMouseY;
-	int intRNG;
-	JLabel labelUser;
-	JLabel labelIP;
-	JLabel labelServerIP;
-	static Server server = null;
-	static Client client = null;
-	static boolean createServer = false;
-	static boolean createClient = false;
-	public int intPhase;
+	public JFrame theframe;
+	public AnimationPanel thepanel;
+	public Timer thetimer;
+	public JTextField textIP;
+	public JTextField textPort;
+	public JTextField textUser;
+	public JTextField textField;
+	public JTextField thefield;
+	public JTextArea thearea;
+	public JButton thebutton;
+	public String strText;
+	public static String strIP;
+	public String strPort = "3000";
+	public static int intPort = 3000;
+	public String strSSM[];
+	public boolean isClient = false;
+	public boolean blnClickable = true;
+	public JButton buttonUser;
+	public JButton buttonIP;
+	public JButton buttonPort;
+	public JButton buttonClient;
+	public JButton buttonReady;
+	public JButton buttonServer;
+	public JButton buttonNext; // help menu next button
+	public JScrollPane thescroll;
+	public JMenuBar thebar;
+	public SuperSocketMaster ssm;
+	// int intReady = 0;
+	// int intPlayers = 0;
+	public int intRNG;
+	public JLabel labelUser;
+	public JLabel labelIP;
+	public JLabel labelServerIP;
+	public boolean isReady = false;
+	public JFrame frame = new JFrame();
+	public int[] intTileNums = new int[18];
+	public int intStartTile;
+	public int intMouseX;
+	public int intMouseY;
+	public boolean drawSettlement = true;
+	public boolean drawRoad = false;
+	public int intDrawX;
+	public int intDrawY = 90;
+	public int intDeltaY = 56;
+	public int intDeltaX = 100;
+	public int intPlayer = 0; // Red = 0, Blue = 1, White = 2, Orange = 3
+
+	private int intCount;
+	private String strPlayerColour = "r";
+	// private JTextArea settlements = new JTextArea();
+	// private JTextArea roads = new JTextArea();
+	private JButton changeDraw = new JButton("/");
+	private JButton redPlayer = new JButton("r");
+	private JButton bluePlayer = new JButton("b");
+	private JButton whitePlayer = new JButton("w");
+	private JButton orangePlayer = new JButton("o");
+	
+	public static Server server = null;
+	public static Client client = null;
+	public static boolean createServer = false;
+	public static boolean createClient = false;
+	public static String strUsername;
+	public static int intPhase;
+	public static String[][] strTiles = new String[5][9];
+	public static String[][] strSettlements = new String[12][11];
+	public static String[][] strRoads = new String[11][11];
+
 	
 	// Methods
 	public static void createPlayer ()
@@ -77,7 +105,7 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 		if (createServer == true)
 		{
 			server = new Server(strIP, intPort, strUsername);
-			server.intPlayers += 1;
+			server.intPlayers = 1;
 			System.out.println("server created");
 		
 		}
@@ -88,9 +116,97 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 		}
 	}
 	
-	public void phaseOne ()
+	public static String[][] loadMap () throws IOException
 	{
-		
+		BufferedReader map = null;
+		String[] strMapLine = new String[5];
+		String[][] strMap = new String[5][9];
+		int intCount;
+
+		try
+		{
+			map = new BufferedReader(new FileReader("catan-tiles.csv"));
+		}
+		catch (IOException e)
+		{
+
+		}
+
+		for (intCount = 0; intCount < 5; intCount++)
+		{
+			try
+			{
+				strMapLine[intCount] = map.readLine();
+			}
+			catch (IOException e)
+			{
+			}
+			strMap[intCount] = strMapLine[intCount].split(",");
+		}
+
+		return strMap;
+	}
+	
+	public static String[][] loadSettlements () throws IOException
+	{
+		BufferedReader map = null;
+		String[] strMapLine = new String[12];
+		String[][] strMap = new String[12][11];
+		int intCount;
+
+		try
+		{
+			map = new BufferedReader(new FileReader("catan-settlements-map.csv"));
+		}
+		catch (IOException e)
+		{
+
+		}
+
+		for (intCount = 0; intCount < 12; intCount++)
+		{
+			try
+			{
+				strMapLine[intCount] = map.readLine();
+			}
+			catch (IOException e)
+			{
+			}
+			strMap[intCount] = strMapLine[intCount].split(",");
+		}
+
+		return strMap;
+	}
+	
+	public static String[][] loadRoads () throws IOException
+	{
+		BufferedReader map = null;
+		String[] strMapLine = new String[11];
+		String[][] strMap = new String[11][11];
+		int intCount;
+
+		try
+		{
+			map = new BufferedReader(new FileReader("catan-roads-map.csv"));
+		}
+		catch (IOException e)
+		{
+
+		}
+
+		for (intCount = 0; intCount < 11; intCount++)
+		{
+			try
+			{
+				strMapLine[intCount] = map.readLine();
+			}
+			catch (IOException e)
+			{
+			}
+			strMap[intCount] = strMapLine[intCount].split(",");
+		}
+
+		return strMap;
 	}
 	
 	public void actionPerformed (ActionEvent evt)
@@ -98,6 +214,33 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 		if (evt.getSource() == thetimer)
 		{
 			thepanel.repaint();
+			
+			/*
+			int intRow;
+			int intColumn;
+			
+			settlements.setText("");
+			roads.setText("");
+			
+			// Display arrays in TextArea
+			for (intRow = 0; intRow < 12; intRow ++)
+			{
+				for (intColumn = 0; intColumn < 11; intColumn ++)
+				{
+					settlements.append(strSettlements[intRow][intColumn] + " ");
+				}
+				settlements.append("\n");
+			}
+			
+			for (intRow = 0; intRow < 11; intRow ++)
+			{
+				for (intColumn = 0; intColumn < 11; intColumn ++)
+				{
+					roads.append(strRoads[intRow][intColumn] + " ");
+				}
+				roads.append("\n");
+			}
+			*/
 		}
 		if (evt.getSource() == buttonIP)
 		{
@@ -189,35 +332,59 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 		}
 		else if (evt.getSource() == buttonReady)
 		{
-			if (buttonReady.getText().equals("Not Ready"))
+			if (isReady == false)
 			{
 				if (isClient == false)
 				{
-					server.intReady =+ 1;
+					server.intReady = server.intReady + 1;
 				}
 				else if (isClient == true)
 				{
 					client.sendReady(true);
 				}
 				
-				buttonReady.setText("Ready");				
+				isReady = true;
+				buttonReady.setText("Ready");	
+				buttonReady.setEnabled(false);
 			}
-			else if (buttonReady.getText().equals("Ready"))
-			{
-				if (isClient == false)
-				{
-					server.intReady =- 1;
-				}
-				else if (isClient == true)
-				{
-					client.sendReady(false);
-				}
-				
-				buttonReady.setText("Not Ready");
-			}
-			
 		}
-
+		else if (evt.getSource() == changeDraw)
+		{
+			if (drawSettlement == true)
+			{
+				drawSettlement = false;
+				drawRoad = true;
+				
+				System.out.println("road mode");
+			}
+			else if (drawRoad == true)
+			{
+				drawSettlement = true;
+				drawRoad = false;
+				
+				System.out.println("settlement mode");
+			}
+		}
+		else if (evt.getSource() == redPlayer)
+		{
+			intPlayer = 0;
+			strPlayerColour = "r";
+		}
+		else if (evt.getSource() == bluePlayer)
+		{
+			intPlayer = 1;
+			strPlayerColour = "b";
+		}
+		else if (evt.getSource() == whitePlayer)
+		{
+			intPlayer = 2;
+			strPlayerColour = "w";
+		}
+		else if (evt.getSource() == orangePlayer)
+		{
+			intPlayer = 3;
+			strPlayerColour = "o";
+		}
 	}
 	
 	public void mouseMoved (MouseEvent evt)
@@ -301,6 +468,186 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 			System.exit(0);
 		}
 		
+		int intXCell; // Column
+		int intYCell; // Row
+		int intRow;
+		
+		intMouseX = evt.getX();
+		intMouseY = evt.getY();
+		
+		System.out.println(intMouseX + ", " + intMouseY);
+		
+		if (drawSettlement == true)
+		{
+			intDrawY = 90;
+			for (intRow = 1; intRow <= 12; intRow++)
+			{
+				if (intRow == 1 || intRow == 12)
+				{
+					intDrawX = 240;
+				}
+				else if (intRow == 2 || intRow == 3 || intRow == 10 || intRow == 11)
+				{
+					intDrawX = 190;
+				}
+				else if (intRow == 4 || intRow == 5 || intRow == 8 || intRow == 9)
+				{
+					intDrawX = 140;
+				}
+				else if (intRow == 6 || intRow == 7)
+				{
+					intDrawX = 90;
+				}
+
+				for (intCount = 0; intDrawX <= 590; intDrawX = intDrawX + 100)
+				{
+					if (intMouseX >= intDrawX && intMouseX <= intDrawX + 20
+							&& intMouseY >= intDrawY && intMouseY <= intDrawY + 20)
+					{
+						intXCell = (int) Math.round((intMouseX - 100) / 50.0);
+						intYCell = (int) Math.round((intMouseY / 43.0) - 2.1);
+						
+						System.out.println("hi");
+						
+						if (strSettlements[intYCell][intXCell].equals("_"))
+						{
+							thepanel.strSettlements[intYCell][intXCell] = strPlayerColour;
+							strSettlements[intYCell][intXCell] = strPlayerColour;
+
+							System.out.println("settlements [" + intXCell + "][" + intYCell + "]");
+
+							// ADD FEATURE TO DISABLE SURROUNDING SPOTS (dependent on row number)
+							if (intRow == 1 || intRow == 3 || intRow == 5 || intRow == 7 || intRow == 9 || intRow == 11)
+							{
+								thepanel.strSettlements[intYCell + 1][intXCell + 1] = "x";
+								thepanel.strSettlements[intYCell + 1][intXCell - 1] = "x";
+								strSettlements[intYCell + 1][intXCell + 1] = "x";
+								strSettlements[intYCell + 1][intXCell - 1] = "x";
+								if (intRow != 1)
+								{
+									thepanel.strSettlements[intYCell - 1][intXCell] = "x";
+									strSettlements[intYCell - 1][intXCell] = "x";
+								}
+							}
+							else if (intRow == 2 || intRow == 4 || intRow == 6 || intRow == 8 || intRow == 10 || intRow == 12)
+							{
+								thepanel.strSettlements[intYCell - 1][intXCell + 1] = "x";
+								thepanel.strSettlements[intYCell - 1][intXCell - 1] = "x";
+								strSettlements[intYCell - 1][intXCell + 1] = "x";
+								strSettlements[intYCell - 1][intXCell - 1] = "x";
+								if (intRow != 12)
+								{
+									thepanel.strSettlements[intYCell + 1][intXCell] = "x";
+									strSettlements[intYCell + 1][intXCell] = "x";
+								}
+							}
+							
+							// ADD IF STATEMENTS TO ONLY ALLOW SETTLEMENTS CONNECTED TO ROAD SEGMENTS
+						}
+					}
+				}
+				if (intDeltaY == 30)
+				{
+					intDeltaY = 56;
+				}
+				else if (intDeltaY == 56)
+				{
+					intDeltaY = 30;
+				}
+
+				intDrawY = intDrawY + intDeltaY;
+			}
+		}
+		else if (drawRoad == true)
+		{
+			intDeltaY = 56;
+			intDrawY = 100;
+			for (intRow = 1; intRow <= 11 ; intRow++)
+			{
+				if (intRow == 1 || intRow == 11)
+				{
+					intDrawX = 200;
+					intDeltaX = 50;
+				}
+				else if (intRow == 2 || intRow == 10)
+				{
+					intDrawX = 185;
+					intDeltaX = 100;
+				}
+				else if (intRow == 3 || intRow == 9)
+				{
+					intDrawX = 150;
+					intDeltaX = 50;
+				}
+				else if (intRow == 4 || intRow == 8)
+				{
+					intDrawX = 135;
+					intDeltaX = 100;
+				}
+				else if (intRow == 5 || intRow == 7)
+				{
+					intDrawX = 100;
+					intDeltaX = 50;
+				}
+				else if (intRow == 6)
+				{
+					intDrawX = 85;
+					intDeltaX = 100;
+				}
+
+				for (intCount = 0; intDrawX <= 590; intDrawX = intDrawX + intDeltaX)
+				{
+					if (intRow == 1 || intRow == 3 || intRow == 5 || intRow == 7 ||
+							intRow == 9 || intRow == 11)
+					{
+						if (intMouseX >= intDrawX && intMouseX <= intDrawX + 50
+								&& intMouseY >= intDrawY && intMouseY <= intDrawY + 30)
+						{
+							intXCell = (int) Math.floor((intMouseX - 100) / 50.0);
+							intYCell = (int) Math.round((intMouseY / 43.0) - 2.8);
+							
+							if (strRoads[intYCell][intXCell].equals("_"))
+							{
+								thepanel.strRoads[intYCell][intXCell] = strPlayerColour;
+								strRoads[intYCell][intXCell] = strPlayerColour;
+
+								System.out.println("road [" + intXCell + "][" + intYCell + "]");
+								System.out.println(intMouseX + ", " + intMouseY);
+							}
+						}
+					}
+					else if (intRow == 2 || intRow == 4 || intRow == 6 || intRow == 8 ||intRow == 10)
+					{
+						if (intMouseX >= intDrawX && intMouseX <= intDrawX + 30
+								&& intMouseY >= intDrawY && intMouseY <= intDrawY + 56)
+						{
+							intXCell = (int) Math.round((intMouseX - 100) / 50.0);
+							intYCell = (int) Math.round((intMouseY / 43.0) - 2.8);
+							
+							if (strRoads[intXCell][intYCell].equals("_"))
+							{
+								thepanel.strRoads[intYCell][intXCell] = strPlayerColour;
+								strRoads[intYCell][intXCell] = strPlayerColour;
+
+								System.out.println("road [" + intXCell + "][" + intYCell + "]");
+								System.out.println(intMouseX + ", " + intMouseY);
+							}
+						}
+					}
+				}
+				
+				if (intDeltaY == 30)
+				{
+					intDeltaY = 56;
+				}
+				else if (intDeltaY == 56)
+				{
+					intDeltaY = 30;
+				}
+
+				intDrawY = intDrawY + intDeltaY;
+			}
+		}
 	}
 	
 	public void mousePressed (MouseEvent evt)
@@ -334,7 +681,6 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 	// Constructor
 	public CatanMain ()
 	{
-		
 		thepanel = new AnimationPanel();
 		thepanel.setLayout(null);
 		thepanel.setPreferredSize(new Dimension(1280, 720));
@@ -350,7 +696,7 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 		
 		buttonPort = new JButton("Enter"); // button in settings
 		buttonPort.setFont(thepanel.f24);
-		// this is for making the jbutton invisible but functioning
+		// This is for making the JButton invisible but functioning
 		// buttonPort.setContentAreaFilled(false);
 		// buttonPort.setBorderPainted(false);
 		buttonPort.setSize(200, 100);
@@ -375,7 +721,7 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 		buttonClient.setVisible(false);
 		thepanel.add(buttonClient);
 		
-		buttonUser = new JButton("Enter");// enter button for username
+		buttonUser = new JButton("Enter");// enter button for user name
 		buttonUser.setFont(thepanel.f24);
 		buttonUser.setSize(200, 100);
 		buttonUser.setLocation(1000, 600);
@@ -391,7 +737,7 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 		buttonReady.setVisible(false);
 		thepanel.add(buttonReady);
 		
-		buttonNext = new JButton("Next");// enter button for username
+		buttonNext = new JButton("Next");// enter button for user name
 		buttonNext.setFont(thepanel.f24);
 		buttonNext.setSize(200, 100);
 		buttonNext.setLocation(1000, 600);
@@ -448,6 +794,31 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 		textField.setVisible(false);
 		thepanel.add(textField);
 		
+		changeDraw.setBounds(100, 100, 30, 30);
+		changeDraw.addActionListener(this);
+		changeDraw.setVisible(false);
+		thepanel.add(changeDraw);
+		
+		redPlayer.setBounds(0, 0, 50, 30);
+		redPlayer.addActionListener(this);
+		redPlayer.setVisible(false);
+		thepanel.add(redPlayer);
+		
+		bluePlayer.setBounds(50, 0, 50, 30);
+		bluePlayer.addActionListener(this);
+		bluePlayer.setVisible(false);
+		thepanel.add(bluePlayer);
+		
+		whitePlayer.setBounds(100, 0, 50, 30);
+		whitePlayer.addActionListener(this);
+		whitePlayer.setVisible(false);
+		thepanel.add(whitePlayer);
+		
+		orangePlayer.setBounds(150, 0, 50, 30);
+		orangePlayer.addActionListener(this);
+		orangePlayer.setVisible(false);
+		thepanel.add(orangePlayer);
+		
 		theframe = new JFrame("Settlers of Catan");
 		theframe.addKeyListener(this);
 		thepanel.addMouseListener(this);
@@ -494,7 +865,5 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 	public static void main (String[] args)
 	{
 		new CatanMain();
-		// experimenting with painting main menu options
-		// no jlabel use, just editing color in JPanel
 	}
 }

@@ -50,8 +50,9 @@ public class Client implements ActionListener
 		if (evt.getSource() == ssm)
 		{
 			strSSMLine = ssm.readText();
-			
 			strSSMSplit = strSSMLine.split(",");
+			
+			System.out.println("Server: " + strSSMLine);
 			
 			if (strSSMSplit[0].contentEquals("0"))
 			{
@@ -59,20 +60,19 @@ public class Client implements ActionListener
 			}
 			else if (strSSMSplit[0].contentEquals("1"))
 			{
-				// Phase number 1 (placing)
-				intPhase = 1;
+				// Phase number 1 ("game")
+				if (strSSMSplit[1].contentEquals("start"))
+				{
+					intPhase = 1;
+				}
 			}
 			else if (strSSMSplit[0].contentEquals("2"))
 			{
-				// Phase number 2 (game)
+				// Phase number 2 (win/lose)
 			}
 			else if (strSSMSplit[0].contentEquals("3"))
 			{
-				// Phase number 3 (win/lose screen)
-			}
-			else if (strSSMSplit[0].contentEquals("4"))
-			{
-				// Phase number 4 (chat)
+				// Phase number 3 (chat)
 			}
 		}
 	}
