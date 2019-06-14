@@ -93,6 +93,8 @@ import java.io.IOException;
 // ~
 // ###################&,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,#####%%
 
+// Note that map loading code only works in ServerGameCode.java
+
 // Main Program
 public class CatanMain implements ActionListener, MouseMotionListener, KeyListener, MouseListener
 {
