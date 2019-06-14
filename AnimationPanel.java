@@ -27,6 +27,7 @@ public class AnimationPanel extends JPanel
 	Font f48 = null;
 	Font f24 = null;
 	int intRedText = 0;
+	int intHelp;
 	boolean blnMainMenu = true;
 	boolean blnPlay = false;
 	boolean blnSettings = false;
@@ -114,7 +115,26 @@ public class AnimationPanel extends JPanel
 			}
 			else if (blnHelp)
 			{
+				if(intHelp == 0)
+				{
 				g.drawImage(help[0], 0, 0, null);
+				}
+				 if(intHelp == 1)
+				{
+				g.drawImage(help[intHelp], 0, 0, null);
+				}
+				 if(intHelp == 2)
+				{
+				g.drawImage(help[intHelp], 0, 0, null);	
+				}
+				 if(intHelp == 3)
+				{
+				g.drawImage(help[intHelp], 0, 0, null);	
+				}
+				 if(intHelp == 4)
+				{
+				g.drawImage(help[intHelp], 0, 0, null);	
+				}
 			}
 			else if (blnSettings)
 			{
@@ -399,11 +419,11 @@ public class AnimationPanel extends JPanel
 			downRoad[2] = ImageIO.read(new File("downRoadWhite.png"));
 			downRoad[3] = ImageIO.read(new File("downRoadOrange.png"));
 			
-			help[0] = ImageIO.read(new File("building.png"));
-			help[1] = ImageIO.read(new File("helprules.png"));
-			help[2] = ImageIO.read(new File("knightrobber.png"));
-			help[3] = ImageIO.read(new File("resourcetiles.png"));
-			help[4] = ImageIO.read(new File("victorypoints.png"));
+			help[0] = ImageIO.read(new File("helprules.png"));
+			help[1] = ImageIO.read(new File("resourcetiles.png"));
+			help[2] = ImageIO.read(new File("victorypoints.png"));
+			help[3] = ImageIO.read(new File("building.png"));
+			help[4] = ImageIO.read(new File("knightrobber.png"));
 		}
 		catch (IOException e)
 		{
