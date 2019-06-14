@@ -45,14 +45,28 @@ public class AnimationPanel extends JPanel
 	int intSettleDeltaY = 56;
 	int intRoadDeltaY = 56;
 	int intRoadY = 100;
+	int intDelay = -1;
+	
+	static int intPhase = 0;
 	
 	// Methods
 	// Override how this component paints itself
 	public void paintComponent (Graphics g)
 	{
+		if (intDelay == 0)
+		{
+			System.out.println("" + intPhase);
+		}
+		else if (intDelay == 29)
+		{
+			intDelay = -1;
+		}
+		
+		intDelay ++;
+
 		super.paintComponent(g);
 		
-		if (CatanMain.intPhase == 0)
+		if (intPhase == 0)
 		{
 			g.drawImage(background, 0, 0, null);
 			
@@ -100,7 +114,6 @@ public class AnimationPanel extends JPanel
 					g.drawString("Help", 900, 510);
 					g.setColor(Color.RED);
 					g.drawString("Quit", 900, 590);
-					
 				}
 				else
 				{
@@ -123,8 +136,8 @@ public class AnimationPanel extends JPanel
 				g.drawString("Port must be 4 digits.", 540, 500);
 			}
 		}
-		else if (CatanMain.intPhase == 1)
-		{	
+		else if (intPhase == 1)
+		{
 			// Draw resource tiles
 			for (intRow = 0; intRow < 5; intRow ++)
 			{

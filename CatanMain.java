@@ -115,7 +115,7 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 			System.out.println("client created");
 		}
 	}
-	
+	/*
 	public static String[][] loadMap () throws IOException
 	{
 		BufferedReader map = null;
@@ -208,39 +208,12 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 
 		return strMap;
 	}
-	
+	*/
 	public void actionPerformed (ActionEvent evt)
 	{
 		if (evt.getSource() == thetimer)
 		{
 			thepanel.repaint();
-			
-			/*
-			int intRow;
-			int intColumn;
-			
-			settlements.setText("");
-			roads.setText("");
-			
-			// Display arrays in TextArea
-			for (intRow = 0; intRow < 12; intRow ++)
-			{
-				for (intColumn = 0; intColumn < 11; intColumn ++)
-				{
-					settlements.append(strSettlements[intRow][intColumn] + " ");
-				}
-				settlements.append("\n");
-			}
-			
-			for (intRow = 0; intRow < 11; intRow ++)
-			{
-				for (intColumn = 0; intColumn < 11; intColumn ++)
-				{
-					roads.append(strRoads[intRow][intColumn] + " ");
-				}
-				roads.append("\n");
-			}
-			*/
 		}
 		if (evt.getSource() == buttonIP)
 		{
@@ -470,6 +443,7 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 			System.exit(0);
 		}
 		
+		/*
 		int intXCell; // Column
 		int intYCell; // Row
 		int intRow;
@@ -650,6 +624,7 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 				intDrawY = intDrawY + intDeltaY;
 			}
 		}
+		*/
 	}
 	
 	public void mousePressed (MouseEvent evt)
