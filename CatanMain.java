@@ -15,7 +15,49 @@ import java.io.IOException;
  * @since 2019-06-01
  */
 
-// Happy birthday Sir...Our program sucks
+// Happy birthday Sir!
+    //~ &&%##############################################################(((//////////////((((((((#####
+    //~ #%%%%%&((((((###################################################(((///////////(((((((((((####
+    //~ #&%%%%&,,,*&(((((##################################################((((((((((((((((((((((((####
+    //~ &%%%%%&,,,,,,,%#(#####################################################(((((((((((((((((((((####
+    //~ ((((%%&,,,,,,,,,,,###############################################%%%###################&&,,%%
+    //~ (((((&%,,,,,,,,,,,,,,############################################%%%%%%%%%%%%%%%%%&,,,,,,,,%%
+    //~ ((((((&&,,,,,,,,,,,,,,,,%###########################################%%%%%%%%%%%&,,,,,,,,,,,,,%%
+    //~ (((((((&,,,,,,,,,,,,,,,,,,,#######################################%%%%%%&%,,,,,,,,,,,,,,,,&%%
+    //~ (((((((#&,,,,,,,,,,,,,,,,,,,,,%#####################################%%&,,,,,,,,,,,,,,,,,,,,,%%%
+    //~ (((((#####,,,,,,,,,,,,,,,,,,,,,,################################&,,,,,,,,,,,,,,,,,,,,,,,,&&%%
+    //~ (((((####%%#,,,,,,,,,,,,,,,,,,,,,,#######%&&&&&%(*,,,,,,*%&&&,,,,,,,,,,,,,,,,,,,,,,,,,,,&&%%%
+    //~ ((((#####%%%&,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,&%%%%%
+    //~ (((#####%%%%%%,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,###%%
+    //~ #######%%%%%%%%&,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,#########
+    //~ ##%%%%%%%%%%%%%%%&,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,*((((((####
+    //~ %%%%%%%%%%%%%%%%%%%&,,&,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,&((((((((####
+    //~ %%%%%%%%%%%%%%%%%%%%%,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,/,,,/%((((((((((####
+    //~ %%%%%%%%%%%%%%%%%%%%,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,###((((((((#####
+    //~ %%%%%%%%%%%%%%%%%%%*,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,%################
+    //~ &&&&%%%%%%%%%%%%%%&,,,,,,,,,,&,,%%&,,,,,,,,,,,,,,,,,,,,,,,,,,,,%%,,,,,,,,,,,,,,#############%
+    //~ &&&&%%%%%%%%%%%##&,,,,,,,,,,&(  #%%#,,,,,,,,,,,,,,,,,,,,,,,%, ,%%&,,,,,,,,,,,,,,###########%%
+    //~ &&&&&%%%%%%%%%###,,,,,,,,,,,(%%%%%%,,,,,,,,,,,,,,,,,,,,,,,,&%%%%%&,,,,,,,,,,,,,,,##########%%%%
+    //~ &&&&&%%%%%%%%###&,,,,,,,,,,,,,&%%&,,,,,,,,,,,,,,,,,,,,,,,,,,&%%%&,,,,,,,,,,,,,,,,&%%%%%%%%%%%%%
+    //~ &&&&&&%%%%%%%###,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,%%%%%%%%%%%%%
+    //~ &&&&&%%%%%%%###&,,,,,,,,,,,,,,,,,,,,,,,,,,%%%%&,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,&%%%%%%%%%%%%
+    //~ &&&%%%%%%%%####,,,(((((((,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,*(((((((,,,,,,,,%%%%%%%%%%%%
+    //~ %%%%%%%%%#####&,(((((((((((,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,(((((((((((,,,,,,#########%%%
+    //~ %%%%%#########&,(((((((((((,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,((((((((((((,,,,,,,%#########%
+    //~ ###############,,(((((((((,,,,,,,,,,,,,,,%(********%,,,,,,,,,,,,,,(((((((((((,,,,,,,%##########
+    //~ #####(((((((((&,,,,,*/,,,,,,,,,,,,,,,,,,(***********%,,,,,,,,,,,,,,,(((((((,,,,,,,,,,%(((######
+    //~ (((((((((((((((,,,,,,,,,,,,,,,,,,,,,,,,,,%**********%,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,&(((((####
+    //~ (((((((((((((((&,,,,,,,,,,,,,,,,,,,,,,,,,,%*********%,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,(((((####
+    //~ ((((((((((((((((&,,,,,,,,,,,,,,,,,,,,,,,,,,,,%%%%%%,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,&((((####
+    //~ (((((((((((((((((&,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,((((####
+    //~ ((((((((((((((((##&,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,#((#####
+    //~ ((((((((((((((#####&,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,######
+    //~ ####################,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,#######%
+    //~ ###################&,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,#####%%
+
+
+
+
 
 /* TO DO LIST:
  * 1. When Server.java sees everyone is ready (2 people) then it will send ssm message
@@ -55,6 +97,7 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 	public JButton buttonReady;
 	public JButton buttonServer;
 	public JButton buttonNext; // help menu next button
+	public JButton buttonBack;
 	public JScrollPane thescroll;
 	public JMenuBar thebar;
 	public SuperSocketMaster ssm;
@@ -70,6 +113,7 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 	public int intStartTile;
 	public int intMouseX;
 	public int intMouseY;
+	//~ public int intHelp;
 	public boolean drawSettlement = true;
 	public boolean drawRoad = false;
 	public int intDrawX;
@@ -357,7 +401,28 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 		{
 			intPlayer = 3;
 			strPlayerColour = "o";
+		} 
+		if (evt.getSource() == buttonNext){
+			thepanel.intHelp ++;
+			System.out.println(thepanel.intHelp);
+			if (thepanel.intHelp > 4){
+			thepanel.blnMainMenu = true;
+			buttonNext.setVisible(false);
+			buttonBack.setVisible(false);
+			thepanel.blnHelp = false;
+			thepanel.intHelp = 0;
+			}	
 		}
+		if (evt.getSource() == buttonBack){
+			thepanel.intHelp --;
+			if (thepanel.intHelp < 0){
+			thepanel.blnMainMenu = true;
+			buttonNext.setVisible(false);
+			buttonBack.setVisible(false);
+			thepanel.blnHelp = false;
+			thepanel.intHelp = 0;
+				}
+			}
 	}
 	
 	public void mouseMoved (MouseEvent evt)
@@ -433,6 +498,8 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 			// Place help menu screens here.
 			System.out.println("Help Option");
 			thepanel.blnMainMenu = false;
+			buttonNext.setVisible(true);
+			buttonBack.setVisible(true);
 			thepanel.blnHelp = true;
 			
 			
@@ -669,6 +736,8 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 		buttonIP.setLocation(1000, 600);
 		buttonIP.addActionListener(this);
 		thepanel.add(buttonIP);
+		buttonIP.setContentAreaFilled(false);
+		buttonIP.setBorderPainted(true);
 		buttonIP.setVisible(false);
 		
 		buttonPort = new JButton("Enter"); // button in settings
@@ -680,6 +749,8 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 		buttonPort.setLocation(1000, 600);
 		buttonPort.addActionListener(this);
 		buttonPort.setVisible(false);
+		buttonPort.setContentAreaFilled(false);
+		buttonPort.setBorderPainted(true);
 		thepanel.add(buttonPort);
 		
 		buttonServer = new JButton("Server");// choose server option
@@ -704,6 +775,8 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 		buttonUser.setLocation(1000, 600);
 		buttonUser.addActionListener(this);
 		buttonUser.setVisible(false);
+		buttonUser.setContentAreaFilled(false);
+		buttonUser.setBorderPainted(true);
 		thepanel.add(buttonUser);
 		
 		buttonReady = new JButton("Not Ready");
@@ -711,16 +784,35 @@ public class CatanMain implements ActionListener, MouseMotionListener, KeyListen
 		buttonReady.setSize(200, 100);
 		buttonReady.setLocation(575, 600);
 		buttonReady.addActionListener(this);
+		buttonReady.setContentAreaFilled(false);
+		buttonReady.setBorderPainted(false);
+		buttonReady.setBackground(Color.LIGHT_GRAY);
+		buttonReady.setOpaque(true);
 		buttonReady.setVisible(false);
+		
 		thepanel.add(buttonReady);
 		
-		buttonNext = new JButton("Next");// enter button for user name
+		buttonNext = new JButton("Next >");// enter button for user name
 		buttonNext.setFont(thepanel.f24);
-		buttonNext.setSize(200, 100);
+		buttonNext.setSize(200, 75);
 		buttonNext.setLocation(1000, 600);
 		buttonNext.addActionListener(this);
 		buttonNext.setVisible(false);
+		buttonNext.setContentAreaFilled(false);
+		buttonNext.setBorderPainted(true);
+		//~ buttonNext.setBackground(Color.LIGHT_GRAY);
+		//~ buttonNext.setOpaque(true);
 		thepanel.add(buttonNext);
+		
+		buttonBack = new JButton("< Back");// enter button for user name
+		buttonBack.setFont(thepanel.f24);
+		buttonBack.setSize(200, 75);
+		buttonBack.setLocation(80, 600);
+		buttonBack.addActionListener(this);
+		buttonBack.setVisible(false);
+		buttonBack.setContentAreaFilled(false);
+		buttonBack.setBorderPainted(true);
+		thepanel.add(buttonBack);
 		
 		textIP = new JTextField("");// entering ip if client
 		textIP.setSize(250, 40);
