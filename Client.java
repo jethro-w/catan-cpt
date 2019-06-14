@@ -46,7 +46,7 @@ public class Client implements ActionListener, MouseListener
 	public int intPlayers;
 	public int intReady;
 	public int intPhase;
-	public JFrame frame = new JFrame();
+	public JFrame frame = new JFrame("Client");
 	public AnimationPanel panel = new AnimationPanel();
 	public Timer timer = new Timer(1000 / 10, this);
 	public String[][] strTiles = new String[5][9];
@@ -91,9 +91,10 @@ public class Client implements ActionListener, MouseListener
 				// Phase number 1 ("game")
 				if (strSSMSplit[1].contentEquals("start"))
 				{
-					intPhase = 1;
+					AnimationPanel.intPhase = 1;
+					CatanMain.intPhase = 1;
 					
-					panel = new AnimationPanel();
+					// panel = new AnimationPanel();
 					panel.setLayout(null);
 					panel.setPreferredSize(new Dimension(1280, 720));
 					panel.addMouseListener(this);
@@ -118,7 +119,7 @@ public class Client implements ActionListener, MouseListener
 					orangePlayer.addActionListener(this);
 					panel.add(orangePlayer);
 					
-					frame = new JFrame("New Animations :)");
+					// frame = new JFrame("New Animations :)");
 					frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 					frame.setContentPane(panel);
 					frame.pack();
@@ -149,7 +150,7 @@ public class Client implements ActionListener, MouseListener
 		}
 		else if (evt.getSource() == timer)
 		{
-			panel.repaint();
+			// panel.repaint();
 		}
 		else if (evt.getSource() == changeDraw)
 		{

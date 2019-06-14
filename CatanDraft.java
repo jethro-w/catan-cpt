@@ -43,10 +43,7 @@ public class CatanDraft implements ActionListener, MouseMotionListener, KeyListe
 	JButton buttonIP;
 	JButton buttonPort;
 	JButton buttonClient;
-	JButton buttonServer;
-	
-	logic logic; // from logic class
-	
+	JButton buttonServer;	
 	JScrollPane thescroll;
 	JMenuBar thebar;
 	

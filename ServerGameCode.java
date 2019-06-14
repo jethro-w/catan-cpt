@@ -17,7 +17,7 @@ public class ServerGameCode implements ActionListener, MouseListener
 {
 	// Properties
 	public JFrame frame = new JFrame();
-	public AnimationPanel panel = new AnimationPanel();
+	public ReplacementPanel panel = new ReplacementPanel();
 	public Timer timer = new Timer(1000 / 10, this);
 	public String[][] strTiles = new String[5][9];
 	public String[][] strSettlements = new String[12][11];
@@ -440,9 +440,9 @@ public class ServerGameCode implements ActionListener, MouseListener
 	}
 	
 	// Constructor
-	public ServerGameCode(AnimationPanel panel)
+	public ServerGameCode()
 	{
-		panel = new AnimationPanel();
+		panel = new ReplacementPanel();
 		panel.setLayout(null);
 		panel.setPreferredSize(new Dimension(1280, 720));
 		panel.addMouseListener(this);
@@ -644,11 +644,9 @@ public class ServerGameCode implements ActionListener, MouseListener
 		}
 		*/
 	}
-	/*
 	// Main method
 	public static void main (String[] args) throws IOException
 	{
 		new ServerGameCode();
 	}
-	*/
 }

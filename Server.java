@@ -52,7 +52,7 @@ public class Server implements ActionListener, MouseListener
 	public String[][] strSettlements = new String[12][11];
 	public String[][] strRoads = new String[11][11];
 	public int intPhase;
-	public JFrame frame = new JFrame();
+	public JFrame frame = new JFrame("Server");
 	public AnimationPanel panel = new AnimationPanel();
 	public Timer timer = new Timer(1000 / 10, this);
 	public int[] intTileNums = new int[18];
@@ -111,10 +111,13 @@ public class Server implements ActionListener, MouseListener
 				if (intPlayers == intReady)
 				{
 					// Enter Phase 1
+					System.err.println("all players ready");
+					
 					ssm.sendText("1,start");
 					AnimationPanel.intPhase = 1;
+					CatanMain.intPhase = 1;
 					
-					panel = new AnimationPanel();
+					// panel = new AnimationPanel();
 					panel.setLayout(null);
 					panel.setPreferredSize(new Dimension(1280, 720));
 					panel.addMouseListener(this);
@@ -139,7 +142,7 @@ public class Server implements ActionListener, MouseListener
 					orangePlayer.addActionListener(this);
 					panel.add(orangePlayer);
 					
-					frame = new JFrame("New Animations :)");
+					// frame = new JFrame("New Animations :)");
 					frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 					frame.setContentPane(panel);
 					frame.pack();
@@ -167,7 +170,7 @@ public class Server implements ActionListener, MouseListener
 		}
 		else if (evt.getSource() == timer)
 		{
-			panel.repaint();
+			// panel.repaint();
 			
 			System.out.println("Players: " + intPlayers);
 			System.out.println("Ready: " + intReady);
